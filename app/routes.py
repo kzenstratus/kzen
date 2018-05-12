@@ -4,8 +4,8 @@ import json
 
 @app.route('/')
 def get_data():
-	data = [1, 'foo']
-	return render_template('index.html', name = "JOE")
+	# data = [1, 'foo']
+	return render_template('index.html')
 
 
 # @app.route('/index')

@@ -1,45 +1,25 @@
 //Create the SVG Viewport
 
 
-var width = 800
- , height = 800;
+var width = 900
+ , height = 900;
 
 var svg = d3.select(".container")
                 .append("svg")
-                .attr("width", width + 100)
-                .attr("height", height + 100);
+                .attr("width", width)
+                .attr("height", height);
 var domain = [-5, 5]
 var numTicks = 10
-
-// function test_func(data) {
-//         console.log(data);
-//         return(data)
-//     }
-
-// var test4 = test_func({{ data|safe }})
-// var test3 = {{data|safe}}
+// var transMatrix = [[1,1], [0,2]]
+var transMatrix = [[1, 1], [0, 0]]
 
 // Plot the 2d Dot spcae based on
 // The domain and range of the space.
-function plotSpace(svg
-                  , space
-                  , width
-                  , height
-                  , numTicks){
-  return svg.selectAll(".markers")
-   .data(space)
-   .enter()
-   .append("circle")
-   .attr("class","markers")
-   .attr("cx", function(d) {
-        return width/2 + d[0]*width/numTicks;
-   })
-   .attr("cy", function(d) {
-        return height/2 + d[1]*height/numTicks;
-   })
-   .attr("r", 5);
-}
 
+
+/*********************************************
+* MATH FUNCTIONS
+**********************************************/
 
 function get2dDotSpace(xDomain, yDomain, numTicks){
   // interpolate between these two points
@@ -65,30 +45,7 @@ function get2dDotSpace(xDomain, yDomain, numTicks){
   }
   // console.log(dotSpace)
   return dotSpace;
-  
 }
-
-
-
-var initDotSpace = get2dDotSpace(xDomain = domain
-             , yDomain = domain
-             , numTicks = numTicks);
-
-console.log(initDotSpace);
-
-spaceGroup = svg.append('g')
-
-
-plotSpace(svg = spaceGroup
-          , space = initDotSpace
-          , width = width
-          , height = height
-          , numTicks = numTicks);
-
-
-// console.log(math.matrix(initDotSpace));
-var transMatrix = [[1,1], [0,2]]
-
 
 function getTransformSpace(space, transMatrix){
   // transform each point using math.js
@@ -97,9 +54,98 @@ function getTransformSpace(space, transMatrix){
                        , math.matrix(transMatrix));
 }
 
+function getKernel(transMatrix){
+  return math.lusolve(transMatrix, [0,0]);
+}
+
+console.log(getKernel(transMatrix));
+/*********************************************
+* PLOTTING CODE
+**********************************************/
+
+function plotSpace(svg
+                  , space
+                  , width
+                  , height
+                  , numTicks){
+  return svg.selectAll(".markers")
+   .data(space)
+   .enter()
+   .append("circle")
+   .attr("class","markers")
+   .attr("cx", function(d) {
+        return width/2 + d[0]*width/numTicks;
+   })
+   .attr("cy", function(d) {
+        return height/2 + d[1]*height/numTicks;
+   })
+   .attr("r", 5);
+}
+
+// plotBasis helper function.
+function getGridlines(domain, range, tickSize, isX) {
+
+  var scale = d3.scaleLinear()
+                    .domain(domain)
+                    .range([0, Math.abs(range)]);
+  if (isX){
+    var axis = d3.axisBottom();
+  }else{
+    var axis = d3.axisLeft();
+  }
+
+  return axis
+    .tickSize(tickSize)
+    .ticks(numTicks)
+    .tickFormat("")
+    .tickSizeOuter(0)
+    .scale(scale)
+}
+
+
+function plotBasis(svg, xDomain, yDomain, width, height, numTicks){
+  var bot_axis = getGridlines(domain = xDomain, range = width, tickSize = -height, isX = true);
+  var top_axis = getGridlines(domain = xDomain, range = width, tickSize = height, isX = true);
+  var left_axis = getGridlines(domain = yDomain, range = height, tickSize = -width, isX = false);
+  var right_axis = getGridlines(domain = yDomain, range = height, tickSize = width, isX = false);
+
+  //Append group and insert axis
+  svg.append("g")
+    .attr('transform', "translate(0," + (height/2) + ")")
+    .call(bot_axis);
+
+  svg.append("g")
+    .attr('transform', "translate(0," + (height/2) + ")")
+    .call(top_axis);
+
+  svg.append("g")
+    .attr('transform', "translate(" + width/2 + ",0)")
+    .call(left_axis);
+
+  svg.append("g")
+    .attr('transform', "translate(" + width/2 + ",0)")
+    .call(right_axis);
+}
+
+
+var initDotSpace = get2dDotSpace(xDomain = domain
+           , yDomain = domain
+           , numTicks = numTicks);
+
+// console.log(initDotSpace);
+
+
+spaceGroup = svg.append('g')
+
+// PLOT 
+plotSpace(svg = spaceGroup
+          , space = initDotSpace
+          , width = width
+          , height = height
+          , numTicks = numTicks);
 
 // Draw the underlying 2d grid lines.
-makeBasis(svg = svg
+plotBasis(svg = svg
           , xDomain = domain
           , yDomain = domain
           , width = width
@@ -107,85 +153,9 @@ makeBasis(svg = svg
           , numTicks = numTicks
           );
 
-function makeBasis(svg
-                   , xDomain
-                   , yDomain
-                   , width
-                   , height
-                   , numTicks
-              ){
-
-
-
-// Create scale
-var xScale = d3.scaleLinear()
-                  .domain(xDomain)
-                  .range([0, width]);
-
-var yScale = d3.scaleLinear()
-                  .domain(yDomain)
-                  .range([0, height]);
-
-// Add scales to axis
-var x_axis = d3.axisBottom()
-  .ticks(numTicks)
-  .scale(xScale)
-  .tickFormat("")
-;
-
-var y_axis = d3.axisLeft()
-  .ticks(numTicks)
-  .scale(yScale)
-  .tickFormat("");
-
-// gridlines in x axis function
-function make_x_gridlines() {		
-    return d3.axisBottom()
-      .ticks(numTicks)
-      .scale(xScale)
-      .tickSizeOuter(0)
-}
-
-// gridlines in y axis function
-function make_y_gridlines() {		
-    return d3.axisLeft()
-      .ticks(numTicks)
-      .scale(yScale)
-      .tickSizeOuter(0)
-}
-
-//Append group and insert axis
-svg.append("g")
-  .attr('transform', "translate(0," + (height/2) + ")")
-  .call(x_axis);
-  // .call(y_axis);
-
-svg.append("g")
-  .attr('transform', "translate(" + width/2 + ",0)")
-  .call(y_axis);
-
   
-// add the X gridlines
-svg.append("g")			
-      .attr("class", "grid")
-      .attr("transform", "translate(0," + height + ")")
-      
-      .call(make_x_gridlines()
-          .tickSize(-height)
-          .tickFormat("")
-          .tickSizeOuter(0)
-      );
 
-// add the X gridlines
-svg.append("g")			
-      .attr("class", "grid")
-      .call(make_y_gridlines()
-          .tickSize(-width)
-          .tickFormat("")
-          .tickSizeOuter(0)
-      );
 
-}
 
 var isOriginSpace = true;
 d3.select('.gobutton').on('click',function(){
