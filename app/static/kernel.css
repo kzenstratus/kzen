@@ -1,0 +1,73 @@
+.body{
+  font-family: 'Dosis', sans-serif;
+  font-size: 26px;
+  letter-spacing: 4px;
+  word-spacing: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
+  height: 800px;
+  background: #fff;
+  text-align: center;
+}
+svg{
+  display: block;
+  margin: auto;
+}
+
+.grid line {
+  stroke: lightgrey;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+
+.dotspace {
+  fill: black;
+  stroke-width: 2.0px;
+}
+.markers{
+  opacity: 0.66;
+}
+
+.gobutton{
+  background: #fff;
+  margin: 20px;
+  padding: 10px;
+  color: #165FFB;
+  cursor: pointer;
+}
+
+/* .basis{
+  stroke: #222;
+  stroke-width: 4px;
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}  */
+
+/*
+.gobutton{
+  background: #165FFB;
+  margin: 20px;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+}
+
+
+*/
+/* .opaque{
+  stroke: #222;
+  stroke-width: 4px;
+  fill: #fff;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.textbox{
+  fill: #fff;
+  stroke: #222;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+} */
+
