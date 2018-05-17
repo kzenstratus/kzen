@@ -85,12 +85,14 @@ function getKernel(space, transMatrix){
   return kernelIndex ;
 }
 
-function getFakeDataId(space, fakeData){
-  var fakeDataId = [];
-  for ( i = 0 ; i < space.length; i ++){
-    if (isArrayEqual(space[i]), [])
-  }
-}
+// function getFakeDataId(space, fakeData){
+//   var fakeDataId = [];
+//   for ( i = 0 ; i < space.length; i ++){
+//     if (isArrayEqual(space[i]), [])
+//   }
+// }
+
+
 // console.log(getKernel(transMatrix));
 /*********************************************
 * PLOTTING CODE
@@ -204,7 +206,7 @@ plotBasis(svg = svg
 
 
 var isOriginSpace = true;
-d3.select('.gobutton').on('click',function(){
+d3.select('#transform').on('click',function(){
 
   
   if(isOriginSpace){
@@ -236,3 +238,40 @@ d3.select('.gobutton').on('click',function(){
   
   
 })
+
+
+d3.select('#transpose').on('click',function(){
+
+  
+  if(isOriginSpace){
+    var transposeTransMatrix = math.transpose(transMatrix);
+    var nextDotSpace = getTransformSpace(space = initDotSpace
+                                    , transMatrix = transposeTransMatrix)._data;
+    isOriginSpace = false;
+  }else{
+    var nextDotSpace = initDotSpace;
+    isOriginSpace = true;
+  }
+  
+  spaceGroup.selectAll(".markers")
+        .transition()
+        .duration(8000)
+  // i is the index, d is the 
+        .attr("delay", function(d,i) {
+              return 1000*i;
+              })
+        // .attr("duration", function(d,i){
+        //       return 10000*(i+1);
+        //       })
+        .attr("cx", function(d, i) {
+            return width/2 + nextDotSpace[i][0]*width/numTicks;
+             })
+        .attr("cy", function(d, i) {
+            return width/2 + nextDotSpace[i][1]*width/numTicks;
+             })
+        ;
+  
+  
+})
+
+
