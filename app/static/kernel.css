@@ -15,14 +15,16 @@
 }
 
 .concept-example{
+  position: relative;
   border: 1px solid #fff;  /* For debugging */
-  width: 900px;
+  width: 600px;
+  height: 600px;
 }
 
 .gobutton {
   position: absolute;
-  top: 50%;
   left: 50%;
+  bottom: 10%;
   transform: translate(-50%, -50%);
   /*-ms-transform: translate(-50%, -50%);*/
   background-color: #555;
