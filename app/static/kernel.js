@@ -1,10 +1,12 @@
 //Create the SVG Viewport
 
 
-var width = 900
- , height = 900;
+var width = window.innerWidth * 0.4
+, height = window.innerHeight * 0.4;
 
-var svg = d3.select(".container")
+
+
+var svg = d3.select(".concept-example")
                 .append("svg")
                 .attr("width", width)
                 .attr("height", height);
@@ -206,9 +208,9 @@ plotBasis(svg = svg
 
 
 var isOriginSpace = true;
-d3.select('#transform').on('click',function(){
-
+d3.select('#go').on('click',function(){
   
+
   if(isOriginSpace){
     var nextDotSpace = getTransformSpace(space = initDotSpace
                                     , transMatrix = transMatrix)._data;
@@ -239,39 +241,37 @@ d3.select('#transform').on('click',function(){
   
 })
 
+// d3.select('#transpose').on('click',function(){
 
-d3.select('#transpose').on('click',function(){
-
   
-  if(isOriginSpace){
-    var transposeTransMatrix = math.transpose(transMatrix);
-    var nextDotSpace = getTransformSpace(space = initDotSpace
-                                    , transMatrix = transposeTransMatrix)._data;
-    isOriginSpace = false;
-  }else{
-    var nextDotSpace = initDotSpace;
-    isOriginSpace = true;
-  }
+//   if(isOriginSpace){
+//     var transposeTransMatrix = math.transpose(transMatrix);
+//     var nextDotSpace = getTransformSpace(space = initDotSpace
+//                                     , transMatrix = transposeTransMatrix)._data;
+//     isOriginSpace = false;
+//   }else{
+//     var nextDotSpace = initDotSpace;
+//     isOriginSpace = true;
+//   }
   
-  spaceGroup.selectAll(".markers")
-        .transition()
-        .duration(8000)
-  // i is the index, d is the 
-        .attr("delay", function(d,i) {
-              return 1000*i;
-              })
-        // .attr("duration", function(d,i){
-        //       return 10000*(i+1);
-        //       })
-        .attr("cx", function(d, i) {
-            return width/2 + nextDotSpace[i][0]*width/numTicks;
-             })
-        .attr("cy", function(d, i) {
-            return width/2 + nextDotSpace[i][1]*width/numTicks;
-             })
-        ;
+//   spaceGroup.selectAll(".markers")
+//         .transition()
+//         .duration(8000)
+//   // i is the index, d is the 
+//         .attr("delay", function(d,i) {
+//               return 1000*i;
+//               })
+//         // .attr("duration", function(d,i){
+//         //       return 10000*(i+1);
+//         //       })
+//         .attr("cx", function(d, i) {
+//             return width/2 + nextDotSpace[i][0]*width/numTicks;
+//              })
+//         .attr("cy", function(d, i) {
+//             return width/2 + nextDotSpace[i][1]*width/numTicks;
+//              })
+//         ;
   
   
-})
-
+// })
 
