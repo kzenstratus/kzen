@@ -1,8 +1,9 @@
 //Create the SVG Viewport
 
 
-var width = window.innerWidth * 0.4
-, height = window.innerHeight * 0.4;
+
+var width = 500
+, height = 500;
 
 
 
@@ -203,14 +204,17 @@ plotBasis(svg = svg
           , numTicks = numTicks
           );
 
+
+var isOriginSpace = true;  
+// d3.select('#transform').on('click', function(){
+//   console.log('hello');
+// })
+
+
+
+d3.select('#transform').on('click',function(){
   
-
-
-
-var isOriginSpace = true;
-d3.select('#go').on('click',function(){
-  
-
+  console.log("hello");
   if(isOriginSpace){
     var nextDotSpace = getTransformSpace(space = initDotSpace
                                     , transMatrix = transMatrix)._data;
