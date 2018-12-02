@@ -3,9 +3,6 @@
 ** Imports
 ** d3
 **********************************************/
-function hello(){
-  console.log("hello")
-}
 
 /**
 *
@@ -30,7 +27,7 @@ function plotSpace(svg
                   , numTicks){
 
 
-  return svg.selectAll(".markers")
+  return (svg.selectAll(".markers")
    .data(space)
    .enter()
    .append("circle")
@@ -51,11 +48,22 @@ function plotSpace(svg
       return tarColor
     }
    })
-   .attr("r", 5);
+    .attr('stroke', function(d, i){
+    if(tarSpace.includes(i)){
+      return tarColor
+    }
+   })
+    .attr('stroke-width', function(d, i){
+    if(tarSpace.includes(i)){
+      return 4
+    }
+   })
+   .attr("r", 5)
+   );
 }
 
 /**
-* plotBasis
+* getGridlines
 * [Helper function - plotBasis
 Given a domain and range, scales the axis accordingly]
 *
@@ -149,7 +157,7 @@ two spaces.]
 function display2dTransform(isOriginSpace
                             , initDotSpace
                             , transMatrix
-                            , spaceGroup
+                            , conceptId
                             , width
                             , numTicks
                             , duration){
@@ -163,7 +171,7 @@ function display2dTransform(isOriginSpace
     isOriginSpace = true;
   }
   
-  spaceGroup.selectAll(".markers")
+  d3.select(conceptId).selectAll(".markers")
         .transition()
         .duration(duration)
         // i is the index, d is the 
@@ -180,3 +188,52 @@ function display2dTransform(isOriginSpace
 
 }
 
+
+function displayTransConceptPlot(conceptId
+                            , buttonId
+                            , initDotSpace
+                            , highlightSpace
+                            , domain
+                            , width
+                            , height
+                            , numTicks
+                            , transMatrix
+                            , duration
+                            ){
+  var svg = d3.select(conceptId)
+            .append("svg")
+            .attr("width", plotWidth)
+            .attr("height", plotHeight)
+
+  var spaceGroup = svg.append('g')
+
+  var isOriginSpace = true
+  // Draw the underlying 2d grid lines.
+  plotBasis(svg = svg
+            , xDomain = domain
+            , yDomain = domain
+            , width = width
+            , height = height
+            , numTicks = numTicks
+            );
+
+  plotSpace(svg = spaceGroup
+            , space = initDotSpace
+            , tarSpace = highlightSpace
+            , tarColor = "red"
+            , width = width
+            , height = height
+            , numTicks = numTicks);
+
+  d3.select(buttonId).on('click', function(){
+    isOriginSpace = display2dTransform(isOriginSpace = isOriginSpace
+                   , initDotSpace = initDotSpace
+                   , transMatrix = transMatrix
+                   , conceptId = conceptId
+                   , width = width
+                   , numTicks = numTicks
+                   , duration = duration)
+})
+
+
+}
