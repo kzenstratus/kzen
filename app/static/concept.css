@@ -1,5 +1,5 @@
 .concept-container{
-  font-family: 'Dosis', sans-serif;
+  font-family: 'Roboto', sans-serif;
 /*  font-size: 26px;
   letter-spacing: 4px;
   word-spacing: 2px;*/
@@ -12,6 +12,13 @@
   /*height: calc(100vh - 100px);*/
   background: #fff;
 
+}
+
+.concept-text{
+  position: relative;
+  border: 1px solid #fff;  /* For debugging */
+  width: 600px;
+  height: 600px;
 }
 
 .concept-example{

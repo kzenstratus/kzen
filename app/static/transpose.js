@@ -20,12 +20,15 @@ var transposeInitDotSpace = get2dDotSpace(xDomain = plotDomain
            , yDomain = plotDomain
            , numTicks = plotNumTicks);
 
+
 var transposeTransMatrix = [[1, 0], [2, 0]]
+var transposeSpace = getKernel(transposeInitDotSpace, transposeTransMatrix);
+
+
 transposeTransMatrix = math.transpose(transposeTransMatrix);
 
 // #transpose
 
-var transposeSpace = getKernel(transposeInitDotSpace, transposeTransMatrix);
 var transposeIsOriginSpace = true;
 
 // plotSpaceId
@@ -40,15 +43,4 @@ displayTransConceptPlot(conceptId = "#transpose"
                         , transMatrix = transposeTransMatrix
                         , duration = 4000
                         )
-
-
-// d3.select("#transpose_transform").on('click', function(){
-//     transposeIsOriginSpace = display2dTransform(isOriginSpace = transposeIsOriginSpace
-//                        , initDotSpace = initDotSpace
-//                        , transMatrix = transposeTransMatrix
-//                        , spaceGroup = spaceGroup
-//                        , width = width
-//                        , numTicks = numTicks
-//                        , duration = 4000)
-// })
 

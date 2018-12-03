@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='kernel.css') }}">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='concept.css') }}">
 <script src="{{url_for('static', filename='d3.min.js')}}"></script>
 <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
 <!-- <script src="https://www.lactame.com/lib/ml/3.2.0/ml.min.js"></script> -->
@@ -12,13 +12,25 @@
 <body>
 
   <div class = 'concept-container'>
-    <div class = 'concept-example' id = "kernel">
+  <div class = 'concept-text'>
+    <h3>Kernel</h3>
+    <p>
+    The Kernel of a linear transformation (red points) is the space that goes to 0 during the  linear transformation.
+    </p>  
+  </div>
+  
+  <div class = 'concept-example' id = "kernel">
       <button class="gobutton" id="kernel_transform">Go!</button>
   		<script src="{{url_for('static', filename='kernel.js')}}" ></script>
-
-    </div>
+  </div>
   </div>
   <div class = 'concept-container'>
+    <div class = 'concept-text'>
+      <h3>Transpose</h3>
+      <p>
+      The transpose is a transformation where the rows and columns are flipped. For example, a 2x3 matrix will become a 3x2 matrix.  
+      </p>  
+    </div>
     <div class = 'concept-example' id = "transpose">
       <button class="gobutton" id="transpose_transform">Go!</button>
       <script src="{{url_for('static', filename='transpose.js')}}" ></script>

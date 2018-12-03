@@ -33,15 +33,3 @@ displayTransConceptPlot(conceptId = "#kernel"
                         , transMatrix = kernelTransMatrix
                         , duration = 4000
                         )
-
-
-
-// d3.select("#kernel_transform").on('click', function(){
-//     kernelIsOriginSpace = display2dTransform(isOriginSpace = kernelIsOriginSpace
-//                        , initDotSpace = kernelInitDotSpace
-//                        , transMatrix = kernelTransMatrix
-//                        , spaceGroup = spaceGroup
-//                        , width = width
-//                        , numTicks = numTicks
-//                        , duration = 4000)
-// })
