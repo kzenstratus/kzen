@@ -1,5 +1,5 @@
 /*********************************************
-** Kernel Concept
+** Image Concept
 ** Imports
 ** globals.js domain numTicks 
 ** lin_alg_utils.js getKernel get2dDotSpace
@@ -11,7 +11,6 @@ Set up fake data and params for the grid
 and dot spaces.
 * ----------------------- */
 
-var myGeocode = {{geocode |tojson}};
 
 var kernelInitDotSpace = get2dDotSpace(xDomain = plotDomain
            , yDomain = plotDomain

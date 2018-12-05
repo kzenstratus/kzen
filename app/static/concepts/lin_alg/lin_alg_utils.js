@@ -63,6 +63,18 @@ which are defined as a pair of numbers, or coordinates.]
     return point.length == tarPoint.length && point.every(function(v,i) { return v === tarPoint[i]})
 }
 
+ function isArrayIn(arrPoints, tarPoint){
+  var exists = arrPoints.find(el => el[0] === color);
+
+  if (exists) {
+    exists[1] = number;
+  } else {
+    arr.push([color, number]);
+  }
+    return point.length == tarPoint.length && point.every(function(v,i) { return v === tarPoint[i]})
+}
+
+
 /**
 *
 * [Calculates the kernel, or all the points which get mapped to zero.
@@ -91,4 +103,25 @@ function getKernel(space, transMatrix){
   
   return kernelIndex ;
 }
+
+
+function getImage(space, transMatrix){
+  var newSpace = getTransformSpace(space, transMatrix)._data;
+
+  // wrap output space in array given dimensionality reduction cases.
+  if(math.matrix(newSpace).size().length == 1){
+    newSpace = [newSpace];
+  }
+  
+  var imageIndex = {};
+  for (i = 0; i < newSpace.length; i ++){
+      // if point is now 0, save that index.
+    if (isArrayEqual(newSpace[i], [0,0])){
+      kernelIndex.push(i);  
+    }
+  }
+
+
+}
+
 

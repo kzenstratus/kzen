@@ -1,11 +1,12 @@
 from flask import render_template
 from app import app
+from 
 import json
 
 @app.route('/')
-def get_data():
-	# data = [1, 'foo']d 
-	return render_template('index.html')
+def lin_alg():
+	geocode = [1, 'foo']
+	return render_template('index.html', geocode=geocode)
 
 
 # @app.route('/index')
