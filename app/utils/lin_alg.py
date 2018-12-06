@@ -23,6 +23,17 @@ def getKernelId(space, transMatrix):
 	newSpace = getTransformSpace(space, transMatrix)
 
 	# Don't actually need to calculate the kernel. Just 
-	# take the space of points which go to 0.
+	# take the index of space of points which go to 0.
+	kernelId = [idx for idx, coord in enumerate(newSpace) if np.array_equal(coord, [0,0])]
+	
+	return(kernelId)
 
-	newSpace
+def getImageId(space, transMatrix):
+	newSpace = getTransformSpace(space, transMatrix)
+
+	imageId = [idx for idx, coord in enumerate(newSpace) if np.array_equal(coord, space[idx])]
+	return(imageId)
+
+
+
+
