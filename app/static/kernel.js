@@ -11,7 +11,7 @@ Set up fake data and params for the grid
 and dot spaces.
 * ----------------------- */
 
-var myGeocode = {{geocode |tojson}};
+var myGeocode = '{{geocode |tojson}}';
 
 var kernelInitDotSpace = get2dDotSpace(xDomain = plotDomain
            , yDomain = plotDomain
