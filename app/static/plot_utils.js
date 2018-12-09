@@ -189,7 +189,7 @@ function display2dTransform(isOriginSpace
 }
 
 
-function displayTransConceptPlot(conceptId
+function DisplayTransConceptPlot(conceptId
                             , buttonId
                             , initDotSpace
                             , highlightSpace
@@ -199,41 +199,65 @@ function displayTransConceptPlot(conceptId
                             , numTicks
                             , transMatrix
                             , duration
+                            , tarColor
                             ){
-  var svg = d3.select(conceptId)
+  this._conceptId = conceptId;
+  this._buttonId = buttonId;
+  this._initDotSpace = initDotSpace;
+  this._highlightSpace = highlightSpace;
+  this._domain = domain;
+  this._width = width;
+  this._height = height;
+  this._numTicks = numTicks;
+  this._transMatrix = transMatrix;
+  this._duration = duration;
+  this._tarColor = tarColor
+  this._isOriginSpace = true
+
+  this._svg = d3.select(conceptId)
             .append("svg")
             .attr("width", plotWidth)
             .attr("height", plotHeight)
 
-  var spaceGroup = svg.append('g')
+  this._spaceGroup = this._svg.append('g')
 
-  var isOriginSpace = true
+  
   // Draw the underlying 2d grid lines.
-  plotBasis(svg = svg
-            , xDomain = domain
-            , yDomain = domain
-            , width = width
-            , height = height
-            , numTicks = numTicks
+  plotBasis(svg = this._svg
+            , xDomain = this._domain
+            , yDomain = this._domain
+            , width = this._width
+            , height = this._height
+            , numTicks = this._numTicks
             );
 
-  plotSpace(svg = spaceGroup
-            , space = initDotSpace
-            , tarSpace = highlightSpace
-            , tarColor = "red"
-            , width = width
-            , height = height
-            , numTicks = numTicks);
+  plotSpace(svg = this._spaceGroup
+            , space = this._initDotSpace
+            , tarSpace = this._highlightSpace
+            , tarColor = this._tarColor
+            , width = this._width
+            , height = this._height
+            , numTicks = this._numTicks);
 
-  d3.select(buttonId).on('click', function(){
-    isOriginSpace = display2dTransform(isOriginSpace = isOriginSpace
-                   , initDotSpace = initDotSpace
-                   , transMatrix = transMatrix
-                   , conceptId = conceptId
-                   , width = width
-                   , numTicks = numTicks
-                   , duration = duration)
-})
-
-
+  return { conceptId : this._conceptId
+          , buttonId : this._buttonId
+          , initDotSpace : this._initDotSpace
+          , highlightSpace : this._highlightSpace
+          , domain : this._domain
+          , width : this._width
+          , height : this._height
+          , numTicks: this._numTicks
+          , transMatrix : this._transMatrix
+          , duration : this._duration
+          , tarColor : this._tarColor
+    , animate : d3.select(buttonId).on('click', function(){
+    this._isOriginSpace = display2dTransform(isOriginSpace = this._isOriginSpace
+                   , initDotSpace = this._initDotSpace
+                   , transMatrix = this._transMatrix
+                   , conceptId = this._conceptId
+                   , width = this._width
+                   , numTicks = this._numTicks
+                   , duration = this._duration)
+  })
+  }
 }

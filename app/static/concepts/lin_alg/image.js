@@ -12,24 +12,24 @@ and dot spaces.
 * ----------------------- */
 
 
-var kernelInitDotSpace = get2dDotSpace(xDomain = plotDomain
-           , yDomain = plotDomain
-           , numTicks = plotNumTicks);
+// var kernelInitDotSpace = get2dDotSpace(xDomain = plotDomain
+//            , yDomain = plotDomain
+//            , numTicks = plotNumTicks);
 
-var kernelTransMatrix = [[1, 0], [2, 0]]
+// var kernelTransMatrix = [[1, 0], [2, 0]]
 
-var kernelSpace = getKernel(kernelInitDotSpace, kernelTransMatrix);
-var kernelIsOriginSpace = true;
+// var kernelSpace = getKernel(kernelInitDotSpace, kernelTransMatrix);
+// var kernelIsOriginSpace = true;
 
-// plotSpaceId
-displayTransConceptPlot(conceptId = "#kernel"
-                        , buttonId = "#kernel_transform"
-                        , initDotSpace = kernelInitDotSpace
-                        , highlightSpace = kernelSpace
-                        , domain = plotDomain
-                        , width = plotWidth
-                        , height = plotHeight
-                        , numTicks = plotNumTicks
-                        , transMatrix = kernelTransMatrix
-                        , duration = 4000
-                        )
+// // plotSpaceId
+// displayTransConceptPlot(conceptId = "#kernel"
+//                         , buttonId = "#kernel_transform"
+//                         , initDotSpace = kernelInitDotSpace
+//                         , highlightSpace = kernelSpace
+//                         , domain = plotDomain
+//                         , width = plotWidth
+//                         , height = plotHeight
+//                         , numTicks = plotNumTicks
+//                         , transMatrix = kernelTransMatrix
+//                         , duration = 4000
+//                         )

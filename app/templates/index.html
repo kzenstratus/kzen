@@ -10,11 +10,8 @@
 <script src="{{url_for('static', filename='concepts/lin_alg/lin_alg_utils.js')}}"></script>
 
 <body>
-  <div class = 'concept-container'>
+<!--   <div class = 'concept-container'>
     <div class = 'concept-text'>
-    <script>
-    var someJavaScriptVar2 = '{{ geocode | tojson }}';
-    </script>
       <h3>Image</h3>
       <p>
         The Kernel of a linear transformation (red points) is the space that goes to 0 during the  linear transformation. <br>
@@ -28,11 +25,11 @@
         <script src="{{url_for('static', filename='concepts/lin_alg/image.js')}}" ></script>
     </div>
 
-  </div>
+  </div> -->
 
   <div class = 'concept-container'>
     <div class = 'concept-text'>
-
+  
       <h3>Kernel</h3>
       <p>
         The Kernel of a linear transformation (red points) is the space that goes to 0 during the  linear transformation. <br>
@@ -43,12 +40,32 @@
 
     <div class = 'concept-example' id = "kernel">
         <button class="gobutton" id="kernel_transform">Go!</button>
-        <script src="{{url_for('static', filename='concepts/lin_alg/kernel.js')}}" ></script>
+
+        <script type="text/javascript">
+          // var kernelTransMatrix = [[1, 0], [2, 0]]
+          var globalJson = JSON.parse('{{globalVar | tojson}}')
+          var kernelPayload = JSON.parse('{{kernelPayload | tojson}}')
+
+          var kernel = new DisplayTransConceptPlot(conceptId = kernelPayload.conceptId
+                                  , buttonId = kernelPayload.buttonId
+                                  , initDotSpace = globalJson.space
+                                  , highlightSpace = kernelPayload.highlightSpace
+                                  , domain = globalJson.plotDomain
+                                  , width = globalJson.plotWidth
+                                  , height = globalJson.plotHeight
+                                  , numTicks = globalJson.numTicks
+                                  , transMatrix = kernelPayload.transMatrix
+                                  , duration = kernelPayload.duration
+                                  , tarColor = kernelPayload.tarColor
+                                  )
+          kernel.animate
+          </script>
+
     </div>
 
   </div>
 
-  <div class = 'concept-container'>
+  <!-- <div class = 'concept-container'>
     <div class = 'concept-text'>
       <h3>Transpose</h3>
       <p>
@@ -60,7 +77,7 @@
       <button class="gobutton" id="transpose_transform">Go!</button>
       <script src="{{url_for('static', filename='concepts/lin_alg/transpose.js')}}" ></script>
     </div>
-  </div>
+  </div> -->
 
 </body>
 </html>
