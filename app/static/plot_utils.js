@@ -211,8 +211,8 @@ function DisplayTransConceptPlot(conceptId
   this._numTicks = numTicks;
   this._transMatrix = transMatrix;
   this._duration = duration;
-  this._tarColor = tarColor
-  this._isOriginSpace = true
+  this._tarColor = tarColor;
+  var isOriginSpace = true;
 
   this._svg = d3.select(conceptId)
             .append("svg")
@@ -230,7 +230,6 @@ function DisplayTransConceptPlot(conceptId
             , height = this._height
             , numTicks = this._numTicks
             );
-
   plotSpace(svg = this._spaceGroup
             , space = this._initDotSpace
             , tarSpace = this._highlightSpace
@@ -239,7 +238,8 @@ function DisplayTransConceptPlot(conceptId
             , height = this._height
             , numTicks = this._numTicks);
 
-  return { conceptId : this._conceptId
+  return { 
+    conceptId : this._conceptId
           , buttonId : this._buttonId
           , initDotSpace : this._initDotSpace
           , highlightSpace : this._highlightSpace
@@ -250,14 +250,15 @@ function DisplayTransConceptPlot(conceptId
           , transMatrix : this._transMatrix
           , duration : this._duration
           , tarColor : this._tarColor
-    , animate : d3.select(buttonId).on('click', function(){
-    this._isOriginSpace = display2dTransform(isOriginSpace = this._isOriginSpace
-                   , initDotSpace = this._initDotSpace
-                   , transMatrix = this._transMatrix
-                   , conceptId = this._conceptId
-                   , width = this._width
-                   , numTicks = this._numTicks
-                   , duration = this._duration)
+          , animate : d3.select(buttonId).on('click', function(){
+            isOriginSpace = display2dTransform(
+                  isOriginSpace = isOriginSpace
+                   , initDotSpace = initDotSpace
+                   , transMatrix = transMatrix
+                   , conceptId = conceptId
+                   , width = width
+                   , numTicks = numTicks
+                   , duration = duration)
   })
   }
 }
