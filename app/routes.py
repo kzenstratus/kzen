@@ -15,7 +15,7 @@ globalVar = {"plotDomain" : [-5,5]
 			, "space" : space.tolist()}
 
 
-kernelPayLoad = {"conceptId" : "#kernel"
+kernelPayload = {"conceptId" : "#kernel"
 				, "buttonId" : "#kernel_transform"
 				, "duration" : 4000
 				, "tarColor" : "red"
@@ -28,7 +28,9 @@ def lin_alg():
 	# geocode = [1, 'foo', space]
 	return render_template('index.html'
 		, globalVar = globalVar
-		, kernelPayload = kernelPayLoad)
+		, kernelPayload = kernelPayload
+		, transposePayload = kernelPayload
+		)
 
 # @app.route('/index')
 # def index():

@@ -162,6 +162,7 @@ function display2dTransform(isOriginSpace
                             , numTicks
                             , duration){
     // console.log("hello");
+  console.log(isOriginSpace)
   if(isOriginSpace){
     var nextDotSpace = getTransformSpace(space = initDotSpace
                                     , transMatrix = transMatrix)._data;
@@ -216,8 +217,8 @@ function DisplayTransConceptPlot(conceptId
 
   this._svg = d3.select(conceptId)
             .append("svg")
-            .attr("width", plotWidth)
-            .attr("height", plotHeight)
+            .attr("width", width)
+            .attr("height", height)
 
   this._spaceGroup = this._svg.append('g')
 
@@ -249,7 +250,8 @@ function DisplayTransConceptPlot(conceptId
           , numTicks: this._numTicks
           , transMatrix : this._transMatrix
           , duration : this._duration
-          , tarColor : this._tarColor
+          // , tarColor : this._tarColor
+          , isOriginSpace : isOriginSpace
           , animate : d3.select(buttonId).on('click', function(){
             isOriginSpace = display2dTransform(
                   isOriginSpace = isOriginSpace
@@ -261,4 +263,8 @@ function DisplayTransConceptPlot(conceptId
                    , duration = duration)
   })
   }
-}
+
+
+// DisplayTransConceptPlot.prototype.getInfo = function(){
+//   return this._tarColor;
+// }
