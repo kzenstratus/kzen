@@ -11,12 +11,19 @@ kernelSpace = getKernelId(space, kernelTransMatrix)
 globalVar = {"plotDomain" : [-5,5]
 			, "plotWidth" : 500
 			, "plotHeight" : 500
-			, "numTicks" : 11
+			, "numTicks" : 11 - 1
 			, "space" : space.tolist()}
 
 
 kernelPayload = {"conceptId" : "#kernel"
 				, "buttonId" : "#kernel_transform"
+				, "duration" : 4000
+				, "tarColor" : "red"
+				, "highlightSpace" : kernelSpace
+				, "transMatrix" : kernelTransMatrix}
+
+transposePayload = {"conceptId" : "#transpose"
+				, "buttonId" : "#transpose_transform"
 				, "duration" : 4000
 				, "tarColor" : "red"
 				, "highlightSpace" : kernelSpace
@@ -29,7 +36,7 @@ def lin_alg():
 	return render_template('index.html'
 		, globalVar = globalVar
 		, kernelPayload = kernelPayload
-		, transposePayload = kernelPayload
+		, transposePayload = transposePayload
 		)
 
 # @app.route('/index')
