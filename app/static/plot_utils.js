@@ -20,11 +20,12 @@ certain dots. Scales the points to the width]
 **/
 function plotSpace(svg
                   , space
-                  , tarSpace
-                  , tarColor
                   , width
                   , height
-                  , numTicks){
+                  , numTicks
+                  , tarSpace = null
+                  , tarColor = null
+                  ){
 
 
   return (svg.selectAll(".markers")
@@ -44,18 +45,25 @@ function plotSpace(svg
         return height/2 + d[1]*height/numTicks;
    })
    .attr('fill', function(d, i){
-    if(tarSpace.includes(i)){
+    if(tarSpace){
+      if(tarSpace.includes(i)){
       return tarColor
+      }
     }
+    
    })
     .attr('stroke', function(d, i){
-    if(tarSpace.includes(i)){
+    if(tarSpace){
+      if(tarSpace.includes(i)){
       return tarColor
+      }
     }
    })
     .attr('stroke-width', function(d, i){
-    if(tarSpace.includes(i)){
+    if(tarSpace){
+      if(tarSpace.includes(i)){
       return 4
+      }
     }
    })
    .attr("r", 5)
@@ -264,6 +272,41 @@ function display2dTransform(isOriginSpace
 //   }
 // }
 
+var Display2dPlot = function(conceptId
+                            , initDotSpace
+                            , highlightSpace
+                            , domain
+                            , width
+                            , height
+                            , numTicks
+                            , tarColor
+                            ){
+  var svg = d3.select(conceptId)
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+
+  var spaceGroup = svg.append('g')
+
+  // Draw the underlying 2d grid lines.
+  // svg, xDomain, yDomain, width, height, numTicks
+  plotBasis(svg = svg
+            , xDomain = domain
+            , yDomain = domain
+            , width = width
+            , height = height
+            , numTicks = numTicks
+            );
+  plotSpace(svg = spaceGroup
+            , space = initDotSpace
+            , width = width
+            , height = height
+            , numTicks = numTicks
+            , tarSpace = highlightSpace
+            , tarColor = tarColor);
+
+}
+
 var DisplayTransConceptPlot = function (conceptId
                             , buttonId
                             , initDotSpace
@@ -276,31 +319,21 @@ var DisplayTransConceptPlot = function (conceptId
                             , duration
                             , tarColor
                             ){
+  
+  Display2dPlot(conceptId
+    , initDotSpace
+    , highlightSpace
+    , domain
+    , width
+    , height
+    , numTicks
+    , tarColor
+    )
+
   var _isOriginSpace = true
-  var svg = d3.select(conceptId)
-            .append("svg")
-            .attr("width", width)
-            .attr("height", height)
-
-  var spaceGroup = svg.append('g')
-
-  // Draw the underlying 2d grid lines.
-  plotBasis(svg
-            , domain
-            , domain
-            , width
-            , height
-            , numTicks
-            );
-  plotSpace(spaceGroup
-            , initDotSpace
-            , highlightSpace
-            , tarColor
-            , width
-            , height
-            , numTicks);
-    
-    d3.select(buttonId)
+  
+  
+  d3.select(buttonId)
       .on('click', function(){
             _isOriginSpace = display2dTransform(
                   _isOriginSpace

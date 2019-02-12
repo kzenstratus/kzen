@@ -8,6 +8,8 @@ space = get2dDotSpace(xDomain = [-5,5], yDomain = [-5,5], numTicks = 11)
 kernelTransMatrix = [[1, 0], [2, 0]]
 kernelSpace = getKernelId(space, kernelTransMatrix)
 
+transposeSpace = np.transpose(kernelTransMatrix)
+
 globalVar = {"plotDomain" : [-5,5]
 			, "plotWidth" : 500
 			, "plotHeight" : 500
@@ -27,8 +29,15 @@ transposePayload = {"conceptId" : "#transpose"
 				, "duration" : 4000
 				, "tarColor" : "red"
 				, "highlightSpace" : kernelSpace
-				, "transMatrix" : kernelTransMatrix}
+				, "transMatrix" : transposeSpace.tolist()}
 
+basisPayload = {"conceptId" : "#basis_payload"
+				, "buttonId" : "#basis_payload_transform"
+				, "duration" : 4000
+				, "tarColor" : "red"
+				, "highlightSpace" : kernelSpace
+				, "transMatrix" : transposeSpace.tolist()
+				}
 
 @app.route('/')
 def lin_alg():
@@ -37,6 +46,7 @@ def lin_alg():
 		, globalVar = globalVar
 		, kernelPayload = kernelPayload
 		, transposePayload = transposePayload
+		, basisPayload = basisPayload
 		)
 
 # @app.route('/index')
