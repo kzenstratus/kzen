@@ -7,6 +7,7 @@
 <script src="{{url_for('static', filename='math.min.js')}}"></script>
 <script src="{{url_for('static', filename='plot_utils.js')}}"></script>
 <script src="{{url_for('static', filename='concepts/lin_alg/lin_alg_utils.js')}}"></script>
+<script src="{{url_for('static', filename='concepts/lin_alg/lin_alg_vars.js')}}"></script>
 
 
 <body>
@@ -27,36 +28,21 @@
         <button class="gobutton" id="kernel_transform">Go!</button>
 
         <script type="text/javascript">
-          // var kernelTransMatrix = [[1, 0], [2, 0]]
-          var globalJson = JSON.parse('{{globalVar | tojson}}')
-          var kernelPayload = JSON.parse('{{kernelPayload | tojson}}')
+          // Read in linAlgGlobalVar and kernelPayload
 
-          // let user = new User(conceptId = kernelPayload.conceptId
-          //                         , buttonId = kernelPayload.buttonId
-          //                         , initDotSpace = globalJson.space
-          //                         , highlightSpace = kernelPayload.highlightSpace
-          //                         , domain = globalJson.plotDomain
-          //                         , width = globalJson.plotWidth
-          //                         , height = globalJson.plotHeight
-          //                         , numTicks = globalJson.numTicks
-          //                         , transMatrix = kernelPayload.transMatrix
-          //                         , duration = kernelPayload.duration
-          //                         , tarColor = kernelPayload.tarColor
-          //                         )
-          // user.animate()
           var kernel = new DisplayTransConceptPlot(conceptId = kernelPayload.conceptId
                                   , buttonId = kernelPayload.buttonId
-                                  , initDotSpace = globalJson.space
+                                  , initDotSpace = linAlgGlobalVar.space
                                   , highlightSpace = kernelPayload.highlightSpace
-                                  , domain = globalJson.plotDomain
-                                  , width = globalJson.plotWidth
-                                  , height = globalJson.plotHeight
-                                  , numTicks = globalJson.numTicks
+                                  , domain = linAlgGlobalVar.plotDomain
+                                  , width = linAlgGlobalVar.plotWidth
+                                  , height = linAlgGlobalVar.plotHeight
+                                  , numTicks = linAlgGlobalVar.numTicks
                                   , transMatrix = kernelPayload.transMatrix
                                   , duration = kernelPayload.duration
                                   , tarColor = kernelPayload.tarColor
                                   )
-          kernel.animate
+          // kernel.animate
           </script>
 
     </div>
@@ -77,31 +63,15 @@
         <button class="gobutton" id="transpose_transform">Go!</button>
 
         <script type="text/javascript">
-          // var kernelTransMatrix = [[1, 0], [2, 0]]
-          var globalJson = JSON.parse('{{globalVar | tojson}}')
-          var transposePayload = JSON.parse('{{transposePayload | tojson}}')
 
-          // let user = new User(conceptId = kernelPayload.conceptId
-          //                         , buttonId = kernelPayload.buttonId
-          //                         , initDotSpace = globalJson.space
-          //                         , highlightSpace = kernelPayload.highlightSpace
-          //                         , domain = globalJson.plotDomain
-          //                         , width = globalJson.plotWidth
-          //                         , height = globalJson.plotHeight
-          //                         , numTicks = globalJson.numTicks
-          //                         , transMatrix = kernelPayload.transMatrix
-          //                         , duration = kernelPayload.duration
-          //                         , tarColor = kernelPayload.tarColor
-          //                         )
-          // user.animate()
           var transpose = new DisplayTransConceptPlot(conceptId = transposePayload.conceptId
                                   , buttonId = transposePayload.buttonId
-                                  , initDotSpace = globalJson.space
+                                  , initDotSpace = linAlgGlobalVar.space
                                   , highlightSpace = transposePayload.highlightSpace
-                                  , domain = globalJson.plotDomain
-                                  , width = globalJson.plotWidth
-                                  , height = globalJson.plotHeight
-                                  , numTicks = globalJson.numTicks
+                                  , domain = linAlgGlobalVar.plotDomain
+                                  , width = linAlgGlobalVar.plotWidth
+                                  , height = linAlgGlobalVar.plotHeight
+                                  , numTicks = linAlgGlobalVar.numTicks
                                   , transMatrix = transposePayload.transMatrix
                                   , duration = transposePayload.duration
                                   , tarColor = transposePayload.tarColor

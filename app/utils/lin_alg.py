@@ -5,6 +5,8 @@ def get2dDotSpace(xDomain, yDomain, numTicks):
 	yPoints = np.linspace(yDomain[0], yDomain[1], numTicks)
 	allPoints = np.transpose([np.tile(xPoints, len(yPoints))
 		, np.repeat(yPoints, len(xPoints))])
+
+	allPoints = sorted(allPoints, key = lambda x : x[0])
 	return(allPoints)
 
 def getTransformSpace(space, transMatrix):

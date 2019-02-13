@@ -16,13 +16,15 @@
 function get2dDotSpace(xDomain, yDomain, numTicks){
   // interpolate between these two points
 
-  var xPoints = math.range(xDomain[0]
-    , xDomain[1]
-    , (xDomain[1] - xDomain[0])/numTicks)._data;
+  var xPoints = math.range(start = xDomain[0]
+    , end = xDomain[1]
+    , step = (xDomain[1] - xDomain[0])/numTicks
+    , includeEnd = true)._data;
 
-  var yPoints = math.range(yDomain[0]
-    , yDomain[1]
-    , (yDomain[1] - yDomain[0])/numTicks)._data;
+  var yPoints = math.range(start = yDomain[0]
+    , end = yDomain[1]
+    , step = (yDomain[1] - yDomain[0])/numTicks
+    , includeEnd = true)._data;
   
 
   // Map these xPoints across all y points.
