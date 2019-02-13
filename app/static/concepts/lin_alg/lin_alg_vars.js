@@ -1,9 +1,7 @@
 /*********************************************
 ** Data and meta data
 ** Imports
-** globals.js domain numTicks 
 ** lin_alg_utils.js getKernel get2dDotSpace
-** plot_utils.js displayTransConceptPlot display2dTransform
 **********************************************/
 
 linAlgGlobalVar = {"plotDomain" : [-5,5]
