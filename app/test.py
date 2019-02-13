@@ -1,2 +1,0 @@
-def wtf():
-    return("hello")
