@@ -25,7 +25,6 @@ function get2dDotSpace(xDomain, yDomain, numTicks){
     , end = yDomain[1]
     , step = (yDomain[1] - yDomain[0])/numTicks
     , includeEnd = true)._data;
-  
 
   // Map these xPoints across all y points.
   var dotSpace = []
