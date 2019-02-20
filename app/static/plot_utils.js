@@ -264,6 +264,8 @@ function display2dTransform(isOriginSpace
 //   }
 // }
 
+// An object which draws lines a grid paper, plots points
+// and performs a 2d transformation on a click.
 var DisplayTransConceptPlot = function (conceptId
                             , buttonId
                             , initDotSpace
