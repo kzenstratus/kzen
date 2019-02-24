@@ -29,30 +29,34 @@ class Vector {
         this.lineSize = lineSize;
         this.lineStyle = lineStyle;
         this.arrowColor = color;
-        this.startColor = color;
-        this.endColor = color;
+        this.dotColor = color;
+        this.dotRad = 5;
+        this.dotStrokeWidth = 4;
+        this.linFunction = d3.line()
+                              .x(function(d) { return d.x; })
+                              .y(function(d) { return d.y; });
+
       }
         // Have a line, an arrow
         // and two points, a start and end point.
 
 //The SVG Container
+        
         getLine(someSvg){
-          var linFunction = d3.line()
-                              .x(function(d) { return d.x; })
-                              .y(function(d) { return d.y; });
+          
           var lineData = [this.startCoord, this.endCoord];
           
           return(someSvg.append("path")
-            .attr("d", linFunction(lineData))
+            // .attr("id", "vecLine")
+            .attr("class", "vector")
+            .attr("d", this.linFunction(lineData))
             .attr("stroke", this.arrowColor)
             .attr("stroke-width", this.lineSize)
             .attr("fill", "none")
-            .attr("marker-end", "url(#triangle)")
             )
         }
         getArrowHead(someSvg){
-          return(
-            someSvg.append("svg:defs").append("svg:marker")
+          someSvg.append("svg:defs").append("svg:marker")
             .attr("id", "triangle")
             .attr("refX", 6)
             .attr("refY", 6)
@@ -61,35 +65,99 @@ class Vector {
             .attr("orient", "auto")
             .append("path")
             .attr("d", "M 0 0 12 6 0 12 3 6")
-            .style("fill", this.arrowColor))
-
-        }
-        getArrow(someSvg){
-          this.getArrowHead(someSvg);
-          this.getLine(someSvg);
+            .style("fill", this.arrowColor);
+          
+          d3.select("path.vector")
+          .attr("marker-end", "url(#triangle)")
           return(someSvg)
         }
-        // getStartPoint(someSvg){
-        //   someSvg
-        //   .append("circle")
-        //   .attr("class","markers")
-
-        //   return();
-        // }
-        // move(){
-        // }
+        getVector(someSvg){
+          this.getLine(someSvg);
+          // Note arrowHead needs to be called after getLine does.
+          this.getArrowHead(someSvg);
+          return(someSvg)
+        }
+        getPoint(someSvg){
+          someSvg
+            .selectAll(".markers")
+            .data([this.startCoord])
+            .enter()
+            .append("circle")
+            .attr("class","markers")
+            .attr("cx", function(d) {return d.x;})
+            .attr("cy", function(d) {return d.y;})
+            .attr('fill', this.dotColor)
+            .attr('stroke', this.dotColor)
+            .attr('stroke-width', this.dotStrokeWidth)
+            .attr("r", this.dotRad);
+        }
+        move(someSvg, coordList, duration){
+          coordList.unshift([this.startCoord, this.endCoord]);
+          var j;
+          var vec = someSvg.selectAll(".vector")
+          for (j = 0; j < coordList.length; j++){
+            vec = vec.transition()
+                    .duration(duration)
+                    .attr("delay", function(d,i) {return 1000*i;})
+                    .attr("d", this.linFunction(coordList[j]))
+        }
+      }
 }
 
+// svg.selectAll(".markers")
+//    .data(this.startCoord)
+//    .enter()
+//    .append("circle")
+//    .attr("class","markers")
+//     markers are both positive and negative.
+//     d[0] is the x value of each unscaled coordinate.
+//     this part essentially scales the plot to a given width
+//     and height.
+     
+//    .attr("cx", function(d) {return d.x;})
+//    .attr("cy", function(d) {return d.y;})
+//    .attr('fill', this.color)
+//    .attr('stroke', this.color)
+//    .attr('stroke-width', 4)
+//    .attr("r", 5);
 
-let testLine = new Vector(startCoord = [1,5], endCoord = [100,100], lineSize = 2, lineStyle = "solid" ,color = "blue");
+//var startCoord = {"x" : 1, "y": 100}
+
+var linFunction = d3.line().x(function(d) { return d.x; })
+.y(function(d) { return d.y; });
+
+let testLine = new Vector(startCoord = [20,20], endCoord = [100,100], lineSize = 2, lineStyle = "solid" ,color = "blue");
+var coordList = [[{"x" : 20, "y": 20}, {"x" : 100, "y" : 80}]
+                  , [{"x" : 20, "y": 20}, {"x" : 40, "y" : 40}]]
 
 var svgContainer = d3.select("body").append("svg:svg")
                                     .attr("width", 300)
                                     .attr("height", 300);
-testLine.getArrow(svgContainer)
-// Vehicle.getColor(car); // "purple"
+//testLine.getStartPoint(svgContainer)
+// testLine.getPoint(svgContainer)
+testLine.getVector(svgContainer);
+testLine.move(svgContainer, coordList, 2000);
+
+var vec = svgContainer.selectAll(".vector");
+
+  for (j = 0; j < coordList.length; j++){
+    vec = vec.transition()
+                 .duration(duration)
+                 .attr("delay", function(d,i) {return 1000*i;})
+                 .attr("d", this.linFunction(coordList[j]))
+  }
 
 
+            .transition()
+            .duration(duration)
+            .attr("delay", function(d,i) {return 1000*i;})
+            .attr("d", this.linFunction([{"x" : 20, "y" : 20}
+                          , {"x" : 100, "y" : 80}]))
+            .transition()
+            .duration(duration)
+            .attr("delay", function(d,i) {return 1000*i;})
+            .attr("d", this.linFunction([{"x" : 20, "y" : 20}
+                          , {"x" : 40, "y" : 40}]))
 
 
 
