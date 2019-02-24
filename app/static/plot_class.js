@@ -1,4 +1,11 @@
 
+var scaleLoc = function(tarCoord
+                      , numTicks
+                      , height, width){
+    return({"x": width/2 + tarCoord.x * width / numTicks
+          , "y" : height/2 + tarCoord.y * width / numTicks})
+}
+
 // var Vector = function(coord
 //                       , lineSize
 //                       , lineStyle
@@ -23,19 +30,29 @@ class Vector {
                 , endCoord
                 , lineSize
                 , lineStyle
+                , height
+                , width
+                , numTicks
                 , color) {
-        this.startCoord = {"x" : startCoord[0], "y" : startCoord[1]};
-        this.endCoord = {"x" : endCoord[0], "y" : endCoord[1]};
+
+        this.startCoord = scaleLoc(startCoord
+                                  , numTicks
+                                  , height
+                                  , width );
+
+        this.endCoord = scaleLoc(endCoord
+                                  , numTicks
+                                  , height
+                                  , width);
+
         this.lineSize = lineSize;
         this.lineStyle = lineStyle;
         this.arrowColor = color;
         this.dotColor = color;
         this.dotRad = 5;
         this.dotStrokeWidth = 4;
-        this.linFunction = d3.line()
-                              .x(function(d) { return d.x; })
-                              .y(function(d) { return d.y; });
-
+        this.height = height;
+        this.width = width;
       }
         // Have a line, an arrow
         // and two points, a start and end point.
@@ -46,10 +63,11 @@ class Vector {
           
           var lineData = [this.startCoord, this.endCoord];
           
+
           return(someSvg.append("path")
             // .attr("id", "vecLine")
             .attr("class", "vector")
-            .attr("d", this.linFunction(lineData))
+            .attr("d", linFunction(lineData))
             .attr("stroke", this.arrowColor)
             .attr("stroke-width", this.lineSize)
             .attr("fill", "none")
@@ -92,73 +110,48 @@ class Vector {
             .attr("r", this.dotRad);
         }
         move(someSvg, coordList, duration){
-          coordList.unshift([this.startCoord, this.endCoord]);
-          var j;
+
           var vec = someSvg.selectAll(".vector")
-          for (j = 0; j < coordList.length; j++){
+          for (var j = 0; j < coordList.length; j++){
             vec = vec.transition()
                     .duration(duration)
                     .attr("delay", function(d,i) {return 1000*i;})
-                    .attr("d", this.linFunction(coordList[j]))
+                    .attr("d", linFunction(coordList[j]))
         }
       }
 }
 
-// svg.selectAll(".markers")
-//    .data(this.startCoord)
-//    .enter()
-//    .append("circle")
-//    .attr("class","markers")
-//     markers are both positive and negative.
-//     d[0] is the x value of each unscaled coordinate.
-//     this part essentially scales the plot to a given width
-//     and height.
-     
-//    .attr("cx", function(d) {return d.x;})
-//    .attr("cy", function(d) {return d.y;})
-//    .attr('fill', this.color)
-//    .attr('stroke', this.color)
-//    .attr('stroke-width', 4)
-//    .attr("r", 5);
+// class Field {
 
-//var startCoord = {"x" : 1, "y": 100}
+// }
 
-var linFunction = d3.line().x(function(d) { return d.x; })
-.y(function(d) { return d.y; });
+// Converts one increment to one scale
 
-let testLine = new Vector(startCoord = [20,20], endCoord = [100,100], lineSize = 2, lineStyle = "solid" ,color = "blue");
+// var startCoord = {"x" : 1, "y": 10}
+
+// scaleLoc(tarCoord = startCoord
+//   , numTicks = numTicks
+//   , height = height
+//   , width = width);
+
+let testLine = new Vector(startCoord = {"x" : 0, "y" : 0}
+  , endCoord = {"x" : 1, "y" : 1}
+  , lineSize = 2
+  , lineStyle = "solid"
+  , height = 500
+  , width = 500
+  , numTicks = 10
+  , color = "blue");
+
 var coordList = [[{"x" : 20, "y": 20}, {"x" : 100, "y" : 80}]
                   , [{"x" : 20, "y": 20}, {"x" : 40, "y" : 40}]]
 
 var svgContainer = d3.select("body").append("svg:svg")
-                                    .attr("width", 300)
-                                    .attr("height", 300);
-//testLine.getStartPoint(svgContainer)
-// testLine.getPoint(svgContainer)
+                                    .attr("width", 600)
+                                    .attr("height", 600);
+
 testLine.getVector(svgContainer);
-testLine.move(svgContainer, coordList, 2000);
-
-var vec = svgContainer.selectAll(".vector");
-
-  for (j = 0; j < coordList.length; j++){
-    vec = vec.transition()
-                 .duration(duration)
-                 .attr("delay", function(d,i) {return 1000*i;})
-                 .attr("d", this.linFunction(coordList[j]))
-  }
-
-
-            .transition()
-            .duration(duration)
-            .attr("delay", function(d,i) {return 1000*i;})
-            .attr("d", this.linFunction([{"x" : 20, "y" : 20}
-                          , {"x" : 100, "y" : 80}]))
-            .transition()
-            .duration(duration)
-            .attr("delay", function(d,i) {return 1000*i;})
-            .attr("d", this.linFunction([{"x" : 20, "y" : 20}
-                          , {"x" : 40, "y" : 40}]))
-
+// testLine.move(svgContainer, coordList, 2000);
 
 
 

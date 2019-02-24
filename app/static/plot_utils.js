@@ -317,6 +317,10 @@ var DisplayTransConceptPlot = function (conceptId
           })
 }
 
+var linFunction = d3.line()
+                    .x(function(d) { return d.x; })
+                    .y(function(d) { return d.y; });
+                    
 
 
 
