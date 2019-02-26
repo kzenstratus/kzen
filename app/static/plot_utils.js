@@ -20,12 +20,14 @@ certain dots. Scales the points to the width]
 **/
 function plotSpace(svg
                   , space
-                  , tarSpace
-                  , tarColor
                   , width
                   , height
-                  , numTicks){
-
+                  , numTicks
+                  , color = ""
+                  , radius = 5
+                  , strokeWidth = 4
+                  , tarSpace = []
+                  , tarColor = "red"){
 
   return (svg.selectAll(".markers")
    .data(space)
@@ -47,6 +49,7 @@ function plotSpace(svg
     if(tarSpace.includes(i)){
       return tarColor
     }
+    return color
    })
     .attr('stroke', function(d, i){
     if(tarSpace.includes(i)){
@@ -55,10 +58,10 @@ function plotSpace(svg
    })
     .attr('stroke-width', function(d, i){
     if(tarSpace.includes(i)){
-      return 4
+      return strokeWidth
     }
    })
-   .attr("r", 5)
+   .attr("r", radius)
    );
 }
 
@@ -296,13 +299,17 @@ var DisplayTransConceptPlot = function (conceptId
             , height
             , numTicks
             );
+
   plotSpace(spaceGroup
             , initDotSpace
-            , highlightSpace
-            , tarColor
             , width
             , height
-            , numTicks);
+            , numTicks
+            , "grey"
+            , 5
+            , 4
+            , highlightSpace
+            , tarColor);
     
     d3.select(buttonId)
       .on('click', function(){
@@ -318,10 +325,15 @@ var DisplayTransConceptPlot = function (conceptId
 }
 
 var linFunction = d3.line()
-                    .x(function(d) { return d.x; })
-                    .y(function(d) { return d.y; });
-                    
+                    .x(function(d) { return d[0]; })
+                    .y(function(d) { return d[1]; });
 
 
+var scaleLoc = function(tarCoord
+                      , numTicks
+                      , height, width){
+    return([width/2 + tarCoord[0] * width / numTicks
+          , height/2 + tarCoord[1] * width / numTicks])
+}
 
 

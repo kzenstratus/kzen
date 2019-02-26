@@ -1,10 +1,14 @@
+/* ----------------------
+Set up fake data and params for the grid
+and dot spaces.
+* ----------------------- */
+/*********************************************
+** plot class
+** Imports
+** plot_utils.js linFunction scaleLoc
+**********************************************/
 
-var scaleLoc = function(tarCoord
-                      , numTicks
-                      , height, width){
-    return({"x": width/2 + tarCoord.x * width / numTicks
-          , "y" : height/2 + tarCoord.y * width / numTicks})
-}
+
 
 // var Vector = function(coord
 //                       , lineSize
@@ -102,8 +106,8 @@ class Vector {
             .enter()
             .append("circle")
             .attr("class","markers")
-            .attr("cx", function(d) {return d.x;})
-            .attr("cy", function(d) {return d.y;})
+            .attr("cx", function(d) {return d[0];})
+            .attr("cy", function(d) {return d[1];})
             .attr('fill', this.dotColor)
             .attr('stroke', this.dotColor)
             .attr('stroke-width', this.dotStrokeWidth)
@@ -120,11 +124,6 @@ class Vector {
         }
       }
 }
-
-// class Field {
-
-// }
-
 // Converts one increment to one scale
 
 // var startCoord = {"x" : 1, "y": 10}
@@ -134,23 +133,23 @@ class Vector {
 //   , height = height
 //   , width = width);
 
-let testLine = new Vector(startCoord = {"x" : 0, "y" : 0}
-  , endCoord = {"x" : 1, "y" : 1}
-  , lineSize = 2
-  , lineStyle = "solid"
-  , height = 500
-  , width = 500
-  , numTicks = 10
-  , color = "blue");
+// let testLine = new Vector(startCoord = [ 0, 0]
+//   , endCoord = [1, 1]
+//   , lineSize = 2
+//   , lineStyle = "solid"
+//   , height = 500
+//   , width = 500
+//   , numTicks = 10
+//   , color = "blue");
 
-var coordList = [[{"x" : 20, "y": 20}, {"x" : 100, "y" : 80}]
-                  , [{"x" : 20, "y": 20}, {"x" : 40, "y" : 40}]]
+// var coordList = [[[0, 0], [100, 80]]
+//                   , [[0,0], [40,40]]];
 
-var svgContainer = d3.select("body").append("svg:svg")
-                                    .attr("width", 600)
-                                    .attr("height", 600);
+// var svgContainer = d3.select("body").append("svg:svg")
+//                                     .attr("width", 600)
+//                                     .attr("height", 600);
 
-testLine.getVector(svgContainer);
+// testLine.getVector(svgContainer);
 // testLine.move(svgContainer, coordList, 2000);
 
 
