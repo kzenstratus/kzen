@@ -124,6 +124,8 @@ class Vector {
         }
       }
 }
+
+
 // Converts one increment to one scale
 
 // var startCoord = {"x" : 1, "y": 10}
@@ -154,3 +156,136 @@ class Vector {
 
 
 
+
+
+/* ----------------------
+Set up fake data and params for the grid
+and dot spaces.
+* ----------------------- */
+/*********************************************
+** Space class
+** Imports
+** lin_alg_utils.js get2dDotSpace
+** Examples
+*
+let testSpace = new Space(xDomain = [-5,5]
+  , yDomain = [-5, 5]
+  , height = 500
+  , width = 500
+  , numTicks = 10
+  , dotColor = "blue"
+  , classId = "#testId"
+  );
+
+
+var svgContainer = d3.select("body").append("svg:svg")
+                                    .attr("width", 600)
+                                    .attr("height", 600)
+                                    .attr("class", "testId");
+testSpace.plotSpace(svgContainer)
+testSpace.plotBasis(svgContainer)
+
+var currSpace = testSpace.space
+var nextDotSpace = getTransformSpace(currSpace, transMatrix)._data
+
+
+testSpace.move(svgContainer, nextDotSpace, duration = 4000)
+
+**********************************************/
+
+
+
+class Space {
+    constructor(xDomain
+                , yDomain
+                , height
+                , width
+                , numTicks
+                , dotColor
+                , tarSpace = []
+                , tarColor = 'red'
+                , dotRad = 5
+                , dotStrokeWidth = 4
+                , gridColor = 'grey'
+                ) {
+
+        this.xDomain = xDomain;
+        this.yDomain = yDomain;
+        this.numTicks = numTicks;
+        this.height = height;
+        this.width = width;
+        this.dotColor = dotColor;
+        this.dotSize = dotRad;
+        this.gridColor = gridColor;
+        this.dotRad = dotRad;
+        this.dotStrokeWidth = dotStrokeWidth;
+        this.tarSpace = tarSpace;
+        this.tarcolor = tarColor
+        this.space = get2dDotSpace(xDomain, yDomain, numTicks);
+        
+      }
+        // Have a line, an arrow
+        // and two points, a start and end point.
+
+//The SVG Container
+        
+        plotBasis(someSvg){
+          
+          return(plotBasis(someSvg
+                          , this.xDomain
+                          , this.yDomain
+                          , this.width
+                          , this.height
+                          , this.numTicks
+                          )
+          )}
+        
+        plotSpace(someSvg){
+          var spaceGroup = someSvg.append('g')
+          return(plotSpace(spaceGroup
+                            , this.space
+                            , this.width
+                            , this.height
+                            , this.numTicks
+                            , this.dotColor
+                            , this.dotRad
+                            , this.dotStrokeWidth
+                            , this.tarSpace
+                            , this.tarColor)
+          )
+        }
+
+        move(someSvg, nextDotSpace, duration){
+
+          // display2dTransform(isOriginSpace = true
+          //   , initDotSpace = this.space
+          //   , transMatrix = [[1,0],[2,0]]
+          //   , conceptId = this.classId
+          //   , width = this.width
+          //   , numTicks = this.numTicks
+          //   , duration = duration
+          //   )
+          // d3.select(this.classId)
+          someSvg.selectAll(".markers")
+          .transition()
+          .duration(duration)
+          // i is the index, d is the 
+          .attr("delay", function(d,i) {
+                return 1000*i;
+                })
+          .attr("cx", function(d, i) {
+              return this.width/2 + nextDotSpace[i][0]*this.width/this.numTicks;  
+              
+               })
+          .attr("cy", function(d, i) {
+              return this.width/2 + nextDotSpace[i][1]*this.width/this.numTicks;  
+              
+               })
+          this.space = nextDotSpace;
+        }
+        moveAll(someSvg, listNextDotSpaces, duration){
+          for(nextDotSpace in listNextDotSpace){
+            this.move(someSvg, nextDotSpace, duration)
+          }
+        }
+}

@@ -27,6 +27,7 @@ function get2dDotSpace(xDomain, yDomain, numTicks){
     , includeEnd = true)._data;
 
   // Map these xPoints across all y points.
+  
   var dotSpace = []
   for (yId = 0; yId < yPoints.length; yId ++){
     for (xId = 0; xId < xPoints.length; xId ++ ){
@@ -60,11 +61,11 @@ which are defined as a pair of numbers, or coordinates.]
 * @param {n double array} tarPoint [here its used to compare a coordinate]
 * @return {boolean} - the output of the transformed space 
 **/
- function isArrayEqual(point, tarPoint){
+function isArrayEqual(point, tarPoint){
     return point.length == tarPoint.length && point.every(function(v,i) { return v === tarPoint[i]})
 }
 
- function isArrayIn(arrPoints, tarPoint){
+function isArrayIn(arrPoints, tarPoint){
   var exists = arrPoints.find(el => el[0] === color);
 
   if (exists) {

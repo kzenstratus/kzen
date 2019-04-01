@@ -6,6 +6,8 @@
 <!-- <script src="https://www.lactame.com/lib/ml/3.2.0/ml.min.js"></script> -->
 <script src="{{url_for('static', filename='math.min.js')}}"></script>
 <script src="{{url_for('static', filename='plot_utils.js')}}"></script>
+<script src="{{url_for('static', filename='plot_class.js')}}"></script>
+<script src="{{url_for('static', filename='display_class.js')}}"></script>
 <script src="{{url_for('static', filename='concepts/lin_alg/lin_alg_utils.js')}}"></script>
 <script src="{{url_for('static', filename='concepts/lin_alg/lin_alg_vars.js')}}"></script>
 
@@ -13,7 +15,7 @@
 <body>
 
 
-  <div class = 'concept-container'>
+  <div class = 'concept-container' id = "kernel">
     <div class = 'concept-text'>
   
       <h3>Kernel</h3>
@@ -24,28 +26,58 @@
 
     </div>
 
-    <div class = 'concept-example' id = "kernel">
-        <button class="gobutton" id="kernel_transform">Go!</button>
+    <!-- <div class = 'concept-example' id = "kernel"> -->
+        <!-- <button class="gobutton" id="kernel_transform">Go!</button> -->
 
         <script type="text/javascript">
           // Read in linAlgGlobalVar and kernelPayload
+//           let testSpace = new Space(xDomain = linAlgGlobalVar.plotDomain
+//                                   , yDomain = linAlgGlobalVar.plotDomain
+//                                   , height = linAlgGlobalVar.plotHeight
+//                                   , width = linAlgGlobalVar.plotWidth
+//                                   , numTicks = linAlgGlobalVar.numTicks
+//                                   , tarSpace = kernelPayload.highlightSpace
+//                                   , dotSpace = "blue"
+//                                   , classId = kernelPayload.conceptId
+//                                 );
 
-          var kernel = new DisplayTransConceptPlot(conceptId = kernelPayload.conceptId
-                                  , buttonId = kernelPayload.buttonId
-                                  , initDotSpace = linAlgGlobalVar.space
-                                  , highlightSpace = kernelPayload.highlightSpace
-                                  , domain = linAlgGlobalVar.plotDomain
-                                  , width = linAlgGlobalVar.plotWidth
-                                  , height = linAlgGlobalVar.plotHeight
-                                  , numTicks = linAlgGlobalVar.numTicks
-                                  , transMatrix = kernelPayload.transMatrix
-                                  , duration = kernelPayload.duration
-                                  , tarColor = kernelPayload.tarColor
-                                  )
+//           // var svgContainer = d3.select("body").append("svg:svg")
+//           //                           .attr("width", 600)
+//           //                           .attr("height", 600)
+//           //                           .attr("class", "testId");
+// testSpace.plotSpace(svgContainer)
+// testSpace.plotBasis(svgContainer)
+
+// var currSpace = testSpace.space
+// var nextDotSpace = getTransformSpace(currSpace, transMatrix)._data
+          var kernel = new DisplayConceptExamplePlot(conceptId = "kernel"
+                , conceptExampleId = "kernel-example"
+                , buttonId = "kernel-transform"
+                , xDomain = linAlgGlobalVar.plotDomain
+                , yDomain = linAlgGlobalVar.plotDomain
+                , height = linAlgGlobalVar.plotHeight
+                , width = linAlgGlobalVar.plotWidth
+                , numTicks = linAlgGlobalVar.numTicks
+                , dotColor = 'blue'
+                )
+
+
+          // var kernel = new DisplayTransConceptPlot(conceptId = kernelPayload.conceptId
+          //                         , buttonId = kernelPayload.buttonId
+          //                         , initDotSpace = linAlgGlobalVar.space
+          //                         , highlightSpace = kernelPayload.highlightSpace
+          //                         , domain = linAlgGlobalVar.plotDomain
+          //                         , width = linAlgGlobalVar.plotWidth
+          //                         , height = linAlgGlobalVar.plotHeight
+          //                         , numTicks = linAlgGlobalVar.numTicks
+          //                         , transMatrix = kernelPayload.transMatrix
+          //                         , duration = kernelPayload.duration
+          //                         , tarColor = kernelPayload.tarColor
+          //                         )
           // kernel.animate
           </script>
 
-    </div>
+    <!-- </div> -->
 
   </div>
   <div class = 'concept-container'>
