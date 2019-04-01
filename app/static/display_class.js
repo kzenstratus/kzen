@@ -31,13 +31,13 @@ class DisplayConceptExamplePlot {
                 , height
                 , width
                 , numTicks
+                , listNextDotSpaces = [] // a list of spaces
                 , dotColor = 'grey'
                 , tarSpace = []
                 , tarColor = 'red'
                 , dotRad = 5
                 , dotStrokeWidth = 4
                 , gridColor = 'grey'
-                , nextDotSpaces = [] // a list of spaces
                 , duration = 4000) {
       this.conceptId = conceptId; // 
       // You can have multiple concept examples underneath a conceptId
@@ -46,7 +46,8 @@ class DisplayConceptExamplePlot {
       this.buttonId = buttonId;
       this.buttonLabel = "Go!"
       this.buttonCssClass = "gobutton"
-
+      this.duration = duration
+      this.listNextDotSpaces = listNextDotSpaces
       this.makeConceptExampleDiv();
       
       this.plotSvgContainer = d3.select(conceptExampleId);
@@ -91,7 +92,7 @@ class DisplayConceptExamplePlot {
           .attr("id", this.buttonId)
           .text(this.buttonLabel)
           .on('click', function(){
-            this.currSpace.move(this.currSvg, nextDotSpace, duration)
+            this.currSpace.moveAll(this.currSvg, this.listNextDotSpaces, this.duration)
           })
       }
       

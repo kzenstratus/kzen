@@ -12,12 +12,19 @@ linAlgGlobalVar = {"plotDomain" : [-5,5]
 				}
 
 
+var startSpace = get2dDotSpace(linAlgGlobalVar.plotDomain
+                                        , linAlgGlobalVar.plotDomain
+                                        , linAlgGlobalVar.numTicks);
+
+var kernelNextDotSpace = getTransformSpace(startSpace, [[1, 0], [2, 0]])._data
+
 kernelPayload = {"conceptId" : "#kernel"
 				, "buttonId" : "#kernel_transform"
 				, "duration" : 4000
 				, "tarColor" : "red"
 				, "highlightSpace" : [18, 39, 60, 81, 102]
-				, "transMatrix" : [[1, 0], [2, 0]]}
+				, "transMatrix" : [[1, 0], [2, 0]]
+				, "listNextDotSpaces" : [kernelNextDotSpace, startSpace]}
 
 imagePayload = {"conceptId" : "#image"
 				, "buttonId" : "#image_transform"

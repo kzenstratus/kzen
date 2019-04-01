@@ -284,7 +284,7 @@ class Space {
           this.space = nextDotSpace;
         }
         moveAll(someSvg, listNextDotSpaces, duration){
-          for(nextDotSpace in listNextDotSpace){
+          for(nextDotSpace in listNextDotSpaces){
             this.move(someSvg, nextDotSpace, duration)
           }
         }
