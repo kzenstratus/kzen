@@ -168,14 +168,13 @@ and dot spaces.
 ** lin_alg_utils.js get2dDotSpace
 ** Examples
 *
-let testSpace = new Space(xDomain = [-5,5]
-  , yDomain = [-5, 5]
-  , height = 500
-  , width = 500
-  , numTicks = 10
-  , dotColor = "blue"
-  , classId = "#testId"
-  );
+let testSpace = new Space({xDomain : [-5,5]
+  , yDomain : [-5, 5]
+  , height : 500
+  , width : 500
+  , numTicks : 10
+  , dotColor : "blue"
+  , classId : "#testId"}
 
 
 var svgContainer = d3.select("body").append("svg:svg")
@@ -194,9 +193,8 @@ testSpace.move(svgContainer, nextDotSpace, duration = 4000)
 **********************************************/
 
 
-
 class Space {
-    constructor(xDomain
+    constructor({xDomain
                 , yDomain
                 , height
                 , width
@@ -206,7 +204,7 @@ class Space {
                 , tarColor = 'red'
                 , dotRad = 5
                 , dotStrokeWidth = 4
-                , gridColor = 'grey'
+                , gridColor = 'grey'} = {}
                 ) {
 
         this.xDomain = xDomain;
@@ -229,7 +227,7 @@ class Space {
 
 //The SVG Container
         
-        plotBasis(someSvg){
+        plotBasis({someSvg} = {}){
           
           return(plotBasis(someSvg
                           , this.xDomain
@@ -240,7 +238,7 @@ class Space {
                           )
           )}
         
-        plotSpace(someSvg){
+        plotSpace({someSvg} = {}){
           var spaceGroup = someSvg.append('g')
           return(plotSpace(spaceGroup
                             , this.space
@@ -255,7 +253,7 @@ class Space {
           )
         }
 
-        move(someSvg, nextDotSpace, duration){
+        move({someSvg, nextDotSpace, duration} = {}){
 
           // display2dTransform(isOriginSpace = true
           //   , initDotSpace = this.space
@@ -266,6 +264,7 @@ class Space {
           //   , duration = duration
           //   )
           // d3.select(this.classId)
+          console.log(someSvg)
           someSvg.selectAll(".markers")
           .transition()
           .duration(duration)
@@ -283,9 +282,16 @@ class Space {
                })
           this.space = nextDotSpace;
         }
-        moveAll(someSvg, listNextDotSpaces, duration){
-          for(nextDotSpace in listNextDotSpaces){
-            this.move(someSvg, nextDotSpace, duration)
+
+        moveAll({someSvg, listNextDotSpaces, duration} = {}){
+          console.log(listNextDotSpaces)
+          console.log(duration)
+          console.log(someSvg)
+          
+          for(var idx in listNextDotSpaces){
+            var nextDotSpace = listNextDotSpaces[idx]
+            console.log(nextDotSpace)
+            this.move({someSvg : someSvg, nextDotSpace : nextDotSpace, duration : duration})
           }
         }
 }

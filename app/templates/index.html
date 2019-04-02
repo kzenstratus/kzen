@@ -52,17 +52,17 @@
 // var nextDotSpace = getTransformSpace(currSpace, transMatrix)._data
           
 //        
-          var kernel = new DisplayConceptExamplePlot(conceptId = "kernel"
-                , conceptExampleId = "kernel-example"
-                , buttonId = "kernel-transform"
-                , xDomain = linAlgGlobalVar.plotDomain
-                , yDomain = linAlgGlobalVar.plotDomain
-                , height = linAlgGlobalVar.plotHeight
-                , width = linAlgGlobalVar.plotWidth
-                , numTicks = linAlgGlobalVar.numTicks
-                , dotColor = 'blue'
-                , listNextDotSpaces = kernelPayload.listNextDotSpaces
-                )
+          var kernel = new DisplayConceptExamplePlot({conceptId : "kernel"
+                , conceptExampleId : "kernel-example"
+                , buttonId : "kernel-transform"
+                , xDomain : linAlgGlobalVar.plotDomain
+                , yDomain : linAlgGlobalVar.plotDomain
+                , height : linAlgGlobalVar.plotHeight
+                , width : linAlgGlobalVar.plotWidth
+                , numTicks : linAlgGlobalVar.numTicks
+                , dotColor : 'blue'
+                , listNextDotSpaces : kernelPayload.listNextDotSpaces
+                })
 
 
           // var kernel = new DisplayTransConceptPlot(conceptId = kernelPayload.conceptId

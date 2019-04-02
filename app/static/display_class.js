@@ -23,7 +23,7 @@ to an actual DOM.
 
 
 class DisplayConceptExamplePlot {
-    constructor(conceptId
+    constructor({conceptId
                 , conceptExampleId
                 , buttonId
                 , xDomain
@@ -38,7 +38,7 @@ class DisplayConceptExamplePlot {
                 , dotRad = 5
                 , dotStrokeWidth = 4
                 , gridColor = 'grey'
-                , duration = 4000) {
+                , duration = 4000} = {}) {
       this.conceptId = conceptId; // 
       // You can have multiple concept examples underneath a conceptId
       this.conceptExampleId = conceptExampleId; 
@@ -57,16 +57,16 @@ class DisplayConceptExamplePlot {
           .attr("width", width)
           .attr("height", height)
 
-      let currSpace = new Space(xDomain = xDomain
-                                , yDomain = yDomain
-                                , height = height
-                                , width = width
-                                , numTicks = numTicks
-                                , dotColor = dotColor
+      let currSpace = new Space({xDomain : xDomain
+                                , yDomain : yDomain
+                                , height : height
+                                , width : width
+                                , numTicks : numTicks
+                                , dotColor : dotColor}
                                 );
       this.currSpace = currSpace;
-      this.currSpace.plotSpace(this.currSvg)
-      this.currSpace.plotBasis(this.currSvg)
+      this.currSpace.plotSpace({someSvg : this.currSvg})
+      this.currSpace.plotBasis({someSvg : this.currSvg})
       this.makeButton();
       
 
@@ -86,14 +86,21 @@ class DisplayConceptExamplePlot {
       //     .text("GO KERNEL")
 
       makeButton(){
+        var currSpace = this.currSpace
+        var currSvg = this.currSvg
+        var listNextDotSpaces = this.listNextDotSpaces
+        var duration = this.duration;
         d3.select("#" + this.conceptExampleId)
           .append("button")
           .attr("class", this.buttonCssClass)
           .attr("id", this.buttonId)
           .text(this.buttonLabel)
           .on('click', function(){
-            this.currSpace.moveAll(this.currSvg, this.listNextDotSpaces, this.duration)
-          })
+            currSpace.moveAll({someSvg : currSvg
+                                              , listNextDotSpaces : listNextDotSpaces
+                                              , duration : this.duration}) 
+          }
+          )
       }
       
 
