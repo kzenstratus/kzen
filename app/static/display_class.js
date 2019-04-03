@@ -89,16 +89,16 @@ class DisplayConceptExamplePlot {
         var currSpace = this.currSpace
         var currSvg = this.currSvg
         var listNextDotSpaces = this.listNextDotSpaces
-        var duration = this.duration;
+        var duration = this.duration
         d3.select("#" + this.conceptExampleId)
           .append("button")
           .attr("class", this.buttonCssClass)
           .attr("id", this.buttonId)
           .text(this.buttonLabel)
           .on('click', function(){
-            currSpace.moveAll({someSvg : currSvg
-                                              , listNextDotSpaces : listNextDotSpaces
-                                              , duration : this.duration}) 
+            currSpace.move({someSvg : currSvg
+                            , listNextDotSpaces : listNextDotSpaces
+                            , duration : duration}) 
           }
           )
       }

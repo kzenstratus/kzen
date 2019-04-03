@@ -6,20 +6,32 @@ and dot spaces.
 ** plot class
 ** Imports
 ** plot_utils.js linFunction scaleLoc
+var startCoord = {"x" : 1, "y": 10}
+
+scaleLoc(tarCoord = startCoord
+  , numTicks = numTicks
+  , height = height
+  , width = width);
+
+let testLine = new Vector(startCoord = [ 0, 0]
+  , endCoord = [1, 1]
+  , lineSize = 2
+  , lineStyle = "solid"
+  , height = 500
+  , width = 500
+  , numTicks = 10
+  , color = "blue");
+
+var coordList = [[[0, 0], [100, 80]]
+                  , [[0,0], [40,40]]];
+
+var svgContainer = d3.select("body").append("svg:svg")
+                                    .attr("width", 600)
+                                    .attr("height", 600);
+
+testLine.getVector(svgContainer);
+testLine.move(svgContainer, coordList, 2000);
 **********************************************/
-
-
-
-// var Vector = function(coord
-//                       , lineSize
-//                       , lineStyle
-//                       , lineColor){
-//   var x = coord[0];
-//   var y = coord[1];
-//   var lineSize = lineSize;
-//   var lineStyle = lineStyle;
-//   var lineColor = lineColor;
-// }
 
 /**
  * *
@@ -128,31 +140,6 @@ class Vector {
 
 // Converts one increment to one scale
 
-// var startCoord = {"x" : 1, "y": 10}
-
-// scaleLoc(tarCoord = startCoord
-//   , numTicks = numTicks
-//   , height = height
-//   , width = width);
-
-// let testLine = new Vector(startCoord = [ 0, 0]
-//   , endCoord = [1, 1]
-//   , lineSize = 2
-//   , lineStyle = "solid"
-//   , height = 500
-//   , width = 500
-//   , numTicks = 10
-//   , color = "blue");
-
-// var coordList = [[[0, 0], [100, 80]]
-//                   , [[0,0], [40,40]]];
-
-// var svgContainer = d3.select("body").append("svg:svg")
-//                                     .attr("width", 600)
-//                                     .attr("height", 600);
-
-// testLine.getVector(svgContainer);
-// testLine.move(svgContainer, coordList, 2000);
 
 
 
@@ -253,45 +240,65 @@ class Space {
           )
         }
 
-        move({someSvg, nextDotSpace, duration} = {}){
+        // var nextDotSpace = kernel.listNextDotSpaces[0];
+        // kernel.currSvg.selectAll(".markers")
+        //               .transition()
+        // .duration(4000)
+        // .attr("delay", function(d,i) {
+        //         return 1000*i;
+        //         })
+        // .attr("cx", function(d, i) {
+        //       return 500/2 + nextDotSpace[i][0]*50;  
+              
+        //        })
+        // .attr("cy", function(d, i) {
+        //       return 500/2 + nextDotSpace[i][1]*50;  
+              
+        //         })
 
-          // display2dTransform(isOriginSpace = true
-          //   , initDotSpace = this.space
-          //   , transMatrix = [[1,0],[2,0]]
-          //   , conceptId = this.classId
-          //   , width = this.width
-          //   , numTicks = this.numTicks
-          //   , duration = duration
-          //   )
+
+        move({someSvg, listNextDotSpaces, duration} = {}){
+
           // d3.select(this.classId)
-          console.log(someSvg)
-          someSvg.selectAll(".markers")
-          .transition()
-          .duration(duration)
-          // i is the index, d is the 
-          .attr("delay", function(d,i) {
-                return 1000*i;
-                })
-          .attr("cx", function(d, i) {
-              return this.width/2 + nextDotSpace[i][0]*this.width/this.numTicks;  
-              
-               })
-          .attr("cy", function(d, i) {
-              return this.width/2 + nextDotSpace[i][1]*this.width/this.numTicks;  
-              
-               })
-          this.space = nextDotSpace;
-        }
-
-        moveAll({someSvg, listNextDotSpaces, duration} = {}){
-          console.log(listNextDotSpaces)
-          console.log(duration)
-          console.log(someSvg)
+          // TODO: why do I need to define a variable inside here
+          // for d3 to see it?
+          // 
+          var width = this.width
+          var height = this.height
+          var numTicks = this.numTicks
+          // console.log(numTicks)
           
-          for(var idx in listNextDotSpaces){
-            var nextDotSpace = listNextDotSpaces[idx]
-            console.log(nextDotSpace)
-            this.move({someSvg : someSvg, nextDotSpace : nextDotSpace, duration : duration})
+          var currSpace = someSvg.selectAll(".markers")
+          for(var i = 0; i < listNextDotSpaces.length; i ++ ){
+            var nextDotSpace = listNextDotSpaces[i]
+            currSpace = currSpace.transition()
+                                   .duration(4000)
+                                   .attr("delay", function(d,i) {
+                                           return 1000*i;
+                                           })
+                                   .attr("cx", function(d, i) {
+                                         return width/2 + nextDotSpace[i][0] * width/numTicks;  
+                                         
+                                          })
+                                   .attr("cy", function(d, i) {
+                                         return height/2 + nextDotSpace[i][1]* height/numTicks;  
+                                         
+                                           })
+            this.space = nextDotSpace;  
           }
         }
+
+        // moveAll({someSvg, listNextDotSpaces, duration} = {}){
+        //   // console.log(listNextDotSpaces)
+        //   // console.log(duration)
+        //   // console.log(someSvg)
+
+        //   for(var idx in listNextDotSpaces){
+        //     console.log(idx)
+        //     var nextDotSpace = listNextDotSpaces[idx]
+        //     console.log(listNextDotSpaces)
+        //     this.move({someSvg : someSvg, nextDotSpace : nextDotSpace, duration : duration})
+        //     break
+        //   }
+        // }
 }
