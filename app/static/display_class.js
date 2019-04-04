@@ -56,13 +56,15 @@ class DisplayConceptExamplePlot {
           .append("svg")
           .attr("width", width)
           .attr("height", height)
+          .attr("id", "#" + this.conceptExampleId + "Svg")
 
       let currSpace = new Space({xDomain : xDomain
                                 , yDomain : yDomain
                                 , height : height
                                 , width : width
                                 , numTicks : numTicks
-                                , dotColor : dotColor}
+                                , dotColor : dotColor
+                                , tarSpace : tarSpace}
                                 );
       this.currSpace = currSpace;
       this.currSpace.plotSpace({someSvg : this.currSvg})
@@ -78,12 +80,6 @@ class DisplayConceptExamplePlot {
           .attr("class", "concept-example")
           .attr("id", this.conceptExampleId)
       }
-
-      // d3.selectAll("#kernel-example")
-      //     .append("button")
-      //     .attr("class", "gobutton")
-      //     .attr("id", "kernel-transform")
-      //     .text("GO KERNEL")
 
       makeButton(){
         var currSpace = this.currSpace

@@ -15,6 +15,49 @@
 <body>
 
 
+  <div class = 'concept-container' id = "basis">
+    <div class = 'concept-text'>
+  
+      <h3>Basis</h3>
+      <p>
+        The Basis are a set of linearly independent vectors which define some space.
+        These don't need to be orthogonal (cross at 90 deg).
+      </p>
+
+    </div>
+
+        <script type="text/javascript">
+          // Read in linAlgGlobalVar and kernelPayload
+          var basis = new DisplayConceptExamplePlot({conceptId : basisPayload.conceptId
+                , conceptExampleId : "basis-example"
+                , buttonId : basisPayload.buttonId
+                , xDomain : linAlgGlobalVar.plotDomain
+                , yDomain : linAlgGlobalVar.plotDomain
+                , height : linAlgGlobalVar.plotHeight
+                , width : linAlgGlobalVar.plotWidth
+                , numTicks : linAlgGlobalVar.numTicks
+                , tarColor : basisPayload.tarColor
+                , tarSpace : basisPayload.highlightSpace
+                })
+          
+          let testLine = new Vector({startCoord : [ 0, 0]
+            , endCoord : [1, 1]
+            , lineSize : 2
+            , lineStyle : "solid"
+            , height : 500
+            , width : 500
+            , numTicks : 10
+            , color : "blue"});
+
+          var svgContainer = d3.select("#basis-example")
+                                .selectAll("svg");
+          testLine.getVector(svgContainer);
+
+
+          </script>
+
+  </div>
+
   <div class = 'concept-container' id = "kernel">
     <div class = 'concept-text'>
   
@@ -26,64 +69,26 @@
 
     </div>
 
-    <!-- <div class = 'concept-example' id = "kernel"> -->
-        <!-- <button class="gobutton" id="kernel_transform">Go!</button> -->
-
         <script type="text/javascript">
           // Read in linAlgGlobalVar and kernelPayload
-//           let testSpace = new Space(xDomain = linAlgGlobalVar.plotDomain
-//                                   , yDomain = linAlgGlobalVar.plotDomain
-//                                   , height = linAlgGlobalVar.plotHeight
-//                                   , width = linAlgGlobalVar.plotWidth
-//                                   , numTicks = linAlgGlobalVar.numTicks
-//                                   , tarSpace = kernelPayload.highlightSpace
-//                                   , dotSpace = "blue"
-//                                   , classId = kernelPayload.conceptId
-//                                 );
-
-//           // var svgContainer = d3.select("body").append("svg:svg")
-//           //                           .attr("width", 600)
-//           //                           .attr("height", 600)
-//           //                           .attr("class", "testId");
-// testSpace.plotSpace(svgContainer)
-// testSpace.plotBasis(svgContainer)
-
-// var currSpace = testSpace.space
-// var nextDotSpace = getTransformSpace(currSpace, transMatrix)._data
-          
-//        
-          var kernel = new DisplayConceptExamplePlot({conceptId : "kernel"
+          var kernel = new DisplayConceptExamplePlot({conceptId : kernelPayload.conceptId
                 , conceptExampleId : "kernel-example"
-                , buttonId : "kernel-transform"
+                , buttonId : kernelPayload.buttonId
                 , xDomain : linAlgGlobalVar.plotDomain
                 , yDomain : linAlgGlobalVar.plotDomain
                 , height : linAlgGlobalVar.plotHeight
                 , width : linAlgGlobalVar.plotWidth
                 , numTicks : linAlgGlobalVar.numTicks
-                , dotColor : 'blue'
+                , tarColor : kernelPayload.tarColor
+                , tarSpace : kernelPayload.highlightSpace
                 , listNextDotSpaces : kernelPayload.listNextDotSpaces
                 })
 
-
-          // var kernel = new DisplayTransConceptPlot(conceptId = kernelPayload.conceptId
-          //                         , buttonId = kernelPayload.buttonId
-          //                         , initDotSpace = linAlgGlobalVar.space
-          //                         , highlightSpace = kernelPayload.highlightSpace
-          //                         , domain = linAlgGlobalVar.plotDomain
-          //                         , width = linAlgGlobalVar.plotWidth
-          //                         , height = linAlgGlobalVar.plotHeight
-          //                         , numTicks = linAlgGlobalVar.numTicks
-          //                         , transMatrix = kernelPayload.transMatrix
-          //                         , duration = kernelPayload.duration
-          //                         , tarColor = kernelPayload.tarColor
-          //                         )
-          // kernel.animate
           </script>
 
-    <!-- </div> -->
-
   </div>
-  <div class = 'concept-container'>
+
+  <div class = 'concept-container' id = "image">
     <div class = 'concept-text'>
   
       <h3>Image</h3>
@@ -93,27 +98,24 @@
 
     </div>
 
-    <div class = 'concept-example' id = "image">
-        <button class="gobutton" id="image_transform">Go!</button>
+
 
         <script type="text/javascript">
 
-          var image = new DisplayTransConceptPlot(conceptId = imagePayload.conceptId
-                                  , buttonId = imagePayload.buttonId
-                                  , initDotSpace = linAlgGlobalVar.space
-                                  , highlightSpace = imagePayload.highlightSpace
-                                  , domain = linAlgGlobalVar.plotDomain
-                                  , width = linAlgGlobalVar.plotWidth
-                                  , height = linAlgGlobalVar.plotHeight
-                                  , numTicks = linAlgGlobalVar.numTicks
-                                  , transMatrix = imagePayload.transMatrix
-                                  , duration = imagePayload.duration
-                                  , tarColor = imagePayload.tarColor
-                                  )
-          // transpose.animate
-          </script>
+          var image = new DisplayConceptExamplePlot({conceptId : imagePayload.conceptId
+                , conceptExampleId : "image-example"
+                , buttonId : imagePayload.buttonId
+                , xDomain : linAlgGlobalVar.plotDomain
+                , yDomain : linAlgGlobalVar.plotDomain
+                , height : linAlgGlobalVar.plotHeight
+                , width : linAlgGlobalVar.plotWidth
+                , numTicks : linAlgGlobalVar.numTicks
+                , tarColor : imagePayload.tarColor
+                , tarSpace : imagePayload.highlightSpace
+                , listNextDotSpaces : imagePayload.listNextDotSpaces
+                })
 
-    </div>
+          </script>
 
   </div>
 

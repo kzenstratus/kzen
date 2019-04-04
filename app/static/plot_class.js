@@ -13,14 +13,14 @@ scaleLoc(tarCoord = startCoord
   , height = height
   , width = width);
 
-let testLine = new Vector(startCoord = [ 0, 0]
-  , endCoord = [1, 1]
-  , lineSize = 2
-  , lineStyle = "solid"
-  , height = 500
-  , width = 500
-  , numTicks = 10
-  , color = "blue");
+let testLine1 = new Vector({startCoord : [ 0, 0]
+  , endCoord : [1, 1]
+  , lineSize : 2
+  , lineStyle : "solid"
+  , height : 500
+  , width : 500
+  , numTicks : 10
+  , color : "blue"});
 
 var coordList = [[[0, 0], [100, 80]]
                   , [[0,0], [40,40]]];
@@ -42,14 +42,14 @@ testLine.move(svgContainer, coordList, 2000);
  * @param {[type]} lineColor [The color of the line]
  */
 class Vector {
-    constructor(startCoord
+    constructor({startCoord
                 , endCoord
                 , lineSize
                 , lineStyle
                 , height
                 , width
                 , numTicks
-                , color) {
+                , color} = {}) {
 
         this.startCoord = scaleLoc(startCoord
                                   , numTicks
@@ -240,26 +240,9 @@ class Space {
           )
         }
 
-        // var nextDotSpace = kernel.listNextDotSpaces[0];
-        // kernel.currSvg.selectAll(".markers")
-        //               .transition()
-        // .duration(4000)
-        // .attr("delay", function(d,i) {
-        //         return 1000*i;
-        //         })
-        // .attr("cx", function(d, i) {
-        //       return 500/2 + nextDotSpace[i][0]*50;  
-              
-        //        })
-        // .attr("cy", function(d, i) {
-        //       return 500/2 + nextDotSpace[i][1]*50;  
-              
-        //         })
-
 
         move({someSvg, listNextDotSpaces, duration} = {}){
 
-          // d3.select(this.classId)
           // TODO: why do I need to define a variable inside here
           // for d3 to see it?
           // 
@@ -287,18 +270,4 @@ class Space {
             this.space = nextDotSpace;  
           }
         }
-
-        // moveAll({someSvg, listNextDotSpaces, duration} = {}){
-        //   // console.log(listNextDotSpaces)
-        //   // console.log(duration)
-        //   // console.log(someSvg)
-
-        //   for(var idx in listNextDotSpaces){
-        //     console.log(idx)
-        //     var nextDotSpace = listNextDotSpaces[idx]
-        //     console.log(listNextDotSpaces)
-        //     this.move({someSvg : someSvg, nextDotSpace : nextDotSpace, duration : duration})
-        //     break
-        //   }
-        // }
 }
