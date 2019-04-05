@@ -49,7 +49,8 @@ class Vector {
                 , height
                 , width
                 , numTicks
-                , color} = {}) {
+                , color
+                , arrowId} = {}) {
 
         this.startCoord = scaleLoc(startCoord
                                   , numTicks
@@ -69,6 +70,7 @@ class Vector {
         this.dotStrokeWidth = 4;
         this.height = height;
         this.width = width;
+        this.arrowId = arrowId;
       }
         // Have a line, an arrow
         // and two points, a start and end point.
@@ -83,6 +85,7 @@ class Vector {
           return(someSvg.append("path")
             // .attr("id", "vecLine")
             .attr("class", "vector")
+            .attr("id", this.arrowId)
             .attr("d", linFunction(lineData))
             .attr("stroke", this.arrowColor)
             .attr("stroke-width", this.lineSize)
@@ -101,7 +104,7 @@ class Vector {
             .attr("d", "M 0 0 12 6 0 12 3 6")
             .style("fill", this.arrowColor);
           
-          d3.select("path.vector")
+          d3.select("path.vector#" + this.arrowId)
           .attr("marker-end", "url(#triangle)")
           return(someSvg)
         }
@@ -112,8 +115,7 @@ class Vector {
           return(someSvg)
         }
         getPoint(someSvg){
-          someSvg
-            .selectAll(".markers")
+          someSvg.selectAll(".markers")
             .data([this.startCoord])
             .enter()
             .append("circle")

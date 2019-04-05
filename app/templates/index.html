@@ -41,17 +41,33 @@
                 })
           
           let testLine = new Vector({startCoord : [ 0, 0]
-            , endCoord : [1, 1]
+            , endCoord : [1, 0]
             , lineSize : 2
             , lineStyle : "solid"
             , height : 500
             , width : 500
             , numTicks : 10
-            , color : "blue"});
+            , color : "blue"
+            , arrowId : "xVec"});
 
           var svgContainer = d3.select("#basis-example")
-                                .selectAll("svg");
+                                .select("svg");
           testLine.getVector(svgContainer);
+          
+          let testLine1 = new Vector({startCoord : [ 0, 0]
+            , endCoord : [0, -1]
+            , lineSize : 2
+            , lineStyle : "solid"
+            , height : 500
+            , width : 500
+            , numTicks : 10
+            , color : "blue"
+            , arrowId : "yVec"});
+
+          var svgContainer1 = d3.select("#basis-example")
+                                .select("svg");
+          testLine1.getVector(svgContainer1);
+                    
 
 
           </script>
