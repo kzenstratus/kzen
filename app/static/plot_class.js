@@ -92,7 +92,7 @@ class Vector {
         getArrowHead(someSvg){
           someSvg.append("svg:defs").append("svg:marker")
             .attr("id", "triangle")
-            .attr("refX", 6)
+            .attr("refX", 12)
             .attr("refY", 6)
             .attr("markerWidth", 30)
             .attr("markerHeight", 30)
