@@ -333,7 +333,7 @@ var scaleLoc = function(tarCoord
                       , numTicks
                       , height, width){
     return([width/2 + tarCoord[0] * width / numTicks
-          , height/2 + tarCoord[1] * width / numTicks])
+          , height/2 - tarCoord[1] * width / numTicks])
 }
 
 

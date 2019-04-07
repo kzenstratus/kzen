@@ -32,6 +32,7 @@ class DisplayConceptExamplePlot {
                 , width
                 , numTicks
                 , listNextDotSpaces = [] // a list of spaces
+                , vecCoordJson = {}
                 , dotColor = 'grey'
                 , tarSpace = []
                 , tarColor = 'red'
@@ -49,8 +50,10 @@ class DisplayConceptExamplePlot {
       this.duration = duration
       this.listNextDotSpaces = listNextDotSpaces
       this.makeConceptExampleDiv();
-      
+      this.height = height;
+      this.width = width;
       this.plotSvgContainer = d3.select(conceptExampleId);
+      this.numTicks = numTicks;
       // Make Initial Plot
       this.currSvg = d3.select("#" + this.conceptExampleId)
           .append("svg")
@@ -69,9 +72,11 @@ class DisplayConceptExamplePlot {
       this.currSpace = currSpace;
       this.currSpace.plotSpace({someSvg : this.currSvg})
       this.currSpace.plotBasis({someSvg : this.currSvg})
-      this.makeButton();
       
-
+      this.vecObjList = [];
+      this.vecCoordJson = vecCoordJson;
+      this.makeVectors();
+      this.makeButton();
 
   }
       makeConceptExampleDiv(){
@@ -86,6 +91,10 @@ class DisplayConceptExamplePlot {
         var currSvg = this.currSvg
         var listNextDotSpaces = this.listNextDotSpaces
         var duration = this.duration
+        var vecCoordJson = this.vecCoordJson
+        var vecObjList = this.vecObjList
+        var svgContainer = d3.select("#" + this.conceptExampleId)
+                                .select("svg");
         d3.select("#" + this.conceptExampleId)
           .append("button")
           .attr("class", this.buttonCssClass)
@@ -95,9 +104,56 @@ class DisplayConceptExamplePlot {
             currSpace.move({someSvg : currSvg
                             , listNextDotSpaces : listNextDotSpaces
                             , duration : duration}) 
+            if(Object.keys(vecCoordJson).length > 0){
+              for(var i in vecObjList){
+                var vecObj = vecObjList[i]
+                vecObj.move(svgContainer, duration)
+              }
+            }
           }
           )
       }
+      makeVectors(){
+        // vecCoordJson = {"xVec" : [
+        //                     [[0,0], [0, 1]]
+        //                   , [[0, 0], [0, 3]]
+        //                   , [[0,0], [2,4]]]
+        //               , "yVec" : [[[0, 0], [3, 0]]
+        //                   , [[0,0], [2,5]]]};
+        this.vecObjList = []
+        if(Object.keys(this.vecCoordJson).length == 0){
+          return;
+        }
+        
+        var svgContainer = d3.select("#" + this.conceptExampleId)
+                                .select("svg");
+
+        for(var vecName in this.vecCoordJson){
+          var vecCoordList = this.vecCoordJson[vecName];
+          var startCoord = vecCoordList[0];
+          console.log(this.vecCoordJson[vecName])
+          console.log(this.vecObjList);
+          console.log(startCoord)
+          console.log(vecName)
+          let tmpVec = new Vector({startCoord : startCoord[0]
+            , endCoord : startCoord[1]
+            , lineSize : 2
+            , lineStyle : "solid"
+            , height : this.height
+            , width : this.width
+            , numTicks : this.numTicks
+            , color : "blue"
+            , arrowId : vecName
+            // Vec coord list starts at index 1, don't repeat index 0.
+            // , coordList : vecCoordList}
+            , coordList : vecCoordList.slice(1, vecCoordList.length)}
+            );
+      
+          this.vecObjList.push(tmpVec);
+          tmpVec.getVector(svgContainer);
+        }
+      }
+
       
 
 }

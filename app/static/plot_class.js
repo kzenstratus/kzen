@@ -50,7 +50,8 @@ class Vector {
                 , width
                 , numTicks
                 , color
-                , arrowId} = {}) {
+                , arrowId
+                , coordList = []} = {}) {
 
         this.startCoord = scaleLoc(startCoord
                                   , numTicks
@@ -71,6 +72,8 @@ class Vector {
         this.height = height;
         this.width = width;
         this.arrowId = arrowId;
+        this.numTicks = numTicks;
+        this.coordList = coordList
       }
         // Have a line, an arrow
         // and two points, a start and end point.
@@ -127,14 +130,22 @@ class Vector {
             .attr('stroke-width', this.dotStrokeWidth)
             .attr("r", this.dotRad);
         }
-        move(someSvg, coordList, duration){
+        move(someSvg, duration){
 
-          var vec = someSvg.selectAll(".vector")
-          for (var j = 0; j < coordList.length; j++){
+          var vec = someSvg.select("path.vector#" + this.arrowId)
+          for (var j = 0; j < this.coordList.length; j++){
+            var _startCoord = scaleLoc(this.coordList[j][0]
+                                       , this.numTicks
+                                       , this.height
+                                       , this.width)
+            var _endCoord = scaleLoc(this.coordList[j][1]
+                                     , this.numTicks
+                                     , this.height
+                                     , this.width)
             vec = vec.transition()
                     .duration(duration)
                     .attr("delay", function(d,i) {return 1000*i;})
-                    .attr("d", linFunction(coordList[j]))
+                    .attr("d", linFunction([_startCoord, _endCoord]))
         }
       }
 }
