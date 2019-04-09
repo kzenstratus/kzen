@@ -134,6 +134,12 @@ class Vector {
 
           var vec = someSvg.select("path.vector#" + this.arrowId)
           for (var j = 0; j < this.coordList.length; j++){
+            // This set the duration to 0 to instantly reset an animation
+            // 
+            var realDuration = 0;
+            if(j > 0){
+              realDuration = duration
+            }
             var _startCoord = scaleLoc(this.coordList[j][0]
                                        , this.numTicks
                                        , this.height
@@ -143,7 +149,7 @@ class Vector {
                                      , this.height
                                      , this.width)
             vec = vec.transition()
-                    .duration(duration)
+                    .duration(realDuration)
                     .attr("delay", function(d,i) {return 1000*i;})
                     .attr("d", linFunction([_startCoord, _endCoord]))
         }

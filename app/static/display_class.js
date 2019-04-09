@@ -131,10 +131,10 @@ class DisplayConceptExamplePlot {
         for(var vecName in this.vecCoordJson){
           var vecCoordList = this.vecCoordJson[vecName];
           var startCoord = vecCoordList[0];
-          console.log(this.vecCoordJson[vecName])
-          console.log(this.vecObjList);
-          console.log(startCoord)
-          console.log(vecName)
+          // console.log(this.vecCoordJson[vecName])
+          // console.log(this.vecObjList);
+          // console.log(startCoord)
+          // console.log(vecName)
           let tmpVec = new Vector({startCoord : startCoord[0]
             , endCoord : startCoord[1]
             , lineSize : 2
@@ -145,8 +145,8 @@ class DisplayConceptExamplePlot {
             , color : "blue"
             , arrowId : vecName
             // Vec coord list starts at index 1, don't repeat index 0.
-            // , coordList : vecCoordList}
-            , coordList : vecCoordList.slice(1, vecCoordList.length)}
+            , coordList : vecCoordList}
+            // , coordList : vecCoordList.slice(1, vecCoordList.length)}
             );
       
           this.vecObjList.push(tmpVec);
