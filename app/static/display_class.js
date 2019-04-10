@@ -113,6 +113,7 @@ class DisplayConceptExamplePlot {
           }
           )
       }
+
       makeVectors(){
         // vecCoordJson = {"xVec" : [
         //                     [[0,0], [0, 1]]
@@ -129,12 +130,11 @@ class DisplayConceptExamplePlot {
                                 .select("svg");
 
         for(var vecName in this.vecCoordJson){
-          var vecCoordList = this.vecCoordJson[vecName];
+          var vec = this.vecCoordJson[vecName];
+          console.log(this.vecCoordJson)
+          var vecCoordList = vec["coordList"]
           var startCoord = vecCoordList[0];
-          // console.log(this.vecCoordJson[vecName])
-          // console.log(this.vecObjList);
-          // console.log(startCoord)
-          // console.log(vecName)
+          
           let tmpVec = new Vector({startCoord : startCoord[0]
             , endCoord : startCoord[1]
             , lineSize : 2
@@ -142,7 +142,7 @@ class DisplayConceptExamplePlot {
             , height : this.height
             , width : this.width
             , numTicks : this.numTicks
-            , color : "blue"
+            , color : vec["color"]
             , arrowId : vecName
             // Vec coord list starts at index 1, don't repeat index 0.
             , coordList : vecCoordList}

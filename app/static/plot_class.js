@@ -97,7 +97,7 @@ class Vector {
         }
         getArrowHead(someSvg){
           someSvg.append("svg:defs").append("svg:marker")
-            .attr("id", "triangle")
+            .attr("id", "triangle_" + this.arrowId)
             .attr("refX", 12)
             .attr("refY", 6)
             .attr("markerWidth", 30)
@@ -108,7 +108,7 @@ class Vector {
             .style("fill", this.arrowColor);
           
           d3.select("path.vector#" + this.arrowId)
-          .attr("marker-end", "url(#triangle)")
+          .attr("marker-end", "url(#triangle_" + this.arrowId + ")")
           return(someSvg)
         }
         getVector(someSvg){

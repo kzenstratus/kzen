@@ -14,7 +14,7 @@ linAlgGlobalVar = {"plotDomain" : [-5,5]
 
 basisPayload = {"conceptId" : "basis"
 				, "buttonId" : "basis_transform"
-				// , "duration" : 4000
+				, "duration" : 2000
 				, "tarColor" : "red"
 				// , "highlightSpace" : [18, 39, 60, 81, 102]
 				// , "listNextDotSpaces" : [kernelNextDotSpace, startSpace]

@@ -28,14 +28,39 @@
 
         <script type="text/javascript">
           // Read in linAlgGlobalVar and kernelPayload
-          var vecCoordJson = {"xVec" : [
-                            [[0,0], [0, 1]]
-                          , [[0, 0], [0, 3]]
-                          , [[0,0], [2,4]]]
-                      , "yVec" : [
-                            [[0,0], [1,0]]
-                          , [[0, 0], [3, 0]]
-                          , [[0,0], [2,5]]]
+          var vecCoordJson = {"xVec" : 
+                                {"coordList" : [[[0,0], [1, 0]]
+                                              , [[0,0], [2, 0]]
+                                              , [[0,0], [2,0]]
+                                              , [[0,0], [-2,0]]
+                                              , [[0,0], [-3,0]]
+                                              ]
+                                  , "color" : "red"
+                                }
+                            // , "yVec" : {"coordList" : [[[0,0], [0,1]]
+                            //                          , [[2,0], [2,2]]
+                            //                          , [[2, 0], [2,-3]]
+                            //                          , [[-2,0], [-2,-5]]
+                            //                          , [[-2,0], [-2,2]]]
+                                                     
+                            //          ,  "color" : "green"
+                            //         }
+                            , "yVec" : {"coordList" : [[[0,0], [0,1]]
+                                                     , [[0,0], [0,2]]
+                                                     , [[0,0], [0,-3]]
+                                                     , [[0,0], [0,-4]]
+                                                     , [[0,0], [0,2]]]
+                                                     
+                                     ,  "color" : "green"
+                                    }
+                          , "vec" : {"coordList" : [[[0,0], [2,2]]
+                                                  , [[0,0], [2,2]]
+                                                  , [[0,0], [2,-3]]
+                                                  , [[0,0], [-2,-4]]
+                                                  , [[0,0], [-3,2]]
+                                                  ]
+                                      ,"color" : "purple"
+                                    }
                         };
 
           var basis = new DisplayConceptExamplePlot({conceptId : basisPayload.conceptId
@@ -49,6 +74,7 @@
                 , tarColor : basisPayload.tarColor
                 , tarSpace : basisPayload.highlightSpace
                 , vecCoordJson: vecCoordJson
+                , duration: basisPayload.duration
                 })
           
           // let testLine = new Vector({startCoord : [ 0, 0]
