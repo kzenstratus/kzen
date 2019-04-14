@@ -51,7 +51,8 @@ class Vector {
                 , numTicks
                 , color
                 , arrowId
-                , coordList = []} = {}) {
+                , coordList = []
+                , label = ""} = {}) {
 
         this.startCoord = scaleLoc(startCoord
                                   , numTicks
@@ -74,6 +75,8 @@ class Vector {
         this.arrowId = arrowId;
         this.numTicks = numTicks;
         this.coordList = coordList
+        this.label = label
+
       }
         // Have a line, an arrow
         // and two points, a start and end point.
@@ -84,7 +87,6 @@ class Vector {
           
           var lineData = [this.startCoord, this.endCoord];
           
-
           return(someSvg.append("path")
             // .attr("id", "vecLine")
             .attr("class", "vector")
@@ -95,6 +97,7 @@ class Vector {
             .attr("fill", "none")
             )
         }
+
         getArrowHead(someSvg){
           someSvg.append("svg:defs").append("svg:marker")
             .attr("id", "triangle_" + this.arrowId)
@@ -130,6 +133,16 @@ class Vector {
             .attr('stroke-width', this.dotStrokeWidth)
             .attr("r", this.dotRad);
         }
+        getText(someSvg){
+          var vecDef = someSvg.selectAll("defs").select("marker#triangle_"+ this.arrowId)
+          // Somehow this gets cut off, so text can't be too long.
+          vecDef.append("text")
+                .attr("x", 13) // 13 because 12 is the end of the arrow
+                .attr("dy", "1em")
+                .style("font-size", "0.7em")
+                .text(this.label)
+
+        }
         move(someSvg, duration){
 
           var vec = someSvg.select("path.vector#" + this.arrowId)
@@ -156,6 +169,10 @@ class Vector {
       }
 }
 
+
+// var someSvg = d3.select("#basis-example-ortho").select("svg");
+
+// vecDef = someSvg.selectAll("defs").select("marker#triangle_basis-example-orthoxVec")
 
 // Converts one increment to one scale
 

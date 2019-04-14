@@ -39,7 +39,8 @@ class DisplayConceptExamplePlot {
                 , dotRad = 5
                 , dotStrokeWidth = 4
                 , gridColor = 'grey'
-                , duration = 4000} = {}) {
+                , duration = 4000
+                } = {}) {
       this.conceptId = conceptId; // 
       // You can have multiple concept examples underneath a conceptId
       this.conceptExampleId = conceptExampleId; 
@@ -54,6 +55,7 @@ class DisplayConceptExamplePlot {
       this.width = width;
       this.plotSvgContainer = d3.select(conceptExampleId);
       this.numTicks = numTicks;
+
       // Make Initial Plot
       this.currSvg = d3.select("#" + this.conceptExampleId)
           .append("svg")
@@ -131,10 +133,13 @@ class DisplayConceptExamplePlot {
 
         for(var vecName in this.vecCoordJson){
           var vec = this.vecCoordJson[vecName];
-          console.log(this.vecCoordJson)
           var vecCoordList = vec["coordList"]
           var startCoord = vecCoordList[0];
           
+          var label = ""
+          if(typeof vec['label'] !== 'undefined'){
+            label = vec['label']
+          }
           let tmpVec = new Vector({startCoord : startCoord[0]
             , endCoord : startCoord[1]
             , lineSize : 2
@@ -143,18 +148,18 @@ class DisplayConceptExamplePlot {
             , width : this.width
             , numTicks : this.numTicks
             , color : vec["color"]
-            , arrowId : vecName
+            , arrowId : this.conceptExampleId + vecName
             // Vec coord list starts at index 1, don't repeat index 0.
-            , coordList : vecCoordList}
+            , coordList : vecCoordList
+            , label : label}
             // , coordList : vecCoordList.slice(1, vecCoordList.length)}
             );
       
           this.vecObjList.push(tmpVec);
           tmpVec.getVector(svgContainer);
+          tmpVec.getText(svgContainer);
         }
       }
-
-      
 
 }
 // let testSpace = new Space(xDomain = [-5,5]
