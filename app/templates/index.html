@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html>
+<!-- 
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='concept.css') }}">
 <script src="{{url_for('static', filename='d3.min.js')}}"></script>
-<!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
-<!-- <script src="https://www.lactame.com/lib/ml/3.2.0/ml.min.js"></script> -->
+//<script src="https://d3js.org/d3.v4.min.js"></script>
+// <script src="https://www.lactame.com/lib/ml/3.2.0/ml.min.js"></script>
 <script src="{{url_for('static', filename='math.min.js')}}"></script>
 <script src="{{url_for('static', filename='plot_utils.js')}}"></script>
 <script src="{{url_for('static', filename='plot_class.js')}}"></script>
 <script src="{{url_for('static', filename='display_class.js')}}"></script>
 <script src="{{url_for('static', filename='concepts/lin_alg/lin_alg_utils.js')}}"></script>
 <script src="{{url_for('static', filename='concepts/lin_alg/lin_alg_vars.js')}}"></script>
+ -->
 
+
+<link rel= "stylesheet" type= "text/css" href= "../static/concept.css">
+<script src="../static/d3.min.js"></script>
+<script src="../static/math.min.js"></script>
+<script src="../static/plot_utils.js"></script>
+<script src="../static/plot_class.js"></script>
+<script src="../static/display_class.js"></script>
+<script src="../static/concepts/lin_alg/lin_alg_utils.js"></script>
+<script src="../static/concepts/lin_alg/lin_alg_vars.js"></script>
 
 <body>
 
@@ -76,7 +87,7 @@
       <h3>Non Orthogonal Basis </h3>
       <p>
         Our vectors don't need to be orthogonal (cross at 90 deg). 
-        Red (v1) and Green(v2) still depict our two basis vectors and we see that they are still linearly independent because I can't the red vector by stretching or shrinking green and vice versa. We can also see that we can define purple with these two basis vectors, and likewise, we can hit each grey dot by stretching the combination of red and green.
+        Red (v1) and Green(v2) still depict our two basis vectors and we see that they are still linearly independent because I can't get the red vector by stretching or shrinking green and vice versa. 
       </p>
 
     </div>
