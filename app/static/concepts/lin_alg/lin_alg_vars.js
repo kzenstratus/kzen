@@ -20,6 +20,14 @@ basisPayload = {"conceptId" : "basis"
 				// , "listNextDotSpaces" : [kernelNextDotSpace, startSpace]
 				// 
 			}
+basisNonOrthoPayload = {"conceptId" : "basis_non_ortho"
+						, "buttonId" : "basis_non_ortho_transform"
+						, "duration" : 2000
+						, "tarColor" : "red"
+						, "highlightSpace" : [18, 39, 60, 81, 102]
+						, "listNextDotSpaces" : [kernelNextDotSpace, startSpace]
+				// 
+			}
 
 
 
