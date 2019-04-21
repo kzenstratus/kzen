@@ -38,50 +38,48 @@
 
         <script type="text/javascript">
           // Read in linAlgGlobalVar and kernelPayload
-          var vecCoordJsonOrtho = {"xVec" : 
-                                {"coordList" : [[[0,0], [1, 0]]
-                                              , [[0,0], [2, 0]]
+          
+          var vecCoordJsonOrtho = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
                                               , [[0,0], [4,0]]
-                                              , [[0,0], [-1,0]]
-                                              , [[0,0], [-2,0]]
-                                              
                                               , [[0,0], [-2,0]]
                                               , [[0,0], [-2,0]]
                                               , [[0,0], [-2,0]]
-                                              , [[0,0], [-2,0]]
+                                              , [[0,0], [3,0]]
                                               ]
-                                  , "color" : "#68a2ff" // blue
-                                  , "label" : "v1"
+                                              , "color" : "#68a2ff" // blue
+                                              , "label" : "v1"
                                 }
-                            , "yVec" : {"coordList" : [[[0,0], [0,1]]
+                                , "yVec" : {"coordList" : [[[0,0], [0,1]]
                                                      , [[0,0], [0,1]]
                                                      , [[0,0], [0,1]]
-                                                     , [[0,0], [0,1]]
-                                                     , [[0,0], [0,1]]
-                                                     
-                                                     , [[0,0], [0,2]]
                                                      , [[0,0], [0,4]]
-                                                     , [[0,0], [0,-1]]
+                                                     , [[0,0], [0,-2]]
                                                      , [[0,0], [0,-2]]
                                                      ]
-                                                     
-                                     ,  "color" : "#6bcc35" // green
-                                     , "label" : "v2"
-                                    }
-                          , "vec" : {"coordList" : [[[0,0], [1,1]]
-                                                  , [[0,0], [2,1]]
-                                                  , [[0,0], [4, 1]]
-                                                  , [[0,0], [-1,1]]
-                                                  , [[0,0], [-2,1]]
-                                                  
-                                                  , [[0,0], [-2,2]]
-                                                  , [[0,0], [-2,4]]
-                                                  , [[0,0], [-2,-1]]
-                                                  , [[0,0], [-2,-2]]
-                                                  ]
-                                      ,"color" : "#cc4634"
-                                    }
-                        };
+                                        , "color" : "#6bcc35" // "#6bcc35" // green
+                                        , "label" : "v2"
+                                      }
+                                    };
+            // Calculate the sum of vectors.
+            vecCoordJsonOrtho = Object.assign(vecCoordJsonOrtho
+                                              , {"vec" : {"coordList" : math.add(vecCoordJsonOrtho.xVec.coordList, vecCoordJsonOrtho.yVec.coordList)
+                                                  ,"color" : "#cc4634"
+                                                          }
+                                                        })
+            vecCoordJsonOrtho = Object.assign(vecCoordJsonOrtho
+                                              , {"xVecHelp" : {"coordList" : math.add(swapVecCoord(vecCoordJsonOrtho.xVec.coordList), vecCoordJsonOrtho.vec.coordList)
+                                                              , "isLine" : true
+                                                              , "color" : "#6bcc35"
+                                                              
+                                                            }
+                                                , "yVecHelp" : {"coordList" : math.add(swapVecCoord(vecCoordJsonOrtho.yVec.coordList), vecCoordJsonOrtho.vec.coordList)
+                                                              , "isLine" : true
+                                                              , "color" : "#68a2ff"
+                                                              
+                                                            }
+                                                 })
+
+                        
 
           var basisOrtho = new DisplayConceptExamplePlot({conceptId : basisPayload.conceptId
                 , conceptExampleId : "basis-example-ortho"

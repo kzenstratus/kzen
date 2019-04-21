@@ -14,7 +14,7 @@ linAlgGlobalVar = {"plotDomain" : [-5,5]
 
 basisPayload = {"conceptId" : "basis"
 				, "buttonId" : "basis_transform"
-				, "duration" : 2000
+				, "duration" : 1500
 				, "tarColor" : "red"
 				// , "highlightSpace" : [18, 39, 60, 81, 102]
 				// , "listNextDotSpaces" : [kernelNextDotSpace, startSpace]
@@ -22,11 +22,11 @@ basisPayload = {"conceptId" : "basis"
 			}
 basisNonOrthoPayload = {"conceptId" : "basis_non_ortho"
 						, "buttonId" : "basis_non_ortho_transform"
-						, "duration" : 2000
+						, "duration" : 1500
 						, "tarColor" : "red"
 						, "highlightSpace" : [18, 39, 60, 81, 102]
 						, "listNextDotSpaces" : [kernelNextDotSpace, startSpace]
-				// 
+				
 			}
 
 

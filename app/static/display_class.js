@@ -156,7 +156,12 @@ class DisplayConceptExamplePlot {
             );
       
           this.vecObjList.push(tmpVec);
-          tmpVec.getVector(svgContainer);
+          if(vec["isLine"] == true){
+            tmpVec.getLine(svgContainer);
+          }else{
+            tmpVec.getVector(svgContainer);  
+          }
+          
           tmpVec.getText(svgContainer);
         }
       }
