@@ -12,14 +12,59 @@ linAlgGlobalVar = {"plotDomain" : [-5,5]
 				}
 
 
+
+
+var vecCoordJsonOrtho = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
+                                              , [[0,0], [4,0]]
+                                              , [[0,0], [-2,0]]
+                                              , [[0,0], [-2,0]]
+                                              , [[0,0], [-2,0]]
+                                              , [[0,0], [3,0]]
+                                              ]
+                                              , "color" : "#68a2ff" // blue
+                                              , "label" : "v1"
+                                }
+                                , "yVec" : {"coordList" : [[[0,0], [0,1]]
+                                                     , [[0,0], [0,1]]
+                                                     , [[0,0], [0,1]]
+                                                     , [[0,0], [0,4]]
+                                                     , [[0,0], [0,-2]]
+                                                     , [[0,0], [0,-4]]
+                                                     ]
+                                        , "color" : "#68a2ff" // "#6bcc35" // green
+                                        , "label" : "v2"
+                                      }
+                                    };
+            // Calculate the sum of vectors.
+vecCoordJsonOrtho = Object.assign(vecCoordJsonOrtho
+		, {"vec" : {"coordList" : math.add(vecCoordJsonOrtho.xVec.coordList, vecCoordJsonOrtho.yVec.coordList)
+					   ,"color" : "#cc4634"
+					   , "label" : "v3"
+					}
+				})
+            // vecCoordJsonOrtho = Object.assign(vecCoordJsonOrtho
+            //                                   , {"xVecHelp" : {"coordList" : math.add(swapVecCoord(vecCoordJsonOrtho.xVec.coordList), vecCoordJsonOrtho.vec.coordList)
+            //                                                   , "isLine" : true
+            //                                                   , "color" : "#6bcc35"
+                                                              
+            //                                                 }
+            //                                     , "yVecHelp" : {"coordList" : math.add(swapVecCoord(vecCoordJsonOrtho.yVec.coordList), vecCoordJsonOrtho.vec.coordList)
+            //                                                   , "isLine" : true
+            //                                                   , "color" : "#68a2ff"
+                                                              
+            //                                                 }
+            //                                      })
+            //                                      
 basisPayload = {"conceptId" : "basis"
 				, "buttonId" : "basis_transform"
 				, "duration" : 1500
 				, "tarColor" : "red"
+				, "vecCoordJson": vecCoordJsonOrtho
 				// , "highlightSpace" : [18, 39, 60, 81, 102]
 				// , "listNextDotSpaces" : [kernelNextDotSpace, startSpace]
 				// 
 			}
+
 basisNonOrthoPayload = {"conceptId" : "basis_non_ortho"
 						, "buttonId" : "basis_non_ortho_transform"
 						, "duration" : 1500

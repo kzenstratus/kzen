@@ -25,60 +25,94 @@
 
 <body>
 
+  <div class = 'concept-container' id = "linear-combination">
+    <div class = 'concept-text'>
+  
+      <h3>Linear Combination</h3>
+      <p>
+        We have 3 vectors 
+        <font color = "#68a2ff">a </font>,
+        <font color = "#6bcc35">b </font>,
+        <font color = "#ff80ff">c </font>.
+        If we connect each vector from head to tail, we get the sum of the vectors <font color = "#cc4634">vector d</font>.
+        <br>
+        Now we can stretch and shrink a,b and c to get different many vector ds.
+        All the different <font color = "#cc4634">vector d</font>s that you can generate by stretching and shrinking a,b and c are called the linear combination of a,b and c.
+      </p>
+
+    </div>
+
+
+
+        <script type="text/javascript">
+
+          var linIndep = new DisplayConceptExamplePlot({conceptId : imagePayload.conceptId
+                , conceptExampleId : "image-example"
+                , buttonId : imagePayload.buttonId
+                , xDomain : linAlgGlobalVar.plotDomain
+                , yDomain : linAlgGlobalVar.plotDomain
+                , height : linAlgGlobalVar.plotHeight
+                , width : linAlgGlobalVar.plotWidth
+                , numTicks : linAlgGlobalVar.numTicks
+                , tarColor : imagePayload.tarColor
+                , tarSpace : imagePayload.highlightSpace
+                , listNextDotSpaces : imagePayload.listNextDotSpaces
+                })
+
+          </script>
+
+  </div>
+
+  <div class = 'concept-container' id = "linear-independence">
+    <div class = 'concept-text'>
+  
+      <h3>Linear Independence</h3>
+      <p>
+        We have 3 vectors 
+      </p>
+
+    </div>
+
+
+
+        <script type="text/javascript">
+
+          var linIndep = new DisplayConceptExamplePlot({conceptId : imagePayload.conceptId
+                , conceptExampleId : "image-example"
+                , buttonId : imagePayload.buttonId
+                , xDomain : linAlgGlobalVar.plotDomain
+                , yDomain : linAlgGlobalVar.plotDomain
+                , height : linAlgGlobalVar.plotHeight
+                , width : linAlgGlobalVar.plotWidth
+                , numTicks : linAlgGlobalVar.numTicks
+                , tarColor : imagePayload.tarColor
+                , tarSpace : imagePayload.highlightSpace
+                , listNextDotSpaces : imagePayload.listNextDotSpaces
+                })
+
+          </script>
+
+  </div>
 
   <div class = 'concept-container' id = "basis">
     <div class = 'concept-text'>
-      <h3>Basic Basis</h3>
+      <h3> Basis</h3>
       <p>
-        The Basis are a set of linearly independent vectors which define some space.
-        Green and Red depict our two basis vectors. They are linearlly independent because they can only stretch and shrink on their axis. Purple describes the vector that the two basis vectors can reach. We can see that the purple vector can hit every point on this space. 
+        Adding <font color = "#68a2ff">vectors v1 and v2</font> gets us <font color = "#cc4634">vector v3</font>.
+        <br><br>
+        By stretching and shrinking <font color = "#68a2ff">vectors v1 and v2</font>, the resulting <font color = "#cc4634">vector v3</font> can hit every <font color = "grey">point</font> on this plot. We call all of those <font color = "grey">points</font> our vector space.
+        <br>
+        [Hit Go! to see this in action]
+        <br><br>
+        <font color = "#68a2ff">Vectors v1 and v2</font> here are our basis vectors. 
+        Basis vectors must be linearly independent. Here we see that there is no way I can get vector v2 by stretching and shrinking v1.
+
       </p>
 
     </div>
 
         <script type="text/javascript">
           // Read in linAlgGlobalVar and kernelPayload
-          
-          var vecCoordJsonOrtho = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
-                                              , [[0,0], [4,0]]
-                                              , [[0,0], [-2,0]]
-                                              , [[0,0], [-2,0]]
-                                              , [[0,0], [-2,0]]
-                                              , [[0,0], [3,0]]
-                                              ]
-                                              , "color" : "#68a2ff" // blue
-                                              , "label" : "v1"
-                                }
-                                , "yVec" : {"coordList" : [[[0,0], [0,1]]
-                                                     , [[0,0], [0,1]]
-                                                     , [[0,0], [0,1]]
-                                                     , [[0,0], [0,4]]
-                                                     , [[0,0], [0,-2]]
-                                                     , [[0,0], [0,-2]]
-                                                     ]
-                                        , "color" : "#6bcc35" // "#6bcc35" // green
-                                        , "label" : "v2"
-                                      }
-                                    };
-            // Calculate the sum of vectors.
-            vecCoordJsonOrtho = Object.assign(vecCoordJsonOrtho
-                                              , {"vec" : {"coordList" : math.add(vecCoordJsonOrtho.xVec.coordList, vecCoordJsonOrtho.yVec.coordList)
-                                                  ,"color" : "#cc4634"
-                                                          }
-                                                        })
-            vecCoordJsonOrtho = Object.assign(vecCoordJsonOrtho
-                                              , {"xVecHelp" : {"coordList" : math.add(swapVecCoord(vecCoordJsonOrtho.xVec.coordList), vecCoordJsonOrtho.vec.coordList)
-                                                              , "isLine" : true
-                                                              , "color" : "#6bcc35"
-                                                              
-                                                            }
-                                                , "yVecHelp" : {"coordList" : math.add(swapVecCoord(vecCoordJsonOrtho.yVec.coordList), vecCoordJsonOrtho.vec.coordList)
-                                                              , "isLine" : true
-                                                              , "color" : "#68a2ff"
-                                                              
-                                                            }
-                                                 })
-
                         
 
           var basisOrtho = new DisplayConceptExamplePlot({conceptId : basisPayload.conceptId
@@ -91,7 +125,7 @@
                 , numTicks : linAlgGlobalVar.numTicks
                 , tarColor : basisPayload.tarColor
                 , tarSpace : basisPayload.highlightSpace
-                , vecCoordJson: vecCoordJsonOrtho
+                , vecCoordJson: basisPayload.vecCoordJson
                 , duration: basisPayload.duration
               })
 
