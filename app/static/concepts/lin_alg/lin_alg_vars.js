@@ -12,7 +12,37 @@ linAlgGlobalVar = {"plotDomain" : [-5,5]
 				}
 
 
+var vecCoordJsonLinCombo = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
+                                              	   , [[0,0], [1,0]]
+                                              	   , [[0,0], [1,0]]
+                                              ]
+                                              , "color" : "#68a2ff" // blue
+                                              , "label" : "v1"
+                                          }
+                          , "yVec" : {"coordList" : [[[0,0], [0,1]]
+                                                     , [[1,0], [1,1]]
+                                                     , [[1,0], [1,1]]
+                                                     ]
+                                        , "color" : "#68a2ff" // "#6bcc35" // green
+                                        , "label" : "v2"
+                                    }
+                        , "zVec" : {"coordList" : [[[0,0], [-2,1]]
+                                                 , [[0,0], [-2,1]]
+                                                     , [[1,1], [-1,2]]
+                                                     ]
+                                        , "color" : "#68a2ff" // "#6bcc35" // green
+                                        , "label" : "v2"
+                                    }
+                                    };
 
+linComboPayload = {"conceptId" : "linear-combination"
+				, "buttonId" : "lin_combo_button"
+				, "duration" : 1500
+				, "vecCoordJson": vecCoordJsonLinCombo
+				// , "highlightSpace" : [18, 39, 60, 81, 102]
+				// , "listNextDotSpaces" : [kernelNextDotSpace, startSpace]
+				// 
+			}
 
 var vecCoordJsonOrtho = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
                                               , [[0,0], [4,0]]

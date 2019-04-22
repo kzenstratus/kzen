@@ -42,53 +42,58 @@
 
     </div>
 
-
-
         <script type="text/javascript">
-
-          var linIndep = new DisplayConceptExamplePlot({conceptId : imagePayload.conceptId
-                , conceptExampleId : "image-example"
-                , buttonId : imagePayload.buttonId
+          
+          var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
+                , conceptExampleId : "lin-combo-example"
+                , buttonId : linComboPayload.buttonId
                 , xDomain : linAlgGlobalVar.plotDomain
                 , yDomain : linAlgGlobalVar.plotDomain
                 , height : linAlgGlobalVar.plotHeight
                 , width : linAlgGlobalVar.plotWidth
                 , numTicks : linAlgGlobalVar.numTicks
-                , tarColor : imagePayload.tarColor
-                , tarSpace : imagePayload.highlightSpace
-                , listNextDotSpaces : imagePayload.listNextDotSpaces
-                })
+                , tarColor : linComboPayload.tarColor
+                , tarSpace : linComboPayload.highlightSpace
+                , vecCoordJson: linComboPayload.vecCoordJson
+                , duration: linComboPayload.duration
+              })
 
           </script>
 
   </div>
 
-  <div class = 'concept-container' id = "linear-independence">
+    <div class = 'concept-container' id = "linear-independence">
     <div class = 'concept-text'>
   
       <h3>Linear Independence</h3>
       <p>
         We have 3 vectors 
+        <font color = "#68a2ff">a </font>,
+        <font color = "#6bcc35">b </font>,
+        <font color = "#ff80ff">c </font>.
+        If we connect each vector from head to tail, we get the sum of the vectors <font color = "#cc4634">vector d</font>.
+        <br>
+        Now we can stretch and shrink a,b and c to get different many vector ds.
+        All the different <font color = "#cc4634">vector d</font>s that you can generate by stretching and shrinking a,b and c are called the linear combination of a,b and c.
       </p>
 
     </div>
 
-
-
         <script type="text/javascript">
-
-          var linIndep = new DisplayConceptExamplePlot({conceptId : imagePayload.conceptId
-                , conceptExampleId : "image-example"
-                , buttonId : imagePayload.buttonId
+          
+          var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
+                , conceptExampleId : "lin-combo-example"
+                , buttonId : linComboPayload.buttonId
                 , xDomain : linAlgGlobalVar.plotDomain
                 , yDomain : linAlgGlobalVar.plotDomain
                 , height : linAlgGlobalVar.plotHeight
                 , width : linAlgGlobalVar.plotWidth
                 , numTicks : linAlgGlobalVar.numTicks
-                , tarColor : imagePayload.tarColor
-                , tarSpace : imagePayload.highlightSpace
-                , listNextDotSpaces : imagePayload.listNextDotSpaces
-                })
+                , tarColor : linComboPayload.tarColor
+                , tarSpace : linComboPayload.highlightSpace
+                , vecCoordJson: linComboPayload.vecCoordJson
+                , duration: linComboPayload.duration
+              })
 
           </script>
 
