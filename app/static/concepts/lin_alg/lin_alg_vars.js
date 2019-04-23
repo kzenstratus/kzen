@@ -15,33 +15,52 @@ linAlgGlobalVar = {"plotDomain" : [-5,5]
 var vecCoordJsonLinCombo = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
                                               	   , [[0,0], [1,0]]
                                               	   , [[0,0], [1,0]]
+                                              	   // start stretching to get different vecs
+                                              	   , [[0,0], [3,0]]
+                                              	   , [[0,0], [3,0]]
+                                              	   , [[0,0], [3,0]]
                                               ]
                                               , "color" : "#68a2ff" // blue
-                                              , "label" : "v1"
+                                              , "label" : "a"
                                           }
                           , "yVec" : {"coordList" : [[[0,0], [0,1]]
                                                      , [[1,0], [1,1]]
                                                      , [[1,0], [1,1]]
+                                                     // start stretching to get different vecs
+                                                     , [[3,0], [3,1]]
+                                                     , [[3,0], [3,3]]
+                                                     , [[3,0], [3,3]]
                                                      ]
-                                        , "color" : "#68a2ff" // "#6bcc35" // green
-                                        , "label" : "v2"
+                                        , "color" : "#6bcc35" // "#6bcc35" // green
+                                        , "label" : "b"
                                     }
                         , "zVec" : {"coordList" : [[[0,0], [-2,1]]
                                                  , [[0,0], [-2,1]]
-                                                     , [[1,1], [-1,2]]
-                                                     ]
-                                        , "color" : "#68a2ff" // "#6bcc35" // green
-                                        , "label" : "v2"
+                                                 , [[1,1], [-1,2]]
+                                                 , [[3,1], [1,2]]
+                                                 , [[3,3], [1,4]]
+                                                 , [[3,3], [4,2]]
+                                                  ]
+                                        , "color" : "#ff80ff" // "#6bcc35" // green
+                                        , "label" : "c"
                                     }
+                        , "vec" : {"coordList" : [[[0,0], [-1,2]]
+                                                 , [[0,0], [-1,2]]
+                                                 , [[0,0], [-1,2]]
+                                                 , [[0,0], [1,2]]
+                                                 , [[0,0], [1,4]]
+                                                 , [[0,0], [4,2]]
+                                                   ]
+                                        , "color" : "#cc4634" // orange
+                                        , "label" : "d" 
+                                        }
                                     };
+
 
 linComboPayload = {"conceptId" : "linear-combination"
 				, "buttonId" : "lin_combo_button"
 				, "duration" : 1500
 				, "vecCoordJson": vecCoordJsonLinCombo
-				// , "highlightSpace" : [18, 39, 60, 81, 102]
-				// , "listNextDotSpaces" : [kernelNextDotSpace, startSpace]
-				// 
 			}
 
 var vecCoordJsonOrtho = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
