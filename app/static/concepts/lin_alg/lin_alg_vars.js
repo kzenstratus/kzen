@@ -64,6 +64,45 @@ linComboPayload = {"conceptId" : "linear-combination"
 				, "vecCoordJson": vecCoordJsonLinCombo
 			}
 
+
+
+var vecCoordJsonLinInd = {"xVec" : {"coordList" : [[[0,0], [2, 0]]
+                                                   , [[0,0], [2,0]]
+                                                   , [[0,0], [2,0]]
+                                                   , [[0,0], [2,0]]
+                                                   
+                                              ]
+                                              , "color" : "#68a2ff" // blue
+                                              , "labels" : Array(4).fill("a")
+
+                                          }
+                          , "yVec" : {"coordList" : [[[0,0], [0,2]]
+                                                     , [[0,0], [0,2]]
+                                                     , [[0,0], [0,2]]
+                                                     , [[0,0], [0,1]]
+                                                     
+                                                     ]
+                                        , "color" : "#6bcc35"
+                                        , "labels" : Array(4).fill("b")
+                                    }
+                        , "zVec" : {"coordList" : [[[0,0], [-2,1]]
+                                                 , [[0,2], [-2,3]]
+                                                 , [[0,2], [2,1]]
+                                                 , [[0,1], [2,0]]
+                                                 
+                                                  ]
+                                        , "color" : "#ff80ff"
+                                        , "labels" : Array(4).fill("c")
+                                    }
+
+                                  };
+
+linIndPayload = {"conceptId" : "linear-independence"
+        , "buttonId" : "lin_ind_button"
+        , "duration" : 1500
+        , "vecCoordJson": vecCoordJsonLinInd
+        }
+
 var vecCoordJsonOrtho = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
                                               , [[0,0], [4,0]]
                                               , [[0,0], [-2,0]]
@@ -104,23 +143,63 @@ vecCoordJsonOrtho = Object.assign(vecCoordJsonOrtho
                                                               
             //                                                 }
             //                                      })
-            //                                      
+            //                      
+            
+
+
 basisPayload = {"conceptId" : "basis"
 				, "buttonId" : "basis_transform"
 				, "duration" : 1500
-				, "tarColor" : "red"
 				, "vecCoordJson": vecCoordJsonOrtho
-				// , "highlightSpace" : [18, 39, 60, 81, 102]
-				// , "listNextDotSpaces" : [kernelNextDotSpace, startSpace]
-				// 
-			}
+				}
+
+var vecCoordJsonBasisNonOrtho = {"xVec" : 
+                            {"coordList" : [[[0,0], [1,-1]]
+                                          , [[0,0], [2, -2]]
+                                          , [[0,0], [4,-4]]
+                                          , [[0,0], [-1,1]]
+                                          , [[0,0], [-2,2]]
+                                          , [[0,0], [-2,2]]
+                                          , [[0,0], [-2,2]]
+                                          , [[0,0], [-2,2]]
+                                          , [[0,0], [-2,2]]
+                                          ]
+                              , "color" : "#68a2ff" // blue
+                              , "labels" : Array(9).fill("v1")
+                            }
+                        , "yVec" : {"coordList" : [[[0,0], [0,2]]
+                                                 , [[0,0], [0,3]]
+                                                 , [[0,0], [0,5]]
+                                                 , [[0,0], [0,0]]
+                                                 , [[0,0], [0,-1]]
+                                                 , [[0,0], [0,0]]
+                                                 , [[0,0], [0,2]]
+                                                 , [[0,0], [0,-3]]
+                                                 , [[0,0], [0,-4]]
+                                                 ]
+                                                 
+                                 ,  "color" : "#68a2ff" // green
+                                 , "labels" : Array(9).fill("v2")
+                                }
+                      , "vec" : {"coordList" : [[[0,0], [1,1]]
+                                              , [[0,0], [2,1]]
+                                              , [[0,0], [4, 1]]
+                                              , [[0,0], [-1,1]]
+                                              , [[0,0], [-2,1]]
+                                              , [[0,0], [-2,2]]
+                                              , [[0,0], [-2,4]]
+                                              , [[0,0], [-2,-1]]
+                                              , [[0,0], [-2,-2]]
+                                              ]
+                                  ,"color" : "#cc4634"
+                                  , "labels" : Array(9).fill("v3")
+                                }
+                    };
 
 basisNonOrthoPayload = {"conceptId" : "basis_non_ortho"
 						, "buttonId" : "basis_non_ortho_transform"
 						, "duration" : 1500
-						, "tarColor" : "red"
-						, "highlightSpace" : [18, 39, 60, 81, 102]
-						, "listNextDotSpaces" : [kernelNextDotSpace, startSpace]
+            , "vecCoordJson" : vecCoordJsonBasisNonOrtho
 				
 			}
 

@@ -34,10 +34,17 @@
         <font color = "#68a2ff">a </font>,
         <font color = "#6bcc35">b </font>,
         <font color = "#ff80ff">c </font>.
-        If we connect each vector from head to tail, we get the sum of the vectors <font color = "#cc4634">vector d</font>.
+        If we connect each vector from head to tail, we get the sum of the vectors, <font color = "#cc4634">vector d</font>.
         <br>
-        We can stretch and shrink a,b and c to get many different <font color = "#cc4634">vectors</font>.
-        The set of all these different <font color = "#cc4634">vectors</font> are called the linear combination of a,b and c.
+        We can stretch and shrink 
+        <font color = "#68a2ff">a </font>,
+        <font color = "#6bcc35">b </font>,
+        and 
+        <font color = "#ff80ff">c </font>, to get many different <font color = "#cc4634">vectors</font>.
+        If you take all of the possible combinations of stretching and shrinking 
+        <font color = "#68a2ff">a </font>,
+        <font color = "#6bcc35">b </font>,
+        <font color = "#ff80ff">c </font>, all the resulting <font color = "#cc4634">vectors</font> are called the linear combination of a,b and c.
       </p>
 
     </div>
@@ -52,8 +59,6 @@
                 , height : linAlgGlobalVar.plotHeight
                 , width : linAlgGlobalVar.plotWidth
                 , numTicks : linAlgGlobalVar.numTicks
-                , tarColor : linComboPayload.tarColor
-                , tarSpace : linComboPayload.highlightSpace
                 , vecCoordJson: linComboPayload.vecCoordJson
                 , duration: linComboPayload.duration
               })
@@ -79,7 +84,7 @@
         <br>
         [Press GO to see this in action]
         <br><br>
-        This means that one of those vectors is redundant and not linearly independent! If we were to remove one of our vectors, we would have non-redundant vectors (linearly indepdendent) since we can't get one by stretching or shrinking the other. Note if we have two vectors that lie in the same direction, then those won't be linearlly indepdendent!
+        This means that one of these vectors is redundant and not linearly independent! If we were to remove one of our vectors, we would have non-redundant vectors (linearly indepdendent) since we can't get one by stretching or shrinking the other. Note if we have two vectors that lie in the same direction, then those won't be linearlly indepdendent!
 
 
       </p>
@@ -88,19 +93,19 @@
 
         <script type="text/javascript">
           
-          // var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
-          //       , conceptExampleId : "lin-ind-example"
-          //       , buttonId : linComboPayload.buttonId
-          //       , xDomain : linAlgGlobalVar.plotDomain
-          //       , yDomain : linAlgGlobalVar.plotDomain
-          //       , height : linAlgGlobalVar.plotHeight
-          //       , width : linAlgGlobalVar.plotWidth
-          //       , numTicks : linAlgGlobalVar.numTicks
-          //       , tarColor : linComboPayload.tarColor
-          //       , tarSpace : linComboPayload.highlightSpace
-          //       , vecCoordJson: linComboPayload.vecCoordJson
-          //       , duration: linComboPayload.duration
-          //     })
+          var linIndependence = new DisplayConceptExamplePlot({conceptId : linIndPayload.conceptId
+                , conceptExampleId : "lin-ind-example"
+                , buttonId : linIndPayload.buttonId
+                , xDomain : linAlgGlobalVar.plotDomain
+                , yDomain : linAlgGlobalVar.plotDomain
+                , height : linAlgGlobalVar.plotHeight
+                , width : linAlgGlobalVar.plotWidth
+                , numTicks : linAlgGlobalVar.numTicks
+                , tarColor : linIndPayload.tarColor
+                , tarSpace : linIndPayload.highlightSpace
+                , vecCoordJson: linIndPayload.vecCoordJson
+                , duration: linIndPayload.duration
+              })
 
           </script>
 
@@ -135,83 +140,48 @@
                 , height : linAlgGlobalVar.plotHeight
                 , width : linAlgGlobalVar.plotWidth
                 , numTicks : linAlgGlobalVar.numTicks
-                , tarColor : basisPayload.tarColor
-                , tarSpace : basisPayload.highlightSpace
                 , vecCoordJson: basisPayload.vecCoordJson
                 , duration: basisPayload.duration
               })
 
           
           </script>
-    <div class = 'concept-text'>
+
+  </div>
+
+
+<div class = 'concept-container' id = "basis_non_ortho">
+   <div class = 'concept-text' >
       <h3>Non Orthogonal Basis </h3>
       <p>
         Our vectors don't need to be orthogonal (cross at 90 deg). 
-        Red (v1) and Green(v2) still depict our two basis vectors and we see that they are still linearly independent because I can't get the red vector by stretching or shrinking green and vice versa. 
+        <font color = "#68a2ff">v1 </font> and 
+        <font color = "#68a2ff">v2 </font> can be basis vectors since they are linearly independent.
+        Meaning <font color = "#cc4634">v3 </font> can hit all grey points by stretching and shrinking 
+        <font color = "#68a2ff">v1 </font> and 
+        <font color = "#68a2ff">v2 </font>.
+
+        <br><br>
+        Note: We don't have to stretch or shrink our vectors such they land on each grey point. These vectors can stretch and shrink such that they land anywhere!
+        
       </p>
 
     </div>
     <script type="text/javascript">
-      
-      var vecCoordJson = {"xVec" : 
-                            {"coordList" : [[[0,0], [1,-1]]
-                                          , [[0,0], [2, -2]]
-                                          , [[0,0], [4,-4]]
-                                          , [[0,0], [-1,1]]
-                                          , [[0,0], [-2,2]]
-                                          , [[0,0], [-2,2]]
-                                          , [[0,0], [-2,2]]
-                                          , [[0,0], [-2,2]]
-                                          , [[0,0], [-2,2]]
-                                          ]
-                              , "color" : "#68a2ff" // blue
-                              , "label" : "v1"
-                            }
-                        , "yVec" : {"coordList" : [[[0,0], [0,2]]
-                                                 , [[0,0], [0,3]]
-                                                 , [[0,0], [0,5]]
-                                                 , [[0,0], [0,0]]
-                                                 , [[0,0], [0,-1]]
-                                                 , [[0,0], [0,0]]
-                                                 , [[0,0], [0,2]]
-                                                 , [[0,0], [0,-3]]
-                                                 , [[0,0], [0,-4]]
-                                                 ]
-                                                 
-                                 ,  "color" : "#6bcc35" // green
-                                 , "label" : "v2"
-                                }
-                      , "vec" : {"coordList" : [[[0,0], [1,1]]
-                                              , [[0,0], [2,1]]
-                                              , [[0,0], [4, 1]]
-                                              , [[0,0], [-1,1]]
-                                              , [[0,0], [-2,1]]
-                                              , [[0,0], [-2,2]]
-                                              , [[0,0], [-2,4]]
-                                              , [[0,0], [-2,-1]]
-                                              , [[0,0], [-2,-2]]
-                                              ]
-                                  ,"color" : "#cc4634"
-                                }
-                    };
 
-          var basisReg = new DisplayConceptExamplePlot({conceptId : basisPayload.conceptId
+          var basisNonOrtho = new DisplayConceptExamplePlot({conceptId : basisNonOrthoPayload.conceptId
                 , conceptExampleId : "basis-example"
-                , buttonId : basisPayload.buttonId
+                , buttonId : basisNonOrthoPayload.buttonId
                 , xDomain : linAlgGlobalVar.plotDomain
                 , yDomain : linAlgGlobalVar.plotDomain
                 , height : linAlgGlobalVar.plotHeight
                 , width : linAlgGlobalVar.plotWidth
                 , numTicks : linAlgGlobalVar.numTicks
-                , tarColor : basisPayload.tarColor
-                , tarSpace : basisPayload.highlightSpace
-                , vecCoordJson: vecCoordJson
-                , duration: basisPayload.duration
+                , vecCoordJson: basisNonOrthoPayload.vecCoordJson
+                , duration: basisNonOrthoPayload.duration
                 })
           
     </script>
-
-
   </div>
 
   <div class = 'concept-container' id = "kernel">
@@ -243,6 +213,10 @@
           </script>
 
   </div>
+
+  
+
+
 
   <div class = 'concept-container' id = "image">
     <div class = 'concept-text'>

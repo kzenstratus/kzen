@@ -161,6 +161,7 @@ class Vector {
                                      , this.width) // endCoord
             , "label" : this.labels[i]})
           }
+          
           // TODO set text style
           // TODO fix overlap issue
           someSvg.append("text")
