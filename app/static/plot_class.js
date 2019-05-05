@@ -52,7 +52,7 @@ class Vector {
                 , color
                 , arrowId
                 , coordList = []
-                , label = ""} = {}) {
+                , labels = null} = {}) {
 
         this.startCoord = scaleLoc(startCoord
                                   , numTicks
@@ -75,7 +75,17 @@ class Vector {
         this.arrowId = arrowId;
         this.numTicks = numTicks;
         this.coordList = coordList
-        this.label = label
+        this.arrowDefId = "triangle_" + this.arrowId
+        this.labelId = "label_" + this.arrowId
+        this.labels = labels
+        if(labels == null){
+          this.labels = Array(coordList.length).fill("")  
+        }
+        
+        
+        
+
+        
 
       }
         // Have a line, an arrow
@@ -99,7 +109,9 @@ class Vector {
         }
 
         getArrowHead(someSvg){
-          someSvg.append("svg:defs").append("svg:marker")
+          // if arrow doesn't already exist, add it
+          if(d3.select("path.vector#" + this.arrowId).attr("marker-end") == null){
+            someSvg.append("svg:defs").append("svg:marker")
             .attr("id", "triangle_" + this.arrowId)
             .attr("refX", 12)
             .attr("refY", 6)
@@ -110,14 +122,20 @@ class Vector {
             .attr("d", "M 0 0 12 6 0 12 3 6")
             .style("fill", this.arrowColor);
           
-          d3.select("path.vector#" + this.arrowId)
-          .attr("marker-end", "url(#triangle_" + this.arrowId + ")")
+            d3.select("path.vector#" + this.arrowId)
+              .attr("marker-end", "url(#" + this.arrowDefId + ")")  
+          }
+          
           return(someSvg)
         }
         getVector(someSvg){
           this.getLine(someSvg);
           // Note arrowHead needs to be called after getLine does.
-          this.getArrowHead(someSvg);
+          
+          if(this.endCoord[0] != null ){
+            this.getArrowHead(someSvg);  
+          }
+          
           return(someSvg)
         }
         getPoint(someSvg){
@@ -134,18 +152,36 @@ class Vector {
             .attr("r", this.dotRad);
         }
         getText(someSvg){
-          var vecDef = someSvg.selectAll("defs").select("marker#triangle_"+ this.arrowId)
-          // Somehow this gets cut off, so text can't be too long.
-          vecDef.append("text")
-                .attr("x", 13) // 13 because 12 is the end of the arrow
-                .attr("dy", "1em")
-                .style("font-size", "0.7em")
-                .text(this.label)
+          // var vecDef = someSvg.selectAll("defs").select("marker#"+ this.arrowDefId)
+          var textData = []
+          for( var i = 0; i < this.coordList.length; i++){
+            textData.push({"coord" : scaleLoc(this.coordList[i][1]
+                                     , this.numTicks
+                                     , this.height
+                                     , this.width) // endCoord
+            , "label" : this.labels[i]})
+          }
+          
+          // TODO set text style
+          // TODO fix overlap issue
+          someSvg.append("text")
+                 .attr("class", "vecLabel")
+                 .attr("id", this.labelId)
+                 .data(textData)
+                 .attr("x", function(d) {return d.coord[0] * 1.04;})
+                 .attr("y", function(d) {return d.coord[1] * 0.96;})
+                 .text(function(d, i) {return d.label})
+                 .attr("fill", this.arrowColor)
+                 .attr("font-weight", "bold")
+                 // .style("font-size", "0.7em")
+
 
         }
         move(someSvg, duration){
 
           var vec = someSvg.select("path.vector#" + this.arrowId)
+          var label = someSvg.select("text.vecLabel#" + this.labelId)
+          var _labels = this.labels // need to define this because transition can't look outside its environment
           for (var j = 0; j < this.coordList.length; j++){
             // This set the duration to 0 to instantly reset an animation
             // 
@@ -165,11 +201,27 @@ class Vector {
                     .duration(realDuration)
                     .attr("delay", function(d,i) {return 1000*i;})
                     .attr("d", linFunction([_startCoord, _endCoord]))
+
+            this.startCoord = _startCoord
+            this.endCoord = _endCoord
+            if(this.endCoord[0] != null){
+              this.getArrowHead(someSvg)
+            }
+            label = label.transition()
+                         .duration(realDuration)
+                         .attr("delay", function(d,i) {return 1000*i;})
+                         .attr("x", function(d, i) {return _endCoord[0] * 1.04;})
+                         .attr("y", function(d, i) {return _endCoord[1] * 0.96;})
+                         .text(function(d, i) {return _labels[j]})
+                         
+
         }
       }
 }
 
+// d3.select("path.vector#" + arrowId).attr("marker-end")
 
+// arrowId = "lin-combo-examplexVec"
 // var someSvg = d3.select("#basis-example-ortho").select("svg");
 
 // vecDef = someSvg.selectAll("defs").select("marker#triangle_basis-example-orthoxVec")
