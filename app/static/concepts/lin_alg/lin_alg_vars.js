@@ -21,7 +21,7 @@ var vecCoordJsonLinCombo = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
                                               	   , [[0,0], [3,0]]
                                               ]
                                               , "color" : "#68a2ff" // blue
-                                              , "labels" : ["hello", "a","a","a","a", "hello"]
+                                              , "labels" : Array(6).fill("a")
 
                                           }
                           , "yVec" : {"coordList" : [[[0,0], [0,1]]
@@ -45,7 +45,7 @@ var vecCoordJsonLinCombo = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
                                         , "color" : "#ff80ff" // "#6bcc35" // green
                                         , "labels" : Array(6).fill("c")
                                     }
-                        , "vec" : {"coordList" : [[[null,null], [null,null]]
+                        , "vec" : {"coordList" : [[[null, null], [null,null]]
                                                  , [[null,null], [null,null]]
                                                  , [[0,0], [-1,2]]
                                                  , [[0,0], [1,2]]
