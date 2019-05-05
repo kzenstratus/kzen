@@ -36,8 +36,8 @@
         <font color = "#ff80ff">c </font>.
         If we connect each vector from head to tail, we get the sum of the vectors <font color = "#cc4634">vector d</font>.
         <br>
-        Now we can stretch and shrink a,b and c to get different many vector ds.
-        All the different <font color = "#cc4634">vector d</font>s that you can generate by stretching and shrinking a,b and c are called the linear combination of a,b and c.
+        We can stretch and shrink a,b and c to get many different <font color = "#cc4634">vectors</font>.
+        The set of all these different <font color = "#cc4634">vectors</font> are called the linear combination of a,b and c.
       </p>
 
     </div>
@@ -71,29 +71,36 @@
         <font color = "#68a2ff">a </font>,
         <font color = "#6bcc35">b </font>,
         <font color = "#ff80ff">c </font>.
-        If we connect each vector from head to tail, we get the sum of the vectors <font color = "#cc4634">vector d</font>.
+        Earlier we see that the linear combination of can give us many different vectors. What if we added two of those vectors together, could we get the third vector?
         <br>
-        Now we can stretch and shrink a,b and c to get different many vector ds.
-        All the different <font color = "#cc4634">vector d</font>s that you can generate by stretching and shrinking a,b and c are called the linear combination of a,b and c.
+        We see that we can describe <font color = "#68a2ff">vector a </font> as a linear combination of vectors <font color = "#6bcc35">b </font> and <font color = "#ff80ff">c </font>. 
+        <br>
+        In fact <font color = "#6bcc35">b </font> can be described with <font color = "#68a2ff">vector a </font> and <font color = "#ff80ff">c </font>, and likewise for vector <font color = "#ff80ff">c </font>.
+        <br>
+        [Press GO to see this in action]
+        <br><br>
+        This means that one of those vectors is redundant and not linearly independent! If we were to remove one of our vectors, we would have non-redundant vectors (linearly indepdendent) since we can't get one by stretching or shrinking the other. Note if we have two vectors that lie in the same direction, then those won't be linearlly indepdendent!
+
+
       </p>
 
     </div>
 
         <script type="text/javascript">
           
-          var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
-                , conceptExampleId : "lin-ind-example"
-                , buttonId : linComboPayload.buttonId
-                , xDomain : linAlgGlobalVar.plotDomain
-                , yDomain : linAlgGlobalVar.plotDomain
-                , height : linAlgGlobalVar.plotHeight
-                , width : linAlgGlobalVar.plotWidth
-                , numTicks : linAlgGlobalVar.numTicks
-                , tarColor : linComboPayload.tarColor
-                , tarSpace : linComboPayload.highlightSpace
-                , vecCoordJson: linComboPayload.vecCoordJson
-                , duration: linComboPayload.duration
-              })
+          // var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
+          //       , conceptExampleId : "lin-ind-example"
+          //       , buttonId : linComboPayload.buttonId
+          //       , xDomain : linAlgGlobalVar.plotDomain
+          //       , yDomain : linAlgGlobalVar.plotDomain
+          //       , height : linAlgGlobalVar.plotHeight
+          //       , width : linAlgGlobalVar.plotWidth
+          //       , numTicks : linAlgGlobalVar.numTicks
+          //       , tarColor : linComboPayload.tarColor
+          //       , tarSpace : linComboPayload.highlightSpace
+          //       , vecCoordJson: linComboPayload.vecCoordJson
+          //       , duration: linComboPayload.duration
+          //     })
 
           </script>
 

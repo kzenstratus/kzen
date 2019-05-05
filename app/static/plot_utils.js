@@ -332,6 +332,9 @@ var linFunction = d3.line()
 var scaleLoc = function(tarCoord
                       , numTicks
                       , height, width){
+    if(tarCoord[0] == null){
+      return(tarCoord)
+    }
     return([width/2 + tarCoord[0] * width / numTicks
           , height/2 - tarCoord[1] * width / numTicks])
 }

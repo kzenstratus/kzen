@@ -21,7 +21,8 @@ var vecCoordJsonLinCombo = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
                                               	   , [[0,0], [3,0]]
                                               ]
                                               , "color" : "#68a2ff" // blue
-                                              , "label" : "a"
+                                              , "labels" : Array(6).fill("a")
+
                                           }
                           , "yVec" : {"coordList" : [[[0,0], [0,1]]
                                                      , [[1,0], [1,1]]
@@ -32,7 +33,7 @@ var vecCoordJsonLinCombo = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
                                                      , [[3,0], [3,3]]
                                                      ]
                                         , "color" : "#6bcc35" // "#6bcc35" // green
-                                        , "label" : "b"
+                                        , "labels" : Array(6).fill("b")
                                     }
                         , "zVec" : {"coordList" : [[[0,0], [-2,1]]
                                                  , [[0,0], [-2,1]]
@@ -42,17 +43,17 @@ var vecCoordJsonLinCombo = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
                                                  , [[3,3], [4,2]]
                                                   ]
                                         , "color" : "#ff80ff" // "#6bcc35" // green
-                                        , "label" : "c"
+                                        , "labels" : Array(6).fill("c")
                                     }
-                        , "vec" : {"coordList" : [[[0,0], [-1,2]]
-                                                 , [[0,0], [-1,2]]
+                        , "vec" : {"coordList" : [[[null,null], [null,null]]
+                                                 , [[null,null], [null,null]]
                                                  , [[0,0], [-1,2]]
                                                  , [[0,0], [1,2]]
                                                  , [[0,0], [1,4]]
                                                  , [[0,0], [4,2]]
                                                    ]
                                         , "color" : "#cc4634" // orange
-                                        , "label" : "d" 
+                                        , "labels" : Array(6).fill("d")
                                         }
                                     };
 
@@ -71,7 +72,7 @@ var vecCoordJsonOrtho = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
                                               , [[0,0], [3,0]]
                                               ]
                                               , "color" : "#68a2ff" // blue
-                                              , "label" : "v1"
+                                              , "labels" : Array(6).fill("v1")
                                 }
                                 , "yVec" : {"coordList" : [[[0,0], [0,1]]
                                                      , [[0,0], [0,1]]
@@ -81,14 +82,14 @@ var vecCoordJsonOrtho = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
                                                      , [[0,0], [0,-4]]
                                                      ]
                                         , "color" : "#68a2ff" // "#6bcc35" // green
-                                        , "label" : "v2"
+                                        , "labels" : Array(6).fill("v2")
                                       }
                                     };
             // Calculate the sum of vectors.
 vecCoordJsonOrtho = Object.assign(vecCoordJsonOrtho
 		, {"vec" : {"coordList" : math.add(vecCoordJsonOrtho.xVec.coordList, vecCoordJsonOrtho.yVec.coordList)
 					   ,"color" : "#cc4634"
-					   , "label" : "v3"
+					   , "labels" : Array(6).fill("v3")
 					}
 				})
             // vecCoordJsonOrtho = Object.assign(vecCoordJsonOrtho

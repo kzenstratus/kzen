@@ -136,9 +136,9 @@ class DisplayConceptExamplePlot {
           var vecCoordList = vec["coordList"]
           var startCoord = vecCoordList[0];
           
-          var label = ""
-          if(typeof vec['label'] !== 'undefined'){
-            label = vec['label']
+          var labels = null
+          if(typeof vec['labels'] !== 'undefined'){
+            labels = vec['labels']
           }
           let tmpVec = new Vector({startCoord : startCoord[0]
             , endCoord : startCoord[1]
@@ -151,7 +151,7 @@ class DisplayConceptExamplePlot {
             , arrowId : this.conceptExampleId + vecName
             // Vec coord list starts at index 1, don't repeat index 0.
             , coordList : vecCoordList
-            , label : label}
+            , labels : labels}
             // , coordList : vecCoordList.slice(1, vecCoordList.length)}
             );
       
