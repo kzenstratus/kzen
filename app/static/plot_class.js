@@ -161,7 +161,8 @@ class Vector {
                                      , this.width) // endCoord
             , "label" : this.labels[i]})
           }
-
+          // TODO set text style
+          // TODO fix overlap issue
           someSvg.append("text")
                  .attr("class", "vecLabel")
                  .attr("id", this.labelId)
@@ -171,20 +172,13 @@ class Vector {
                  .text(function(d, i) {return d.label})
                  // .style("font-size", "0.7em")
 
-          
-          // Somehow this gets cut off, so text can't be too long.
-          // vecDef.append("text")
-          //       .attr("x", 13) // 13 because 12 is the end of the arrow
-          //       .attr("dy", "1em")
-          //       .attr("d", this.labels)
-          //       .style("font-size", "0.7em")
-                // .text(function(d,i) { return d})
 
         }
         move(someSvg, duration){
 
           var vec = someSvg.select("path.vector#" + this.arrowId)
           var label = someSvg.select("text.vecLabel#" + this.labelId)
+          var _labels = this.labels // need to define this because transition can't look outside its environment
           for (var j = 0; j < this.coordList.length; j++){
             // This set the duration to 0 to instantly reset an animation
             // 
@@ -210,15 +204,12 @@ class Vector {
             if(this.endCoord[0] != null){
               this.getArrowHead(someSvg)
             }
-            console.log(this.arrowId)
-            console.log(j)
-            console.log(_endCoord)
             label = label.transition()
                          .duration(realDuration)
                          .attr("delay", function(d,i) {return 1000*i;})
                          .attr("x", function(d, i) {return _endCoord[0];})
                          .attr("y", function(d, i) {return _endCoord[1];})
-                         // .text(function(d, i) {return this.labels[j]})
+                         .text(function(d, i) {return _labels[j]})
                          
 
         }
