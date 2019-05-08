@@ -249,6 +249,38 @@
 
   </div>
 
+
+  <div class = 'concept-container' id = "dot_product">
+    <div class = 'concept-text'>
+  
+      <h3>Image</h3>
+      <p>
+        The Image of a linear transformation (red points) is the space (span) which the linear transformation maps to. 
+      </p>
+
+    </div>
+
+
+
+        <script type="text/javascript">
+
+          var image = new DisplayConceptExamplePlot({conceptId : imagePayload.conceptId
+                , conceptExampleId : "image-example"
+                , buttonId : imagePayload.buttonId
+                , xDomain : linAlgGlobalVar.plotDomain
+                , yDomain : linAlgGlobalVar.plotDomain
+                , height : linAlgGlobalVar.plotHeight
+                , width : linAlgGlobalVar.plotWidth
+                , numTicks : linAlgGlobalVar.numTicks
+                , tarColor : imagePayload.tarColor
+                , tarSpace : imagePayload.highlightSpace
+                , listNextDotSpaces : imagePayload.listNextDotSpaces
+                })
+
+          </script>
+
+  </div>
+
   <!-- <div class = 'concept-container'>
     <div class = 'concept-text'>
   

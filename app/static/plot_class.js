@@ -81,12 +81,6 @@ class Vector {
         if(labels == null){
           this.labels = Array(coordList.length).fill("")  
         }
-        
-        
-        
-
-        
-
       }
         // Have a line, an arrow
         // and two points, a start and end point.
@@ -359,3 +353,125 @@ class Space {
           }
         }
 }
+
+
+
+/* ----------------------
+Set up fake data and params for the grid
+and dot spaces.
+* ----------------------- */
+/*********************************************
+** Space class
+** Imports
+** lin_alg_utils.js get2dDotSpace
+** Examples
+*
+let testSpace = new Space({xDomain : [-5,5]
+  , yDomain : [-5, 5]
+  , height : 500
+  , width : 500
+  , numTicks : 10
+  , dotColor : "blue"
+  , classId : "#testId"}
+
+
+var svgContainer = d3.select("body").append("svg:svg")
+                                    .attr("width", 600)
+                                    .attr("height", 600)
+                                    .attr("class", "testId");
+testSpace.plotSpace(svgContainer)
+testSpace.plotBasis(svgContainer)
+
+var currSpace = testSpace.space
+var nextDotSpace = getTransformSpace(currSpace, transMatrix)._data
+
+
+testSpace.move(svgContainer, nextDotSpace, duration = 4000)
+
+**********************************************/
+
+
+class Text {
+    constructor({height
+                , width
+                , numTicks
+                , textList
+                } = {}
+                ) {
+
+        this.numTicks = numTicks;
+        this.height = height;
+        this.width = width;
+        this.textList = textList;
+
+        
+      }
+        // Have a line, an arrow
+        // and two points, a start and end point.
+
+//The SVG Container
+        
+        
+        plotSpace({someSvg} = {}){
+          var spaceGroup = someSvg.append('g')
+          return(plotSpace(spaceGroup
+                            , this.space
+                            , this.width
+                            , this.height
+                            , this.numTicks
+                            , this.dotColor
+                            , this.dotRad
+                            , this.dotStrokeWidth
+                            , this.tarSpace
+                            , this.tarColor)
+          )
+        }
+
+
+        move({someSvg, listNextDotSpaces, duration} = {}){
+
+          var width = this.width
+          var height = this.height
+          var numTicks = this.numTicks
+          
+          var currSpace = someSvg.selectAll(".markers")
+          for(var i = 0; i < listNextDotSpaces.length; i ++ ){
+            var nextDotSpace = listNextDotSpaces[i]
+            currSpace = currSpace.transition()
+                                   .duration(4000)
+                                   .attr("delay", function(d,i) {
+                                           return 1000*i;
+                                           })
+                                   .attr("cx", function(d, i) {
+                                         return width/2 + nextDotSpace[i][0] * width/numTicks;  
+                                         
+                                          })
+                                   .attr("cy", function(d, i) {
+                                         return height/2 + nextDotSpace[i][1]* height/numTicks;  
+                                         
+                                           })
+            this.space = nextDotSpace;  
+          }
+        }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
