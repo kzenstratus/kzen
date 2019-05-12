@@ -1,3 +1,5 @@
+
+<!-- https://discourse.gohugo.io/t/custom-start-page-with-hugo/3549 -->
 {{ partial "header" . }}
 
 <main>
@@ -20,19 +22,9 @@
             <a href="{{ .RelPermalink }}">{{ .Title }}</a>
           </h3>
           <p class="deco italic m1 large">{{ .Params.postsummary | markdownify }}</p>
-          <div class="right p0 m0">
-            <p><a href="{{ .RelPermalink }}" class="deco">Read More&hellip;</a></p>
-          </div>
-          <p class="deco italic m1">By <a href="{{ .Site.Author.biourl }}">{{ .Site.Author.name }}</a>, <br class="sm-hide md-hide lg-hide">on {{ .Date.Format "2-Jan-2006" }}
-            <br>In
-            {{ $Site := .Site }}
-            {{ if .Params.topics }}
-            <span class="posttopics">
-              {{ range .Params.topics }}
-              <a class="bold inline-block px1 rounded bg-topic-{{ . | urlize }} muted" href="{{ $Site.BaseURL}}/topics/{{ . | urlize }}">{{ . }}</a>
-              {{ end }}
-            </span>
-            {{ end }}
+          
+          <p class="deco italic m1"><br class="sm-hide md-hide lg-hide">{{ .Date.Format "2-Jan-2006" }}
+            
           </p>
 
         </div>
