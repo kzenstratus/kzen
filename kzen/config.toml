@@ -24,12 +24,12 @@ googleAnalytics = ""
 
 [[menu.main]]
     url = "/tech_blog/"
-    name = "Posts"
+    name = "Tech Blog"
     weight = 2
 
 [[menu.main]]
-    url = "/project/"
-    name = "Projects"
+    url = "/food_blog/"
+    name = "Food Blog"
     weight = 3
 
 # Social icons to be shown on the right-hand side of the navigation bar

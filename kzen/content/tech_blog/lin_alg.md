@@ -1,6 +1,5 @@
 ---
 title: "Lin_alg"
-date: 2019-05-11T14:39:11-05:00
+date: 2019-05-12
 draft: true
 ---
-
