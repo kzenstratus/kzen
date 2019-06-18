@@ -6,13 +6,13 @@
 
   <div class="intro">
 
-    {{ with .Site.Params.profilePic }} <img class="profile" src="{{ . }}"> {{ end }}
+    <!-- {{ with .Site.Params.profilePic }} <img class="profile" src="{{ . }}"> {{ end }} -->
 
     <h1>{{ .Site.Title }}</h1>
     
     <section id="latest-post" class="p0 m0 center">
       <div class="clearfix">
-        {{ range first 2 .Site.Pages }}
+        {{ range first 2 .Pages }}
         <div class="xs-hide sm-col sm-col-12 md-col-2 lg-col-3 px2">
           <svg class="latest-accent-svg-icon"><use xlink:href="/img/symbol-defs.svg#{{ .Params.postsvg }}" /></svg>
         </div>
