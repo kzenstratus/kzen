@@ -6,43 +6,30 @@ draft: true
 
 
 
-<script src={{ printf "%sjs/d3.js" $.Site.BaseURL  }}></script>
+<!-- <script src={{ printf "%sjs/d3.js" $.Site.BaseURL  }}></script> -->
 
 <!-- <!DOCTYPE html> -->
 <html>
 
-<!-- <link rel= "stylesheet" type= "text/css" href= "../static/concept.css"> -->
-<!-- <link rel= "stylesheet" type= "text/css" href= "{{ .Site.BaseURL }}concept.css"> -->
+<link rel= "stylesheet" type= "text/css" href= "/concept.css">
 
 hello
 
-<script type="text/javascript">
-	d3.select("p")	
-</script>
+<script src="/d3.min.js"></script>
+<script src="/math.min.js"></script>
+<script src="/plot_utils.js"></script>
+<script src="/plot_class.js"></script>
+<script src="/display_class.js"></script>
+<script src="/concepts/lin_alg/lin_alg_utils.js"></script>
+<script src="/concepts/lin_alg/lin_alg_vars.js"></script>
 
-<!-- <script src="{{ .Site.BaseURL }}d3.min.js"></script> -->
-<!-- <script src="../static/d3.min.js"></script> -->
-<!-- <script src="{{ .Site.BaseURL }}math.min.js"></script>
-<script src="{{ .Site.BaseURL }}plot_utils.js"></script>
-<script src="{{ .Site.BaseURL }}plot_class.js"></script>
-<script src="{{ .Site.BaseURL }}display_class.js"></script>
-<script src="{{ .Site.BaseURL }}concepts/lin_alg/lin_alg_utils.js"></script>
-<script src="{{ .Site.BaseURL }}concepts/concepts/lin_alg/lin_alg_vars.js"></script> -->
-<!-- <script src="../static/math.min.js"></script> -->
-<!-- <script src="../static/plot_utils.js"></script> -->
-<!-- <script src="../static/plot_class.js"></script> -->
-<!-- <script src="../static/display_class.js"></script> -->
-<!-- <script src="../static/concepts/lin_alg/lin_alg_utils.js"></script> -->
-<!-- <script src="../static/concepts/lin_alg/lin_alg_vars.js"></script> -->
 
-<!-- 
 <body>
 
   <div class = 'concept-container' id = "linear-combination">
     <div class = 'concept-text'>
-  
-      <h3>Linear Combination</h3>
-      <p>
+    	<h3>Linear Combination</h3>
+    	<p>
         We have 3 vectors 
         <font color = "#68a2ff">a </font>,
         <font color = "#6bcc35">b </font>,
@@ -59,32 +46,29 @@ hello
         <font color = "#6bcc35">b </font>,
         <font color = "#ff80ff">c </font>, all the resulting <font color = "#cc4634">vectors</font> are called the linear combination of a,b and c.
       </p>
-
-    </div>
-
-        <script type="text/javascript">
-          
-          var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
-                , conceptExampleId : "lin-combo-example"
-                , buttonId : linComboPayload.buttonId
-                , xDomain : linAlgGlobalVar.plotDomain
-                , yDomain : linAlgGlobalVar.plotDomain
-                , height : linAlgGlobalVar.plotHeight
-                , width : linAlgGlobalVar.plotWidth
-                , numTicks : linAlgGlobalVar.numTicks
-                , vecCoordJson: linComboPayload.vecCoordJson
-                , duration: linComboPayload.duration
-              })
-
-          </script>
-
   </div>
 
-    <div class = 'concept-container' id = "linear-independence">
-    <div class = 'concept-text'>
+  <script type="text/javascript">
+	  
+	  var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
+	        , conceptExampleId : "lin-combo-example"
+	        , buttonId : linComboPayload.buttonId
+	        , xDomain : linAlgGlobalVar.plotDomain
+	        , yDomain : linAlgGlobalVar.plotDomain
+	        , height : linAlgGlobalVar.plotHeight
+	        , width : linAlgGlobalVar.plotWidth
+	        , numTicks : linAlgGlobalVar.numTicks
+	        , vecCoordJson: linComboPayload.vecCoordJson
+	        , duration: linComboPayload.duration
+	      })
+	  </script>
+
+  </div>
   
-      <h3>Linear Independence</h3>
-      <p>
+  <div class = 'concept-container' id = "linear-independence">
+  	<div class = 'concept-text'>
+  		<h3>Linear Independence</h3>
+  		<p>
         We have 3 vectors 
         <font color = "#68a2ff">a </font>,
         <font color = "#6bcc35">b </font>,
@@ -98,13 +82,9 @@ hello
         [Press GO to see this in action]
         <br><br>
         This means that one of these vectors is redundant and not linearly independent! If we were to remove one of our vectors, we would have non-redundant vectors (linearly indepdendent) since we can't get one by stretching or shrinking the other. Note if we have two vectors that lie in the same direction, then those won't be linearlly indepdendent!
-
-
-      </p>
-
+    	</p>
     </div>
-
-        <script type="text/javascript">
+    <script type="text/javascript">
           
           var linIndependence = new DisplayConceptExamplePlot({conceptId : linIndPayload.conceptId
                 , conceptExampleId : "lin-ind-example"
@@ -119,8 +99,7 @@ hello
                 , vecCoordJson: linIndPayload.vecCoordJson
                 , duration: linIndPayload.duration
               })
-
-          </script>
+    </script>
 
   </div>
 
@@ -136,12 +115,10 @@ hello
         <br><br>
         <font color = "#68a2ff">Vectors v1 and v2</font> here are our basis vectors. 
         Basis vectors must be linearly independent. Here we see that there is no way I can get vector v2 by stretching and shrinking v1.
+    </p>
 
-      </p>
-
-    </div>
-
-        <script type="text/javascript">
+</div>
+<script type="text/javascript">
           // Read in linAlgGlobalVar and kernelPayload
                         
 
@@ -173,14 +150,12 @@ hello
         Meaning <font color = "#cc4634">v3 </font> can hit all grey points by stretching and shrinking 
         <font color = "#68a2ff">v1 </font> and 
         <font color = "#68a2ff">v2 </font>.
-
         <br><br>
         Note: We don't have to stretch or shrink our vectors such they land on each grey point. These vectors can stretch and shrink such that they land anywhere!
-        
-      </p>
+    </p>
+</div>
 
-    </div>
-    <script type="text/javascript">
+<script type="text/javascript">
 
           var basisNonOrtho = new DisplayConceptExamplePlot({conceptId : basisNonOrthoPayload.conceptId
                 , conceptExampleId : "basis-example"
@@ -199,16 +174,14 @@ hello
 
   <div class = 'concept-container' id = "kernel">
     <div class = 'concept-text'>
-  
-      <h3>Kernel</h3>
+    	<h3>Kernel</h3>
       <p>
         The Kernel of a linear transformation (red points) is the space that goes to 0 during the  linear transformation. <br>
         When no dimensionality reduction happens eg. 2d to 1d, the only point in the kernel will be 0. 0 is always in the kernel.
       </p>
+  </div>
 
-    </div>
-
-        <script type="text/javascript">
+  <script type="text/javascript">
           // Read in linAlgGlobalVar and kernelPayload
           var kernel = new DisplayConceptExamplePlot({conceptId : kernelPayload.conceptId
                 , conceptExampleId : "kernel-example"
@@ -233,17 +206,12 @@ hello
 
   <div class = 'concept-container' id = "image">
     <div class = 'concept-text'>
-  
-      <h3>Image</h3>
+    	<h3>Image</h3>
       <p>
         The Image of a linear transformation (red points) is the space (span) which the linear transformation maps to. 
       </p>
-
-    </div>
-
-
-
-        <script type="text/javascript">
+  </div>
+  <script type="text/javascript">
 
           var image = new DisplayConceptExamplePlot({conceptId : imagePayload.conceptId
                 , conceptExampleId : "image-example"
@@ -265,17 +233,13 @@ hello
 
   <div class = 'concept-container' id = "dot_product">
     <div class = 'concept-text'>
-  
-      <h3>Image</h3>
+    	<h3>Image</h3>
       <p>
         The Image of a linear transformation (red points) is the space (span) which the linear transformation maps to. 
       </p>
+  </div>
 
-    </div>
-
-
-
-        <script type="text/javascript">
+  <script type="text/javascript">
 
           var image = new DisplayConceptExamplePlot({conceptId : imagePayload.conceptId
                 , conceptExampleId : "image-example"
@@ -295,6 +259,6 @@ hello
   </div>
 
 
-</body> -->
+</body>
 </html>
 
