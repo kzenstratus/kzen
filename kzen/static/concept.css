@@ -1,5 +1,5 @@
 main{
-  max-width: 90vw;
+  max-width: 100vw;
 }
 .concept-container{
   font-family: 'Roboto', sans-serif;
@@ -7,7 +7,7 @@ main{
   letter-spacing: 4px;
   word-spacing: 2px;*/
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row wrap;*/
   /* Then we define how is distributed the remaining space */
   justify-content: space-around;
   width: 100%;
@@ -20,7 +20,7 @@ main{
 .concept-text{
   position: relative;
   border: 1px solid #fff;  /* For debugging */
-  width: 600px;
+  width: 40vw;
   /*height: 600px;*/
 }
 
@@ -46,14 +46,7 @@ main{
   border-radius: 5px;
 }
 
-
-/*.concept-example a{
-  position:relative;
-  bottom:5px;
-  right:5px;
-}*/
-
-.body{
+/*.body{
   font-family: 'Dosis', sans-serif;
   font-size: 26px;
   letter-spacing: 4px;
@@ -63,7 +56,8 @@ main{
   width: 800px;
   height: 800px;
   text-align: center;
-}
+}*/
+
 svg{
   display: block;
   margin: auto;

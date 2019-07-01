@@ -76,7 +76,7 @@ draft: true
         This means that one of these vectors is redundant and not linearly independent! If we were to remove one of our vectors, we would have non-redundant vectors (linearly indepdendent) since we can't get one by stretching or shrinking the other. Note if we have two vectors that lie in the same direction, then those won't be linearlly indepdendent!
       </p>
     </div>
-    
+
 <script type="text/javascript">
       var linIndependence = new DisplayConceptExamplePlot({conceptId : linIndPayload.conceptId
                 , conceptExampleId : "lin-ind-example"
@@ -169,7 +169,7 @@ draft: true
       </p>
   </div>
 
-  <script type="text/javascript">
+<script type="text/javascript">
           // Read in linAlgGlobalVar and kernelPayload
           var kernel = new DisplayConceptExamplePlot({conceptId : kernelPayload.conceptId
                 , conceptExampleId : "kernel-example"
@@ -184,7 +184,7 @@ draft: true
                 , listNextDotSpaces : kernelPayload.listNextDotSpaces
                 })
 
-          </script>
+</script>
 
   </div>
 
@@ -196,7 +196,7 @@ draft: true
         The Image of a linear transformation (red points) is the space (span) which the linear transformation maps to. 
       </p>
   </div>
-  <script type="text/javascript">
+<script type="text/javascript">
           var image = new DisplayConceptExamplePlot({conceptId : imagePayload.conceptId
                 , conceptExampleId : "image-example"
                 , buttonId : imagePayload.buttonId
@@ -210,19 +210,19 @@ draft: true
                 , listNextDotSpaces : imagePayload.listNextDotSpaces
                 })
 
-          </script>
+</script>
 
   </div>
 
   <div class = 'concept-container' id = "dot_product">
     <div class = 'concept-text'>
-      <h3>Image</h3>
+      <h3>Dot Product</h3>
       <p>
-        The Image of a linear transformation (red points) is the space (span) which the linear transformation maps to. 
+        The Dot Product of a linear transformation (red points) is the space (span) which the linear transformation maps to. 
       </p>
   </div>
 
-  <script type="text/javascript">
+<script type="text/javascript">
 
           var image = new DisplayConceptExamplePlot({conceptId : imagePayload.conceptId
                 , conceptExampleId : "image-example"
@@ -237,7 +237,7 @@ draft: true
                 , listNextDotSpaces : imagePayload.listNextDotSpaces
                 })
 
-          </script>
+</script>
 
   </div>
 
