@@ -4,16 +4,10 @@ date: 2019-05-12
 draft: true
 ---
 
-
-
-<!-- <script src={{ printf "%sjs/d3.js" $.Site.BaseURL  }}></script> -->
-
-<!-- <!DOCTYPE html> -->
 <html>
 
 <link rel= "stylesheet" type= "text/css" href= "/concept.css">
 
-hello
 
 <script src="/d3.min.js"></script>
 <script src="/math.min.js"></script>
@@ -48,27 +42,25 @@ hello
       </p>
   </div>
 
-  <script type="text/javascript">
-	  
-	  var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
-	        , conceptExampleId : "lin-combo-example"
-	        , buttonId : linComboPayload.buttonId
-	        , xDomain : linAlgGlobalVar.plotDomain
-	        , yDomain : linAlgGlobalVar.plotDomain
-	        , height : linAlgGlobalVar.plotHeight
-	        , width : linAlgGlobalVar.plotWidth
-	        , numTicks : linAlgGlobalVar.numTicks
-	        , vecCoordJson: linComboPayload.vecCoordJson
-	        , duration: linComboPayload.duration
-	      })
-	  </script>
+<script type="text/javascript">
+  var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
+          , conceptExampleId : 'lin-combo-example'
+          , buttonId : linComboPayload.buttonId
+          , xDomain : linAlgGlobalVar.plotDomain
+          , yDomain : linAlgGlobalVar.plotDomain
+          , height : linAlgGlobalVar.plotHeight
+          , width : linAlgGlobalVar.plotWidth
+          , numTicks : linAlgGlobalVar.numTicks
+          , vecCoordJson: linComboPayload.vecCoordJson
+          , duration: linComboPayload.duration
+        })
+</script>
 
-  </div>
-  
+</div>
   <div class = 'concept-container' id = "linear-independence">
-  	<div class = 'concept-text'>
-  		<h3>Linear Independence</h3>
-  		<p>
+    <div class = 'concept-text'>
+      <h3>Linear Independence</h3>
+      <p>
         We have 3 vectors 
         <font color = "#68a2ff">a </font>,
         <font color = "#6bcc35">b </font>,
@@ -82,11 +74,11 @@ hello
         [Press GO to see this in action]
         <br><br>
         This means that one of these vectors is redundant and not linearly independent! If we were to remove one of our vectors, we would have non-redundant vectors (linearly indepdendent) since we can't get one by stretching or shrinking the other. Note if we have two vectors that lie in the same direction, then those won't be linearlly indepdendent!
-    	</p>
+      </p>
     </div>
-    <script type="text/javascript">
-          
-          var linIndependence = new DisplayConceptExamplePlot({conceptId : linIndPayload.conceptId
+    
+<script type="text/javascript">
+      var linIndependence = new DisplayConceptExamplePlot({conceptId : linIndPayload.conceptId
                 , conceptExampleId : "lin-ind-example"
                 , buttonId : linIndPayload.buttonId
                 , xDomain : linAlgGlobalVar.plotDomain
@@ -99,9 +91,8 @@ hello
                 , vecCoordJson: linIndPayload.vecCoordJson
                 , duration: linIndPayload.duration
               })
-    </script>
-
-  </div>
+</script>
+</div>
 
   <div class = 'concept-container' id = "basis">
     <div class = 'concept-text'>
@@ -120,8 +111,6 @@ hello
 </div>
 <script type="text/javascript">
           // Read in linAlgGlobalVar and kernelPayload
-                        
-
           var basisOrtho = new DisplayConceptExamplePlot({conceptId : basisPayload.conceptId
                 , conceptExampleId : "basis-example-ortho"
                 , buttonId : basisPayload.buttonId
@@ -156,7 +145,6 @@ hello
 </div>
 
 <script type="text/javascript">
-
           var basisNonOrtho = new DisplayConceptExamplePlot({conceptId : basisNonOrthoPayload.conceptId
                 , conceptExampleId : "basis-example"
                 , buttonId : basisNonOrthoPayload.buttonId
@@ -174,7 +162,7 @@ hello
 
   <div class = 'concept-container' id = "kernel">
     <div class = 'concept-text'>
-    	<h3>Kernel</h3>
+      <h3>Kernel</h3>
       <p>
         The Kernel of a linear transformation (red points) is the space that goes to 0 during the  linear transformation. <br>
         When no dimensionality reduction happens eg. 2d to 1d, the only point in the kernel will be 0. 0 is always in the kernel.
@@ -200,19 +188,15 @@ hello
 
   </div>
 
-  
-
-
 
   <div class = 'concept-container' id = "image">
     <div class = 'concept-text'>
-    	<h3>Image</h3>
+      <h3>Image</h3>
       <p>
         The Image of a linear transformation (red points) is the space (span) which the linear transformation maps to. 
       </p>
   </div>
   <script type="text/javascript">
-
           var image = new DisplayConceptExamplePlot({conceptId : imagePayload.conceptId
                 , conceptExampleId : "image-example"
                 , buttonId : imagePayload.buttonId
@@ -229,11 +213,10 @@ hello
           </script>
 
   </div>
-
 
   <div class = 'concept-container' id = "dot_product">
     <div class = 'concept-text'>
-    	<h3>Image</h3>
+      <h3>Image</h3>
       <p>
         The Image of a linear transformation (red points) is the space (span) which the linear transformation maps to. 
       </p>
@@ -257,6 +240,7 @@ hello
           </script>
 
   </div>
+
 
 
 </body>
