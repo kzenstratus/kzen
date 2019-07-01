@@ -46,18 +46,6 @@ main{
   border-radius: 5px;
 }
 
-/*.body{
-  font-family: 'Dosis', sans-serif;
-  font-size: 26px;
-  letter-spacing: 4px;
-  word-spacing: 2px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 800px;
-  height: 800px;
-  text-align: center;
-}*/
-
 svg{
   display: block;
   margin: auto;

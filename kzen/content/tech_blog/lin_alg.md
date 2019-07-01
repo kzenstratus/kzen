@@ -1,7 +1,7 @@
 ---
 title: "Linear Algebra"
-date: 2019-05-12
-draft: true
+date: 2019-06-30
+draft: false
 ---
 
 <html>
@@ -65,7 +65,7 @@ draft: true
         <font color = "#68a2ff">a </font>,
         <font color = "#6bcc35">b </font>,
         <font color = "#ff80ff">c </font>.
-        Earlier we see that the linear combination of can give us many different vectors. What if we added two of those vectors together, could we get the third vector?
+        Earlier we saw that the linear combination of these 3 vectors can give us many different vectors. What if we added two of these vectors together, can we get the third vector?
         <br>
         We see that we can describe <font color = "#68a2ff">vector a </font> as a linear combination of vectors <font color = "#6bcc35">b </font> and <font color = "#ff80ff">c </font>. 
         <br>
@@ -73,7 +73,7 @@ draft: true
         <br>
         [Press GO to see this in action]
         <br><br>
-        This means that one of these vectors is redundant and not linearly independent! If we were to remove one of our vectors, we would have non-redundant vectors (linearly indepdendent) since we can't get one by stretching or shrinking the other. Note if we have two vectors that lie in the same direction, then those won't be linearlly indepdendent!
+        This means that one of these vectors is redundant and not linearly independent! If we were to remove one of our vectors, we can still describe the same space (by stretching, shrinking, and combining with each other) as we could with 3 vectors. Note, if we have two vectors that lie in the same direction, then those won't be linearlly indepdendent!
       </p>
     </div>
 
@@ -185,10 +185,7 @@ draft: true
                 })
 
 </script>
-
   </div>
-
-
   <div class = 'concept-container' id = "image">
     <div class = 'concept-text'>
       <h3>Image</h3>
@@ -196,8 +193,9 @@ draft: true
         The Image of a linear transformation (red points) is the space (span) which the linear transformation maps to. 
       </p>
   </div>
+
 <script type="text/javascript">
-          var image = new DisplayConceptExamplePlot({conceptId : imagePayload.conceptId
+  var image = new DisplayConceptExamplePlot({conceptId : imagePayload.conceptId
                 , conceptExampleId : "image-example"
                 , buttonId : imagePayload.buttonId
                 , xDomain : linAlgGlobalVar.plotDomain
@@ -211,37 +209,6 @@ draft: true
                 })
 
 </script>
-
-  </div>
-
-  <div class = 'concept-container' id = "dot_product">
-    <div class = 'concept-text'>
-      <h3>Dot Product</h3>
-      <p>
-        The Dot Product of a linear transformation (red points) is the space (span) which the linear transformation maps to. 
-      </p>
-  </div>
-
-<script type="text/javascript">
-
-          var image = new DisplayConceptExamplePlot({conceptId : imagePayload.conceptId
-                , conceptExampleId : "image-example"
-                , buttonId : imagePayload.buttonId
-                , xDomain : linAlgGlobalVar.plotDomain
-                , yDomain : linAlgGlobalVar.plotDomain
-                , height : linAlgGlobalVar.plotHeight
-                , width : linAlgGlobalVar.plotWidth
-                , numTicks : linAlgGlobalVar.numTicks
-                , tarColor : imagePayload.tarColor
-                , tarSpace : imagePayload.highlightSpace
-                , listNextDotSpaces : imagePayload.listNextDotSpaces
-                })
-
-</script>
-
-  </div>
-
-
 
 </body>
 </html>

@@ -135,7 +135,7 @@
     
 
     <h4><a href="/tech_blog/lin_alg/">Linear Algebra</a></h4>
-    <h5>May 12, 2019</h5>
+    <h5>June 30, 2019</h5>
     
 
 </div>
@@ -191,9 +191,8 @@
         })
 </script>
 
-<p></div></p>
-
-<p><div class = 'concept-container' id = "linear-independence">
+<p></div>
+  <div class = 'concept-container' id = "linear-independence">
     <div class = 'concept-text'>
       <h3>Linear Independence</h3>
       <p>
@@ -201,7 +200,7 @@
         <font color = "#68a2ff">a </font>,
         <font color = "#6bcc35">b </font>,
         <font color = "#ff80ff">c </font>.
-        Earlier we see that the linear combination of can give us many different vectors. What if we added two of those vectors together, could we get the third vector?
+        Earlier we saw that the linear combination of these 3 vectors can give us many different vectors. What if we added two of these vectors together, can we get the third vector?
         <br>
         We see that we can describe <font color = "#68a2ff">vector a </font> as a linear combination of vectors <font color = "#6bcc35">b </font> and <font color = "#ff80ff">c </font>.
         <br>
@@ -209,30 +208,28 @@
         <br>
         [Press GO to see this in action]
         <br><br>
-        This means that one of these vectors is redundant and not linearly independent! If we were to remove one of our vectors, we would have non-redundant vectors (linearly indepdendent) since we can&rsquo;t get one by stretching or shrinking the other. Note if we have two vectors that lie in the same direction, then those won&rsquo;t be linearlly indepdendent!
+        This means that one of these vectors is redundant and not linearly independent! If we were to remove one of our vectors, we can still describe the same space (by stretching, shrinking, and combining with each other) as we could with 3 vectors. Note, if we have two vectors that lie in the same direction, then those won&rsquo;t be linearlly indepdendent!
       </p>
-    </div>
-    <script type="text/javascript"></p>
+    </div></p>
 
-<pre><code>      var linIndependence = new DisplayConceptExamplePlot({conceptId : linIndPayload.conceptId
-            , conceptExampleId : &quot;lin-ind-example&quot;
-            , buttonId : linIndPayload.buttonId
-            , xDomain : linAlgGlobalVar.plotDomain
-            , yDomain : linAlgGlobalVar.plotDomain
-            , height : linAlgGlobalVar.plotHeight
-            , width : linAlgGlobalVar.plotWidth
-            , numTicks : linAlgGlobalVar.numTicks
-            , tarColor : linIndPayload.tarColor
-            , tarSpace : linIndPayload.highlightSpace
-            , vecCoordJson: linIndPayload.vecCoordJson
-            , duration: linIndPayload.duration
-          })
-&lt;/script&gt;
-</code></pre>
+<script type="text/javascript">
+      var linIndependence = new DisplayConceptExamplePlot({conceptId : linIndPayload.conceptId
+                , conceptExampleId : "lin-ind-example"
+                , buttonId : linIndPayload.buttonId
+                , xDomain : linAlgGlobalVar.plotDomain
+                , yDomain : linAlgGlobalVar.plotDomain
+                , height : linAlgGlobalVar.plotHeight
+                , width : linAlgGlobalVar.plotWidth
+                , numTicks : linAlgGlobalVar.numTicks
+                , tarColor : linIndPayload.tarColor
+                , tarSpace : linIndPayload.highlightSpace
+                , vecCoordJson: linIndPayload.vecCoordJson
+                , duration: linIndPayload.duration
+              })
+</script>
+</div>
 
-<p></div></p>
-
-<p><div class = 'concept-container' id = "basis">
+  <div class = 'concept-container' id = "basis">
     <div class = 'concept-text'>
       <h3> Basis</h3>
       <p>
@@ -242,29 +239,27 @@
         <br>
         [Hit Go! to see this in action]
         <br><br>
-        <font color = "#68a2ff">Vectors v1 and v2</font> here are our basis vectors.
+        <font color = "#68a2ff">Vectors v1 and v2</font> here are our basis vectors. 
         Basis vectors must be linearly independent. Here we see that there is no way I can get vector v2 by stretching and shrinking v1.
-    </p></p>
+    </p>
 
-<p></div>
+</div>
 <script type="text/javascript">
-          // Read in linAlgGlobalVar and kernelPayload</p>
+          // Read in linAlgGlobalVar and kernelPayload
+          var basisOrtho = new DisplayConceptExamplePlot({conceptId : basisPayload.conceptId
+                , conceptExampleId : "basis-example-ortho"
+                , buttonId : basisPayload.buttonId
+                , xDomain : linAlgGlobalVar.plotDomain
+                , yDomain : linAlgGlobalVar.plotDomain
+                , height : linAlgGlobalVar.plotHeight
+                , width : linAlgGlobalVar.plotWidth
+                , numTicks : linAlgGlobalVar.numTicks
+                , vecCoordJson: basisPayload.vecCoordJson
+                , duration: basisPayload.duration
+              })
 
-<pre><code>      var basisOrtho = new DisplayConceptExamplePlot({conceptId : basisPayload.conceptId
-            , conceptExampleId : &quot;basis-example-ortho&quot;
-            , buttonId : basisPayload.buttonId
-            , xDomain : linAlgGlobalVar.plotDomain
-            , yDomain : linAlgGlobalVar.plotDomain
-            , height : linAlgGlobalVar.plotHeight
-            , width : linAlgGlobalVar.plotWidth
-            , numTicks : linAlgGlobalVar.numTicks
-            , vecCoordJson: basisPayload.vecCoordJson
-            , duration: basisPayload.duration
-          })
-
-
-      &lt;/script&gt;
-</code></pre>
+          
+          </script>
 
 <p></div></p>
 
@@ -284,7 +279,6 @@
 </div>
 
 <script type="text/javascript">
-
           var basisNonOrtho = new DisplayConceptExamplePlot({conceptId : basisNonOrthoPayload.conceptId
                 , conceptExampleId : "basis-example"
                 , buttonId : basisNonOrthoPayload.buttonId
@@ -309,7 +303,7 @@
       </p>
   </div>
 
-  <script type="text/javascript">
+<script type="text/javascript">
           // Read in linAlgGlobalVar and kernelPayload
           var kernel = new DisplayConceptExamplePlot({conceptId : kernelPayload.conceptId
                 , conceptExampleId : "kernel-example"
@@ -324,7 +318,7 @@
                 , listNextDotSpaces : kernelPayload.listNextDotSpaces
                 })
 
-          </script>
+</script>
 
 <p></div></p>
 
@@ -335,53 +329,21 @@
         The Image of a linear transformation (red points) is the space (span) which the linear transformation maps to.
       </p>
   </div>
-  <script type="text/javascript"></p>
+<script type="text/javascript">
+          var image = new DisplayConceptExamplePlot({conceptId : imagePayload.conceptId
+                , conceptExampleId : &ldquo;image-example&rdquo;
+                , buttonId : imagePayload.buttonId
+                , xDomain : linAlgGlobalVar.plotDomain
+                , yDomain : linAlgGlobalVar.plotDomain
+                , height : linAlgGlobalVar.plotHeight
+                , width : linAlgGlobalVar.plotWidth
+                , numTicks : linAlgGlobalVar.numTicks
+                , tarColor : imagePayload.tarColor
+                , tarSpace : imagePayload.highlightSpace
+                , listNextDotSpaces : imagePayload.listNextDotSpaces
+                })</p>
 
-<pre><code>      var image = new DisplayConceptExamplePlot({conceptId : imagePayload.conceptId
-            , conceptExampleId : &quot;image-example&quot;
-            , buttonId : imagePayload.buttonId
-            , xDomain : linAlgGlobalVar.plotDomain
-            , yDomain : linAlgGlobalVar.plotDomain
-            , height : linAlgGlobalVar.plotHeight
-            , width : linAlgGlobalVar.plotWidth
-            , numTicks : linAlgGlobalVar.numTicks
-            , tarColor : imagePayload.tarColor
-            , tarSpace : imagePayload.highlightSpace
-            , listNextDotSpaces : imagePayload.listNextDotSpaces
-            })
-
-      &lt;/script&gt;
-</code></pre>
-
-<p></div></p>
-
-<p><div class = 'concept-container' id = "dot_product">
-    <div class = 'concept-text'>
-      <h3>Image</h3>
-      <p>
-        The Image of a linear transformation (red points) is the space (span) which the linear transformation maps to.
-      </p>
-  </div></p>
-
-<p><script type="text/javascript"></p>
-
-<pre><code>      var image = new DisplayConceptExamplePlot({conceptId : imagePayload.conceptId
-            , conceptExampleId : &quot;image-example&quot;
-            , buttonId : imagePayload.buttonId
-            , xDomain : linAlgGlobalVar.plotDomain
-            , yDomain : linAlgGlobalVar.plotDomain
-            , height : linAlgGlobalVar.plotHeight
-            , width : linAlgGlobalVar.plotWidth
-            , numTicks : linAlgGlobalVar.numTicks
-            , tarColor : imagePayload.tarColor
-            , tarSpace : imagePayload.highlightSpace
-            , listNextDotSpaces : imagePayload.listNextDotSpaces
-            })
-
-      &lt;/script&gt;
-</code></pre>
-
-<p></div></p>
+<p></script></p>
 
 <p></body>
 </html></p>
