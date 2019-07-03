@@ -1,0 +1,41 @@
+
+<!-- https://discourse.gohugo.io/t/custom-start-page-with-hugo/3549 -->
+{{ partial "header" . }}
+
+<main>
+
+  <div class="intro">
+
+    <!-- {{ with .Site.Params.profilePic }} <img class="profile" src="{{ . }}"> {{ end }} -->
+
+    <h1>{{ .Site.Title }}</h1>
+    
+    <section id="latest-post" class="p0 m0 center">
+      <div class="clearfix">
+        {{ range first 2 .Pages }}
+        <div class="xs-hide sm-col sm-col-12 md-col-2 lg-col-3 px2">
+          <svg class="latest-accent-svg-icon"><use xlink:href="/img/symbol-defs.svg#{{ .Params.postsvg }}" /></svg>
+        </div>
+
+        <div class="sm-col-right sm-col-12 md-col-10 lg-col-9 px2 align-top left-align">
+          <h3 class="h2 h2-responsive m1">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </h3>
+          <p class="deco italic m1 large">{{ .Params.postsummary | markdownify }}</p>
+          
+          <p class="deco italic m1"><br class="sm-hide md-hide lg-hide">{{ .Date.Format "2-Jan-2006" }}
+            
+          </p>
+
+        </div>
+        {{ end }}
+      </div>
+    </section> 
+
+    <!-- <h2>{{ markdownify .Site.Params.Description }}</h2> -->
+
+  </div>
+
+</main>
+
+{{ partial "footer" . }}
