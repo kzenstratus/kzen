@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tech_blogs on Kevin Zen&#39;s Blog</title>
-    <link>http://example.com/tech_blog/</link>
+    <link>http://kzenstratus.github.io/kzen/tech_blog/</link>
     <description>Recent content in Tech_blogs on Kevin Zen&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 30 Jun 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://example.com/tech_blog/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://kzenstratus.github.io/kzen/tech_blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Linear Algebra</title>
-      <link>http://example.com/tech_blog/lin_alg/</link>
+      <link>http://kzenstratus.github.io/kzen/tech_blog/lin_alg/</link>
       <pubDate>Sun, 30 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://example.com/tech_blog/lin_alg/</guid>
+      <guid>http://kzenstratus.github.io/kzen/tech_blog/lin_alg/</guid>
       <description>Linear Combination  We have 3 vectors a , b , c . If we connect each vector from head to tail, we get the sum of the vectors, vector d. We can stretch and shrink a , b , and c , to get many different vectors. If you take all of the possible combinations of stretching and shrinking a , b , c , all the resulting vectors are called the linear combination of a,b and c.</description>
     </item>
     
