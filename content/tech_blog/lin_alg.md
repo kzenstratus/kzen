@@ -6,16 +6,16 @@ draft: false
 
 <html>
 
-<link rel= "stylesheet" type= "text/css" href= "/css/concept.css">
+<link rel= "stylesheet" type= "text/css" href= "/kzen/css/concept.css">
 
 
-<script src="/js/d3.min.js"></script>
-<script src="/js/math.min.js"></script>
-<script src="/js/plot_utils.js"></script>
-<script src="/js/plot_class.js"></script>
-<script src="/js/display_class.js"></script>
-<script src="/js/concepts/lin_alg/lin_alg_utils.js"></script>
-<script src="/js/concepts/lin_alg/lin_alg_vars.js"></script>
+<script src="/kzen/js/d3.min.js"></script>
+<script src="/kzen/js/math.min.js"></script>
+<script src="/kzen/js/plot_utils.js"></script>
+<script src="/kzen/js/plot_class.js"></script>
+<script src="/kzen/js/display_class.js"></script>
+<script src="/kzen/js/concepts/lin_alg/lin_alg_utils.js"></script>
+<script src="/kzen/js/concepts/lin_alg/lin_alg_vars.js"></script>
 
 
 <body>

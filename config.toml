@@ -16,6 +16,7 @@ googleAnalytics = ""
     highlight = true
     highlightStyle = "solarized-dark"
     highlightLanguages = ["go", "r", "python"]
+    favicon = "https://kzenstratus.github.io/kzen/favicon.ico"
 
 [[menu.main]]
     url = "/"
