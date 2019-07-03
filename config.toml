@@ -1,4 +1,4 @@
-baseURL = "http://kzenstratus.github.io/kzen/"
+baseURL = "https://kzenstratus.github.io/kzen/"
 languageCode = "en-us"
 title = "Kevin Zen's Blog"
 # theme = "minimal"
