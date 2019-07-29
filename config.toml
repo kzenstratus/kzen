@@ -24,13 +24,13 @@ googleAnalytics = ""
     weight = 1
 
 [[menu.main]]
-    url = "/tech_blog/"
-    name = "Tech Blog"
+    url = "/tech_notes/"
+    name = "Tech Notes"
     weight = 2
 
 [[menu.main]]
-    url = "/food_blog/"
-    name = "Food Blog"
+    url = "/food_notes/"
+    name = "Food Notes"
     weight = 3
 
 [[menu.main]]

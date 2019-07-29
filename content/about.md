@@ -1,6 +1,6 @@
 ---
 title: "About"
-date: 201-07-01
+date: 2019-07-01
 draft: false
 type: "mytype"
 layout: "about"
