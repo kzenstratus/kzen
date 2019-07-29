@@ -3,35 +3,36 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://kzenstratus.github.io/kzen/food_notes/</loc>
+    <lastmod>2019-07-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://kzenstratus.github.io/kzen/</loc>
-    <lastmod>2019-06-30T00:00:00+00:00</lastmod>
+    <lastmod>2019-07-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://kzenstratus.github.io/kzen/tech_blog/lin_alg/</loc>
-    <lastmod>2019-06-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://kzenstratus.github.io/kzen/tech_blog/</loc>
-    <lastmod>2019-06-30T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://kzenstratus.github.io/kzen/food_blog/</loc>
-    <lastmod>2019-05-12T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://kzenstratus.github.io/kzen/food_blog/spring_rolls/</loc>
-    <lastmod>2019-05-12T00:00:00+00:00</lastmod>
+    <loc>https://kzenstratus.github.io/kzen/food_notes/tea_eggs_tofu/</loc>
+    <lastmod>2019-07-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://kzenstratus.github.io/kzen/about/</loc>
+    <lastmod>2019-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kzenstratus.github.io/kzen/tech_notes/lin_alg/</loc>
+    <lastmod>2019-06-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kzenstratus.github.io/kzen/tech_notes/</loc>
+    <lastmod>2019-06-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
