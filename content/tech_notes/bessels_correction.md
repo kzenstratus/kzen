@@ -1,0 +1,53 @@
+---
+title: "Bessel's Correction"
+date: 2019-06-30
+draft: true
+---
+
+Bessel's Correction - 
+show 2d plot of points
+
+Show why bias occurs.
+
+For a given 2d set of points, draw the mean. 
+Then plot the equivalent variance function.
+x axis is the actual mean - other mean.
+y axis is the the variance.
+
+Take aways:
+* Show that this is a parabola with the minimum occuring when the actual mean equals any other mean.
+* Anytime the the mean is different than the actual mean, show that the variance increases... This means the the variance will always be larger than it actually should be.
+* Show that we can help alleviate this with an approximation to correct this via n-1.
+
+Why n-1?
+
+The key lies in understanding 
+Bienaymé formula
+
+Var(mean x) = sigma ^2 / n
+
+A couple of concepts to introduce to understand the above.
+
+* Independence and Var(sum(x)) = sum(Var(x))
+
+If 2 random variables are not correlated, then the sum of the two variables doesn't have a consistent "rule".
+If x has a slope of +1 , and y has a +1 slope across time.
+
+Then there is a positive correlation. We see that adding them together over time just results in a 2x shift upward (1 ->2, 2-> 4, 3 -> 6). This essentially increases the spread of the points, and the variance increases.
+
+However, if there is a negative correlation, then adding up the points over time cancels them out!  and the variance essentially becomes 0.
+
+Thus in order for us to establish that the 
+Var(sum(x)) = sum(Var(x))
+
+we need to invoke independence in order for that to happen.
+
+But what does it mean for independence to occur?
+It maintains the property that E[XY] = E[X]E[Y]
+What does it mean to multiple 2 random variables?
+
+Is this convolution?
+multiplying 2 functions to get another function?
+
+
+
