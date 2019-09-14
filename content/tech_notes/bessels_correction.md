@@ -13,9 +13,7 @@ When we calculate the sample variance, we are trying to get an unbiased estimato
 
 
 To see how this affects the variance calculation, lets forget any notion of sample and population first and see what happens when you calculate variance using the a number that may be different from 
-$$\bar{x}$$.
-
-
+$$\bar{x}$$
 
 <html>
  
@@ -34,26 +32,7 @@ $$\bar{x}$$.
 <body>
 
   <div class = 'concept-container' id = "linear-combination">
-    <div class = 'concept-text'>
-    	<h3>Problem: Bias in Variance</h3>
-    	<p>
-        When we calculate the 
-        <font color = "#68a2ff">a </font>,
-        <font color = "#6bcc35">b </font>,
-        <font color = "#ff80ff">c </font>.
-        If we connect each vector from head to tail, we get the sum of the vectors, <font color = "#cc4634">vector d</font>.
-        <br>
-        We can stretch and shrink 
-        <font color = "#68a2ff">a </font>,
-        <font color = "#6bcc35">b </font>,
-        and 
-        <font color = "#ff80ff">c </font>, to get many different <font color = "#cc4634">vectors</font>.
-        If you take all of the possible combinations of stretching and shrinking 
-        <font color = "#68a2ff">a </font>,
-        <font color = "#6bcc35">b </font>,
-        <font color = "#ff80ff">c </font>, all the resulting <font color = "#cc4634">vectors</font> are called the linear combination of a,b and c.
-      </p>
-  </div>
+
 
 <script type="text/javascript">
   var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
@@ -67,8 +46,20 @@ $$\bar{x}$$.
           , vecCoordJson: linComboPayload.vecCoordJson
           , duration: linComboPayload.duration
         })
+  var linCombo2 = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
+          , conceptExampleId : 'lin-combo-example2'
+          , buttonId : linComboPayload.buttonId
+          , xDomain : linAlgGlobalVar.plotDomain
+          , yDomain : linAlgGlobalVar.plotDomain
+          , height : linAlgGlobalVar.plotHeight
+          , width : linAlgGlobalVar.plotWidth
+          , numTicks : linAlgGlobalVar.numTicks
+          , vecCoordJson: linComboPayload.vecCoordJson
+          , duration: linComboPayload.duration
+        })
 </script>
 
+</div>
 </body>
 </html>
 
