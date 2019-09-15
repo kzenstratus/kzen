@@ -31,32 +31,32 @@ $$\bar{x}$$
 
 <body>
 
-  <div class = 'concept-container' id = "linear-combination">
+  <div class = 'concept-container' id = "bessel-bias">
 
 
 <script type="text/javascript">
-  var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
-          , conceptExampleId : 'lin-combo-example'
-          , buttonId : linComboPayload.buttonId
-          , xDomain : linAlgGlobalVar.plotDomain
-          , yDomain : linAlgGlobalVar.plotDomain
-          , height : linAlgGlobalVar.plotHeight
-          , width : linAlgGlobalVar.plotWidth
-          , numTicks : linAlgGlobalVar.numTicks
-          , vecCoordJson: linComboPayload.vecCoordJson
-          , duration: linComboPayload.duration
-        })
-  var linCombo2 = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
-          , conceptExampleId : 'lin-combo-example2'
-          , buttonId : linComboPayload.buttonId
-          , xDomain : linAlgGlobalVar.plotDomain
-          , yDomain : linAlgGlobalVar.plotDomain
-          , height : linAlgGlobalVar.plotHeight
-          , width : linAlgGlobalVar.plotWidth
-          , numTicks : linAlgGlobalVar.numTicks
-          , vecCoordJson: linComboPayload.vecCoordJson
-          , duration: linComboPayload.duration
-        })
+  // var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
+  //         , conceptExampleId : 'lin-combo-example'
+  //         , buttonId : linComboPayload.buttonId
+  //         , xDomain : linAlgGlobalVar.plotDomain
+  //         , yDomain : linAlgGlobalVar.plotDomain
+  //         , height : linAlgGlobalVar.plotHeight
+  //         , width : linAlgGlobalVar.plotWidth
+  //         , numTicks : linAlgGlobalVar.numTicks
+  //         , vecCoordJson: linComboPayload.vecCoordJson
+  //         , duration: linComboPayload.duration
+  //       })
+  // var linCombo2 = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
+  //         , conceptExampleId : 'lin-combo-example2'
+  //         , buttonId : linComboPayload.buttonId
+  //         , xDomain : linAlgGlobalVar.plotDomain
+  //         , yDomain : linAlgGlobalVar.plotDomain
+  //         , height : linAlgGlobalVar.plotHeight
+  //         , width : linAlgGlobalVar.plotWidth
+  //         , numTicks : linAlgGlobalVar.numTicks
+  //         , vecCoordJson: linComboPayload.vecCoordJson
+  //         , duration: linComboPayload.duration
+  //       })
 </script>
 
 </div>
