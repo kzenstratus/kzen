@@ -14,6 +14,7 @@ class DisplayPlot {
       // You can have multiple concept examples underneath a conceptId
       this.height = height;
       this.width = width;
+      // this.margin = {top: 20, right: 10, bottom: 20, left: 10};
       
 
   }
@@ -32,8 +33,8 @@ class DisplayPlot {
                             ){
         this.currSvg = d3.select("#" + conceptExampleId)
           .append("svg")
-          .attr("width", width)
-          .attr("height", height)
+          .attr("width", width - 10)
+          .attr("height", height - 10)
           .attr("id", "#" + conceptExampleId + "Svg")
       }
 }

@@ -126,19 +126,19 @@ var plotBasis = function ({svg, xDomain, yDomain, width, height, numTicks} = {})
 
   //Append group and insert axis
   svg.append("g")
-    .attr('transform', "translate(0," + (height/2) + ")")
+    .attr('transform', "translate(-0.5," + (height/2) + ")")
     .call(bot_axis);
 
   svg.append("g")
-    .attr('transform', "translate(0," + (height/2) + ")")
+    .attr('transform', "translate(-0.5," + (height/2) + ")")
     .call(top_axis);
 
   svg.append("g")
-    .attr('transform', "translate(" + width/2 + ",0)")
+    .attr('transform', "translate(" + width/2 + ",-0.5)")
     .call(left_axis);
 
   svg.append("g")
-    .attr('transform', "translate(" + width/2 + ",0)")
+    .attr('transform', "translate(" + width/2 + ",-0.5)")
     .call(right_axis);
 }
 
