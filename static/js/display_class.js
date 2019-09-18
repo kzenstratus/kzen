@@ -16,7 +16,6 @@ class DisplayPlot {
       this.width = width;
       // this.margin = {top: 20, right: 10, bottom: 20, left: 10};
       
-
   }
       makeConceptExampleDiv({conceptExampleId
                             } = {}
@@ -65,7 +64,7 @@ to an actual DOM.
  * , "text" : text // this can be html text
  * , "coord" : [x,y] // }]
  */
-class DisplayConceptExamplePlot {
+class DisplayConceptExamplePlot extends DisplayPlot{
     constructor({conceptId
                 , conceptExampleId
                 , buttonId
@@ -85,7 +84,13 @@ class DisplayConceptExamplePlot {
                 , gridColor = 'grey'
                 , duration = 4000
                 } = {}) {
-      this.conceptId = conceptId; // 
+      super({conceptId : conceptId
+              , height : height
+              , width : width})
+
+      // this.conceptId = conceptId; // 
+      // this.height = height;
+      // this.width = width;
       // You can have multiple concept examples underneath a conceptId
       this.conceptExampleId = conceptExampleId; 
 
@@ -94,20 +99,22 @@ class DisplayConceptExamplePlot {
       this.buttonCssClass = "gobutton"
       this.duration = duration
       this.listNextDotSpaces = listNextDotSpaces
-      this.makeConceptExampleDiv();
-      this.height = height;
-      this.width = width;
+      // this.makeConceptExampleDiv();
+      this.makeConceptExampleDiv({conceptExampleId : conceptExampleId})
+      
       this.plotSvgContainer = d3.select(conceptExampleId);
       this.numTicks = numTicks;
 
       // Make Initial Plot
-      this.currSvg = d3.select("#" + this.conceptExampleId)
-          .append("svg")
-          .attr("width", width)
-          .attr("height", height)
-          .attr("id", "#" + this.conceptExampleId + "Svg")
-
-      let currSpace = new Space({xDomain : xDomain
+      // 
+      this.makeConceptExampleSvg({conceptExampleId : conceptExampleId})
+      // this.currSvg = d3.select("#" + this.conceptExampleId)
+      //     .append("svg")
+      //     .attr("width", width)
+      //     .attr("height", height)
+      //     .attr("id", "#" + this.conceptExampleId + "Svg")
+      console.log(this.currSvg)
+      this.currSpace = new Space({xDomain : xDomain
                                 , yDomain : yDomain
                                 , height : height
                                 , width : width
@@ -115,7 +122,7 @@ class DisplayConceptExamplePlot {
                                 , dotColor : dotColor
                                 , tarSpace : tarSpace}
                                 );
-      this.currSpace = currSpace;
+      // this.currSpace = currSpace;
       this.currSpace.plotSpace({someSvg : this.currSvg})
       this.currSpace.plotBasis({someSvg : this.currSvg})
       
@@ -125,12 +132,12 @@ class DisplayConceptExamplePlot {
       this.makeButton();
 
   }
-      makeConceptExampleDiv(){
-        d3.select("#" + this.conceptId)
-          .append("div")
-          .attr("class", "concept-example")
-          .attr("id", this.conceptExampleId)
-      }
+      // makeConceptExampleDiv(){
+      //   d3.select("#" + this.conceptId)
+      //     .append("div")
+      //     .attr("class", "concept-example")
+      //     .attr("id", this.conceptExampleId)
+      // }
 
       makeButton(){
         var currSpace = this.currSpace
@@ -176,8 +183,9 @@ class DisplayConceptExamplePlot {
           return;
         }
         
-        var svgContainer = d3.select("#" + this.conceptExampleId)
-                                .select("svg");
+        // var svgContainer = d3.select("#" + this.conceptExampleId)
+        //                         .select("svg");
+        var svgContainer = this.currSvg;
 
         for(var vecName in this.vecCoordJson){
           var vec = this.vecCoordJson[vecName];

@@ -63,7 +63,7 @@ class DisplayDoubleConceptExamplePlot{
     , width : this.width});
     this.firstPlot.makeConceptExampleDiv({conceptExampleId : conceptExampleId})
     this.firstPlot.makeConceptExampleSvg({conceptExampleId : conceptExampleId})
-    console.log(this.firstPlot.currSvg)
+    // console.log(this.firstPlot.currSvg)
     // var bot_axis = getGridlines({domain : [-5,5], range : this.width
     // , tickSize : -this.height, numTicks : this.numTicks ,isX : true});
     

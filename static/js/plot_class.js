@@ -297,13 +297,12 @@ class Space {
 //The SVG Container
         
         plotBasis({someSvg} = {}){
-          
-          return(plotBasis(someSvg
-                          , this.xDomain
-                          , this.yDomain
-                          , this.width
-                          , this.height
-                          , this.numTicks
+          return(plotBasis({svg : someSvg 
+                          , xDomain: this.xDomain
+                          , yDomain: this.yDomain
+                          , width : this.width
+                          , height: this.height
+                          , numTicks: this.numTicks}
                           )
           )}
         
