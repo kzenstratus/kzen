@@ -1,3 +1,10 @@
+// let testDisplay = new DisplayPlot({conceptId : "bessel-bias"
+//   , height : 500
+//   , width : 500}
+//   );
+// testDisplay.makeConceptExampleDiv({conceptExampleId : 'blahblah'})
+// testDisplay.makeConceptExampleSvg({conceptExampleId : 'blahblah'})
+
 class DisplayPlot {
     constructor({conceptId
                 , height
@@ -31,20 +38,6 @@ class DisplayPlot {
       }
 }
 
-// let testDisplay = new DisplayPlot({conceptId : "bessel-bias"
-//   , height : 500
-//   , width : 500}
-//   );
-// testDisplay.makeConceptExampleDiv({conceptExampleId : 'blahblah'})
-// testDisplay.makeConceptExampleSvg({conceptExampleId : 'blahblah'})
-
-
-// var svgContainer = d3.select("body").append("svg:svg")
-//                                     .attr("width", 600)
-//                                     .attr("height", 600)
-//                                     .attr("class", "testId");
-// testSpace.plotSpace(svgContainer)
-// testSpace.plotBasis(svgContainer)
 
 
 /* ----------------------
@@ -243,6 +236,8 @@ class DisplayConceptExamplePlot {
 
 
 
+
+
 /*********************************************
 ** display class
 ** Imports
@@ -261,93 +256,93 @@ class DisplayConceptExamplePlot {
  * , "text" : text // this can be html text
  * , "coord" : [x,y] // }]
  */
-class DisplayDoubleConceptExamplePlot {
-    constructor({conceptId
-                , conceptExampleId
-                , buttonId
-                , xDomain
-                , yDomain
-                , height
-                , width
-                , numTicks
-                , listNextDotSpaces = [] // a list of spaces
-                , vecCoordJson = {}
-                , textList = [] // a list of jsons of the form {"frames" : 2}
-                , dotColor = 'grey'
-                , tarSpace = []
-                , tarColor = 'red'
-                , dotRad = 5
-                , dotStrokeWidth = 4
-                , gridColor = 'grey'
-                , duration = 4000
-                } = {}) {
-      this.conceptId = conceptId; // 
-      // You can have multiple concept examples underneath a conceptId
-      this.conceptExampleId = conceptExampleId; 
+// class DisplayDoubleConceptExamplePlot {
+//     constructor({conceptId
+//                 , conceptExampleId
+//                 , buttonId
+//                 , xDomain
+//                 , yDomain
+//                 , height
+//                 , width
+//                 , numTicks
+//                 , listNextDotSpaces = [] // a list of spaces
+//                 , vecCoordJson = {}
+//                 , textList = [] // a list of jsons of the form {"frames" : 2}
+//                 , dotColor = 'grey'
+//                 , tarSpace = []
+//                 , tarColor = 'red'
+//                 , dotRad = 5
+//                 , dotStrokeWidth = 4
+//                 , gridColor = 'grey'
+//                 , duration = 4000
+//                 } = {}) {
+//       this.conceptId = conceptId; // 
+//       // You can have multiple concept examples underneath a conceptId
+//       this.conceptExampleId = conceptExampleId; 
 
-      this.buttonId = buttonId;
-      this.buttonLabel = "Go!"
-      this.buttonCssClass = "gobutton"
-      this.duration = duration
-      this.listNextDotSpaces = listNextDotSpaces
-      this.makeConceptExampleDiv();
-      this.height = height;
-      this.width = width;
-      this.plotSvgContainer = d3.select(conceptExampleId);
-      this.numTicks = numTicks;
+//       this.buttonId = buttonId;
+//       this.buttonLabel = "Go!"
+//       this.buttonCssClass = "gobutton"
+//       this.duration = duration
+//       this.listNextDotSpaces = listNextDotSpaces
+//       this.makeConceptExampleDiv();
+//       this.height = height;
+//       this.width = width;
+//       this.plotSvgContainer = d3.select(conceptExampleId);
+//       this.numTicks = numTicks;
 
-      // Make Initial Plot
-      this.currSvg = d3.select("#" + this.conceptExampleId)
-          .append("svg")
-          .attr("width", width)
-          .attr("height", height)
-          .attr("id", "#" + this.conceptExampleId + "Svg")
+//       // Make Initial Plot
+//       this.currSvg = d3.select("#" + this.conceptExampleId)
+//           .append("svg")
+//           .attr("width", width)
+//           .attr("height", height)
+//           .attr("id", "#" + this.conceptExampleId + "Svg")
 
-      let currSpace = new Space({xDomain : xDomain
-                                , yDomain : yDomain
-                                , height : height
-                                , width : width
-                                , numTicks : numTicks
-                                , dotColor : dotColor
-                                , tarSpace : tarSpace}
-                                );
-      this.currSpace = currSpace;
-      this.currSpace.plotSpace({someSvg : this.currSvg})
-      this.currSpace.plotBasis({someSvg : this.currSvg})
+//       let currSpace = new Space({xDomain : xDomain
+//                                 , yDomain : yDomain
+//                                 , height : height
+//                                 , width : width
+//                                 , numTicks : numTicks
+//                                 , dotColor : dotColor
+//                                 , tarSpace : tarSpace}
+//                                 );
+//       this.currSpace = currSpace;
+//       this.currSpace.plotSpace({someSvg : this.currSvg})
+//       this.currSpace.plotBasis({someSvg : this.currSvg})
       
-      this.vecObjList = [];
-      this.vecCoordJson = vecCoordJson;
-      this.makeVectors();
-      this.makeButton();
+//       this.vecObjList = [];
+//       this.vecCoordJson = vecCoordJson;
+//       this.makeVectors();
+//       this.makeButton();
       
 
       
-      var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
-          , conceptExampleId : 'lin-combo-example1'
-          , buttonId : linComboPayload.buttonId
-          , xDomain : linAlgGlobalVar.plotDomain
-          , yDomain : linAlgGlobalVar.plotDomain
-          , height : linAlgGlobalVar.plotHeight
-          , width : linAlgGlobalVar.plotWidth
-          , numTicks : linAlgGlobalVar.numTicks
-          , vecCoordJson: linComboPayload.vecCoordJson
-          , duration: linComboPayload.duration
-        })
+//       var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
+//           , conceptExampleId : 'lin-combo-example1'
+//           , buttonId : linComboPayload.buttonId
+//           , xDomain : linAlgGlobalVar.plotDomain
+//           , yDomain : linAlgGlobalVar.plotDomain
+//           , height : linAlgGlobalVar.plotHeight
+//           , width : linAlgGlobalVar.plotWidth
+//           , numTicks : linAlgGlobalVar.numTicks
+//           , vecCoordJson: linComboPayload.vecCoordJson
+//           , duration: linComboPayload.duration
+//         })
 
-      var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
-          , conceptExampleId : 'lin-combo-example2'
-          , buttonId : linComboPayload.buttonId
-          , xDomain : linAlgGlobalVar.plotDomain
-          , yDomain : linAlgGlobalVar.plotDomain
-          , height : linAlgGlobalVar.plotHeight
-          , width : linAlgGlobalVar.plotWidth
-          , numTicks : linAlgGlobalVar.numTicks
-          , vecCoordJson: linComboPayload.vecCoordJson
-          , duration: linComboPayload.duration
-        })
+//       var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
+//           , conceptExampleId : 'lin-combo-example2'
+//           , buttonId : linComboPayload.buttonId
+//           , xDomain : linAlgGlobalVar.plotDomain
+//           , yDomain : linAlgGlobalVar.plotDomain
+//           , height : linAlgGlobalVar.plotHeight
+//           , width : linAlgGlobalVar.plotWidth
+//           , numTicks : linAlgGlobalVar.numTicks
+//           , vecCoordJson: linComboPayload.vecCoordJson
+//           , duration: linComboPayload.duration
+//         })
 
-  }
+//   }
 
-}
+// }
 
 

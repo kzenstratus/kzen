@@ -27,6 +27,7 @@ $$\bar{x}$$
 <script src="/kzen/js/display_class.js"></script>
 <script src="/kzen/js/concepts/lin_alg/lin_alg_utils.js"></script>
 <script src="/kzen/js/concepts/lin_alg/lin_alg_vars.js"></script>
+<script src="/kzen/js/concepts/bessel/bessel_bias_display.js"></script>
 
 
 <body>
@@ -35,6 +36,16 @@ $$\bar{x}$$
 
 
 <script type="text/javascript">
+  let testDisplay = new DisplayDoubleConceptExamplePlot({conceptId : "bessel-bias"
+    , height : 500
+    , width : 500
+    , buttonId : "besselButton"});
+  
+  testDisplay.makeConceptExampleDiv({conceptExampleId : 'blahblah2'})
+  testDisplay.makeConceptExampleSvg({conceptExampleId : 'blahblah2'})
+  testDisplay.makeConceptExampleDiv({conceptExampleId : 'blahblah3'})
+  testDisplay.makeConceptExampleSvg({conceptExampleId : 'blahblah3'})
+  testDisplay.makeButton()
   // var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
   //         , conceptExampleId : 'lin-combo-example'
   //         , buttonId : linComboPayload.buttonId
