@@ -41,10 +41,10 @@ $$\bar{x}$$
     , width : 500
     , buttonId : "besselButton"});
   
-  testDisplay.makeConceptExampleDiv({conceptExampleId : 'blahblah2'})
-  testDisplay.makeConceptExampleSvg({conceptExampleId : 'blahblah2'})
-  testDisplay.makeConceptExampleDiv({conceptExampleId : 'blahblah3'})
-  testDisplay.makeConceptExampleSvg({conceptExampleId : 'blahblah3'})
+  testDisplay.makeFirstPlot({conceptExampleId : "blahblah1"});
+  testDisplay.makeFirstPlot({conceptExampleId : "blahblah2"});
+  // testDisplay.makeConceptExampleDiv({conceptExampleId : 'blahblah3'})
+  // testDisplay.makeConceptExampleSvg({conceptExampleId : 'blahblah3'})
   testDisplay.makeButton()
   // var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
   //         , conceptExampleId : 'lin-combo-example'

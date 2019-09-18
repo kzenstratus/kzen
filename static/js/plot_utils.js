@@ -81,7 +81,7 @@ our space.]
 the y axis]
 * @return {axis} [some d3 object which gets embedded in the svg.]
 **/
-function getGridlines(domain, range, tickSize, numTicks, isX) {
+function getGridlines({domain, range, tickSize, numTicks, isX} = {}) {
 
   var scale = d3.scaleLinear()
                     .domain(domain)
@@ -111,18 +111,18 @@ function getGridlines(domain, range, tickSize, numTicks, isX) {
 * @param {int} numTicks [number of ticks in the whole range.]
 * @return {svg} [contains the lines for the grid]
 **/
-var plotBasis = function (svg, xDomain, yDomain, width, height, numTicks){
-  var bot_axis = getGridlines(domain = xDomain, range = width
-    , tickSize = -height, numTicks = numTicks ,isX = true);
+var plotBasis = function ({svg, xDomain, yDomain, width, height, numTicks} = {}){
+  var bot_axis = getGridlines({domain : xDomain, range : width
+    , tickSize : -height, numTicks : numTicks , isX : true});
 
-  var top_axis = getGridlines(domain = xDomain, range = width
-    , tickSize = height, numTicks = numTicks, isX = true);
+  var top_axis = getGridlines({domain : xDomain, range : width
+    , tickSize : height, numTicks : numTicks, isX : true});
 
-  var left_axis = getGridlines(domain = yDomain, range = height
-    , tickSize = -width, numTicks = numTicks, isX = false);
+  var left_axis = getGridlines({domain : yDomain, range : height
+    , tickSize : -width, numTicks : numTicks, isX : false});
 
-  var right_axis = getGridlines(domain = yDomain, range = height
-    , tickSize = width, numTicks = numTicks, isX = false);
+  var right_axis = getGridlines({domain : yDomain, range : height
+    , tickSize : width, numTicks : numTicks, isX : false});
 
   //Append group and insert axis
   svg.append("g")
@@ -292,12 +292,12 @@ var DisplayTransConceptPlot = function (conceptId
   var spaceGroup = svg.append('g')
 
   // Draw the underlying 2d grid lines.
-  plotBasis(svg
-            , domain
-            , domain
-            , width
-            , height
-            , numTicks
+  plotBasis({svg : svg
+            , xDomain : domain
+            , yDomain : domain
+            , width : width
+            , height : height
+            , numTicks : numTicks}
             );
 
   plotSpace(spaceGroup

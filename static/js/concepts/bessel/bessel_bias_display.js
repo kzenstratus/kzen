@@ -16,18 +16,24 @@
  * , "text" : text // this can be html text
  * , "coord" : [x,y] // }]
  */
-class DisplayDoubleConceptExamplePlot extends DisplayPlot{
+class DisplayDoubleConceptExamplePlot{
   constructor({conceptId
                 , height
                 , width
                 , buttonId
                 } = {}) {
-   super({conceptId : conceptId
-    , height : height
-    , widht : width})
+    this.conceptId = conceptId; // 
+    // You can have multiple concept examples underneath a conceptId
+    this.height = height;
+    this.width = width;
+
+   // super({conceptId : conceptId
+   //  , height : height
+   //  , widht : width})
    this.buttonId = buttonId;
    this.buttonLabel = "Go!"
    this.buttonCssClass = "gobutton"
+
    
   }
   makeButton(){
@@ -48,10 +54,38 @@ class DisplayDoubleConceptExamplePlot extends DisplayPlot{
       .on('click', function(){
         // move space
         alert("i'm a butt")
-      
       }
       )
   }
+  makeFirstPlot({conceptExampleId} = {}){
+    this.firstPlot = new DisplayPlot({conceptId : this.conceptId
+    , height : this.height
+    , width : this.width});
+    this.firstPlot.makeConceptExampleDiv({conceptExampleId : conceptExampleId})
+    this.firstPlot.makeConceptExampleSvg({conceptExampleId : conceptExampleId})
+    console.log(this.firstPlot.currSvg)
+    // var bot_axis = getGridlines({domain : [-5,5], range : this.width
+    // , tickSize : -this.height, numTicks : this.numTicks ,isX : true});
+    
+    // this.firstPlot.currSvg.append("g")
+    //   .attr('transform', "translate(0," + (this.height/2) + ")")
+    //   .call(bot_axis);
+    plotBasis({svg : this.firstPlot.currSvg
+              , xDomain : [-5,5]
+              , yDomain : [-5,5]
+              , width : this.width
+              , height : this.height
+              , numTicks : 10
+            })
+  }
+  makeSecondPlot({conceptExampleId} = {}){
+    this.firstPlot = new DisplayPlot({conceptId : this.conceptId
+    , height : this.height
+    , width : this.width});
+    this.firstPlot.makeConceptExampleDiv({conceptExampleId : conceptExampleId})
+    this.firstPlot.makeConceptExampleSvg({conceptExampleId : conceptExampleId})
+  }
+
 }
 
 // let testDisplay = new DisplayDoubleConceptExamplePlot({conceptId : "bessel-bias"
