@@ -52,6 +52,7 @@ class Vector {
                 , color
                 , arrowId
                 , coordList = []
+                , hasHead = true
                 , labels = null} = {}) {
 
         this.startCoord = scaleLoc(startCoord
@@ -81,6 +82,7 @@ class Vector {
         if(labels == null){
           this.labels = Array(coordList.length).fill("")  
         }
+        this.hasHead = hasHead
       }
         // Have a line, an arrow
         // and two points, a start and end point.
@@ -126,7 +128,7 @@ class Vector {
           this.getLine(someSvg);
           // Note arrowHead needs to be called after getLine does.
           
-          if(this.endCoord[0] != null ){
+          if(this.endCoord[0] != null & this.hasHead){
             this.getArrowHead(someSvg);  
           }
           
@@ -198,7 +200,7 @@ class Vector {
 
             this.startCoord = _startCoord
             this.endCoord = _endCoord
-            if(this.endCoord[0] != null){
+            if(this.endCoord[0] != null & this.hasHead){
               this.getArrowHead(someSvg)
             }
             label = label.transition()

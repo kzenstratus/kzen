@@ -19,7 +19,7 @@ var vecCoordJsonBesselBias = {
                                                          , [[-5,0], [5, 0]]
                                                    ]
                                               , "color" : "#68a2ff" // blue
-                                              , "isLine":true
+                                              , "hasHead":false
 
                                           }
                           , "movingMean" : {"coordList" : [[[-5,0], [5, 0]]
@@ -27,7 +27,7 @@ var vecCoordJsonBesselBias = {
                                                          , [[-5,3], [5,3]]
                                                    ]
                                               , "color" : "#cc4634" // blue
-                                              , "isLine":true
+                                              , "hasHead": false
 
                                           }
                           , "a" : {"coordList" : [[[-3,2], [-3,0]]

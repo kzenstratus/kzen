@@ -193,16 +193,18 @@ class DisplayConceptExamplePlot extends DisplayPlot{
             , arrowId : this.conceptExampleId + vecName
             // Vec coord list starts at index 1, don't repeat index 0.
             , coordList : vecCoordList
+            , hasHead : vec["hasHead"]
             , labels : labels}
             // , coordList : vecCoordList.slice(1, vecCoordList.length)}
             );
       
           this.vecObjList.push(tmpVec);
-          if(vec["isLine"] == true){
-            tmpVec.getLine(svgContainer);
-          }else{
-            tmpVec.getVector(svgContainer);  
-          }
+          tmpVec.getVector(svgContainer);
+          // if(vec["isLine"] == true){
+          //   tmpVec.getLine(svgContainer);
+          // }else{
+          //   tmpVec.getVector(svgContainer);  
+          // }
           
           tmpVec.getText(svgContainer);
         }
