@@ -33,18 +33,19 @@ class DisplayDoubleConceptExamplePlot{
    this.buttonId = buttonId;
    this.buttonLabel = "Go!"
    this.buttonCssClass = "gobutton"
-
+   this.vecObjList = []
    
   }
   makeButton(){
-    var currSpace = this.currSpace
-    var currSvg = this.currSvg
-    var listNextDotSpaces = this.listNextDotSpaces
-    var duration = this.duration
-    var vecCoordJson = this.vecCoordJson
-    var vecObjList = this.vecObjList
-    var svgContainer = d3.select("#" + this.conceptExampleId)
-                            .select("svg");
+    // var currSpace = this.currSpace
+    // var currSvg = this.currSvg
+    // var listNextDotSpaces = this.listNextDotSpaces
+    var duration = this.firstPlot.duration
+    // var vecCoordJson = this.vecCoordJson
+    var vecObjList = this.firstPlot.vecObjList
+    var svgContainer = this.firstPlot.currSvg
+    // var svgContainer = d3.select("#" + this.conceptExampleId)
+    //                         .select("svg");
 
     d3.select("#" + this.conceptId)
       .append("button")
@@ -53,37 +54,77 @@ class DisplayDoubleConceptExamplePlot{
       .text(this.buttonLabel)
       .on('click', function(){
         // move space
-        alert("i'm a butt")
+        for(var i in vecObjList){
+                var vecObj = vecObjList[i]
+                vecObj.move(svgContainer, duration)
+            }
+        
+
+        // alert("i'm a butt")
       }
       )
+
+      // var currSpace = this.currSpace
+      //   var currSvg = this.currSvg
+      //   var listNextDotSpaces = this.listNextDotSpaces
+      //   var duration = this.duration
+      //   var vecCoordJson = this.vecCoordJson
+      //   var vecObjList = this.vecObjList
+      //   var svgContainer = d3.select("#" + this.conceptExampleId)
+      //                           .select("svg");
+      //   d3.select("#" + this.conceptExampleId)
+      //     .append("button")
+      //     .attr("class", this.buttonCssClass)
+      //     .attr("id", this.buttonId)
+      //     .text(this.buttonLabel)
+      //     .on('click', function(){
+      //       // move space
+      //       currSpace.move({someSvg : currSvg
+      //                       , listNextDotSpaces : listNextDotSpaces
+      //                       , duration : duration}) 
+
+      //       // add vectors
+            
+            
+      //     }
+
   }
-  makeFirstPlot({conceptExampleId} = {}){
-    this.firstPlot = new DisplayPlot({conceptId : this.conceptId
-    , height : this.height
-    , width : this.width});
-    this.firstPlot.makeConceptExampleDiv({conceptExampleId : conceptExampleId})
-    this.firstPlot.makeConceptExampleSvg({conceptExampleId : conceptExampleId})
-    // console.log(this.firstPlot.currSvg)
-    // var bot_axis = getGridlines({domain : [-5,5], range : this.width
-    // , tickSize : -this.height, numTicks : this.numTicks ,isX : true});
+  makeFirstPlot({conceptExampleId
+    , payload} = {}){
+    // this.firstPlot = new DisplayPlot({conceptId : this.conceptId
+    // , height : this.height
+    // , width : this.width});
+    // this.firstPlot.makeConceptExampleDiv({conceptExampleId : conceptExampleId})
+    // this.firstPlot.makeConceptExampleSvg({conceptExampleId : conceptExampleId})
     
-    // this.firstPlot.currSvg.append("g")
-    //   .attr('transform', "translate(0," + (this.height/2) + ")")
-    //   .call(bot_axis);
-    plotBasis({svg : this.firstPlot.currSvg
-              , xDomain : [-5,5]
-              , yDomain : [-5,5]
-              , width : this.width
-              , height : this.height
-              , numTicks : 10
-            })
+    this.firstPlot = new DisplayConceptExamplePlot({conceptId : this.conceptId
+                , conceptExampleId : "bessel-bias-first"
+                , xDomain : payload.plotDomain
+                , yDomain : payload.plotDomain
+                , height : this.height
+                , width : this.width
+                , numTicks : payload.numTicks
+                , dotColor : "red"
+                , vecCoordJson: payload.vecCoordJson
+                , vecCoordJson: payload.vecCoordJson
+                , duration: 4000
+              })
+    this.firstPlot.currSpace.space = payload.space
+    this.firstPlot.makePlot();
+    this.firstPlot.makeVectors();
+    
+    // this.firstPlot = firstPlot
+    // Plot the center line.
+
+
+
   }
   makeSecondPlot({conceptExampleId} = {}){
-    this.firstPlot = new DisplayPlot({conceptId : this.conceptId
+    this.secondPlot = new DisplayPlot({conceptId : this.conceptId
     , height : this.height
     , width : this.width});
-    this.firstPlot.makeConceptExampleDiv({conceptExampleId : conceptExampleId})
-    this.firstPlot.makeConceptExampleSvg({conceptExampleId : conceptExampleId})
+    this.secondPlot.makeConceptExampleDiv({conceptExampleId : conceptExampleId})
+    this.secondPlot.makeConceptExampleSvg({conceptExampleId : conceptExampleId})
   }
 
 }

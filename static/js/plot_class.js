@@ -45,7 +45,7 @@ class Vector {
     constructor({startCoord
                 , endCoord
                 , lineSize
-                , lineStyle
+                , lineStyle = "solid"
                 , height
                 , width
                 , numTicks

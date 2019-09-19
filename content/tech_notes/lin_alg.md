@@ -54,6 +54,9 @@ draft: false
           , vecCoordJson: linComboPayload.vecCoordJson
           , duration: linComboPayload.duration
         })
+  linCombo.makePlot();
+  linCombo.makeVectors();
+  linCombo.makeButton();
 </script>
 
 </div>
@@ -91,6 +94,9 @@ draft: false
                 , vecCoordJson: linIndPayload.vecCoordJson
                 , duration: linIndPayload.duration
               })
+      linIndependence.makePlot();
+      linIndependence.makeVectors();
+      linIndependence.makeButton();
 </script>
 </div>
 
@@ -122,7 +128,9 @@ draft: false
                 , vecCoordJson: basisPayload.vecCoordJson
                 , duration: basisPayload.duration
               })
-
+          basisOrtho.makePlot();
+          basisOrtho.makeVectors();
+          basisOrtho.makeButton();
           
           </script>
 
@@ -156,6 +164,9 @@ draft: false
                 , vecCoordJson: basisNonOrthoPayload.vecCoordJson
                 , duration: basisNonOrthoPayload.duration
                 })
+          basisNonOrtho.makePlot();
+          basisNonOrtho.makeVectors();
+          basisNonOrtho.makeButton();
           
     </script>
   </div>
@@ -183,6 +194,9 @@ draft: false
                 , tarSpace : kernelPayload.highlightSpace
                 , listNextDotSpaces : kernelPayload.listNextDotSpaces
                 })
+          kernel.makePlot();
+          kernel.makeVectors();
+          kernel.makeButton();
 
 </script>
   </div>
@@ -207,6 +221,9 @@ draft: false
                 , tarSpace : imagePayload.highlightSpace
                 , listNextDotSpaces : imagePayload.listNextDotSpaces
                 })
+      image.makePlot();
+      image.makeVectors();
+      image.makeButton();
 
 </script>
 

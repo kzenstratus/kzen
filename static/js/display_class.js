@@ -67,7 +67,7 @@ to an actual DOM.
 class DisplayConceptExamplePlot extends DisplayPlot{
     constructor({conceptId
                 , conceptExampleId
-                , buttonId
+                , buttonId = conceptExampleId + "_button"
                 , xDomain
                 , yDomain
                 , height
@@ -88,9 +88,6 @@ class DisplayConceptExamplePlot extends DisplayPlot{
               , height : height
               , width : width})
 
-      // this.conceptId = conceptId; // 
-      // this.height = height;
-      // this.width = width;
       // You can have multiple concept examples underneath a conceptId
       this.conceptExampleId = conceptExampleId; 
 
@@ -99,21 +96,15 @@ class DisplayConceptExamplePlot extends DisplayPlot{
       this.buttonCssClass = "gobutton"
       this.duration = duration
       this.listNextDotSpaces = listNextDotSpaces
-      // this.makeConceptExampleDiv();
-      this.makeConceptExampleDiv({conceptExampleId : conceptExampleId})
       
-      this.plotSvgContainer = d3.select(conceptExampleId);
+      this.makeConceptExampleDiv({conceptExampleId : conceptExampleId})
+      this.makeConceptExampleSvg({conceptExampleId : conceptExampleId})
+      
       this.numTicks = numTicks;
 
       // Make Initial Plot
       // 
-      this.makeConceptExampleSvg({conceptExampleId : conceptExampleId})
-      // this.currSvg = d3.select("#" + this.conceptExampleId)
-      //     .append("svg")
-      //     .attr("width", width)
-      //     .attr("height", height)
-      //     .attr("id", "#" + this.conceptExampleId + "Svg")
-      console.log(this.currSvg)
+      
       this.currSpace = new Space({xDomain : xDomain
                                 , yDomain : yDomain
                                 , height : height
@@ -122,22 +113,17 @@ class DisplayConceptExamplePlot extends DisplayPlot{
                                 , dotColor : dotColor
                                 , tarSpace : tarSpace}
                                 );
-      // this.currSpace = currSpace;
-      this.currSpace.plotSpace({someSvg : this.currSvg})
-      this.currSpace.plotBasis({someSvg : this.currSvg})
-      
+
       this.vecObjList = [];
       this.vecCoordJson = vecCoordJson;
-      this.makeVectors();
-      this.makeButton();
+      
 
   }
-      // makeConceptExampleDiv(){
-      //   d3.select("#" + this.conceptId)
-      //     .append("div")
-      //     .attr("class", "concept-example")
-      //     .attr("id", this.conceptExampleId)
-      // }
+      makePlot(){
+        this.currSpace.plotBasis({someSvg : this.currSvg})
+        this.currSpace.plotSpace({someSvg : this.currSvg})
+        
+      }
 
       makeButton(){
         var currSpace = this.currSpace
