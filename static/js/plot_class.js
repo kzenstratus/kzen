@@ -128,7 +128,10 @@ class Vector {
           this.getLine(someSvg);
           // Note arrowHead needs to be called after getLine does.
           
-          if(this.endCoord[0] != null & this.hasHead){
+          if(this.endCoord[0] != null &
+             this.hasHead &
+           !(this.endCoord.equals(this.startCoord))
+           ){
             this.getArrowHead(someSvg);  
           }
           
@@ -200,7 +203,7 @@ class Vector {
 
             this.startCoord = _startCoord
             this.endCoord = _endCoord
-            if(this.endCoord[0] != null & this.hasHead){
+            if(this.endCoord[0] != null & this.hasHead & !(this.endCoord.equals(this.startCoord))){
               this.getArrowHead(someSvg)
             }
             label = label.transition()
@@ -209,7 +212,6 @@ class Vector {
                          .attr("x", function(d, i) {return _endCoord[0] * 1.04;})
                          .attr("y", function(d, i) {return _endCoord[1] * 0.96;})
                          .text(function(d, i) {return _labels[j]})
-                         
 
         }
       }

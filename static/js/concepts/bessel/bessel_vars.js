@@ -17,6 +17,7 @@ var vecCoordJsonBesselBias = {
                             "staticMean" : {"coordList" : [[[-5,0], [5, 0]]
                                                          , [[-5,0], [5, 0]]
                                                          , [[-5,0], [5, 0]]
+                                                         , [[-5,0], [5, 0]]
                                                    ]
                                               , "color" : "#68a2ff" // blue
                                               , "hasHead":false
@@ -25,6 +26,7 @@ var vecCoordJsonBesselBias = {
                           , "movingMean" : {"coordList" : [[[-5,0], [5, 0]]
                                                          , [[-5,-3], [5,-3]]
                                                          , [[-5,3], [5,3]]
+                                                         , [[-5,0], [5, 0]]
                                                    ]
                                               , "color" : "#cc4634" // blue
                                               , "hasHead": false
@@ -33,6 +35,7 @@ var vecCoordJsonBesselBias = {
                           , "a" : {"coordList" : [[[-3,2], [-3,0]]
                                               	, [[-3,2], [-3,-3]]
                                               	, [[-3,2], [-3,3]]
+                                                , [[-3,2], [-3,0]]
                                               	   ]
                                               , "color" : "#6bcc35" // blue
 
@@ -41,6 +44,7 @@ var vecCoordJsonBesselBias = {
                           , "b" : {"coordList" : [[[0,2], [0,0]]
                                                 , [[0,2], [0,-3]]
                                                 , [[0,2], [0,3]]
+                                                , [[0,2], [0,0]]
                                                      
                                                      ]
                                         , "color" : "#6bcc35" // "#6bcc35" // green
@@ -48,27 +52,28 @@ var vecCoordJsonBesselBias = {
                         , "c" : {"coordList" : [[[3,2], [3,0]]
                                               , [[3,2], [3,-3]]
                                               , [[3,2], [3,3]]
+                                              , [[3,2], [3,0]]
                                                 ]
                                         , "color" : "#6bcc35" // "#6bcc35" // green
                                     }
                         , "d" : {"coordList" : [[[-1,0], [-1,0]]
                                               , [[-1,0], [-1,-3]]
                                               , [[-1,0], [-1,3]]
+                                              , [[-1,0], [-1,0]]
                                                    ]
                                               , "color" : "#6bcc35" // blue
-
-
                                           }
                           , "e" : {"coordList" : [[[1,0], [1,0]]
                                                 , [[1,0], [1,-3]]
                                                 , [[1,0], [1,3]]
-                                                     
-                                                     ]
+                                                , [[1,0], [1,0]]
+                                                 ]
                                         , "color" : "#6bcc35" // "#6bcc35" // green
                                     }
                         , "f" : {"coordList" : [[[-2,-2], [-2,0]]
                                               , [[-2,-2], [-2,-3]]
                                               , [[-2,-2], [-2,3]]
+                                              , [[-2,-2], [-2,0]]
                                                 ]
                                         , "color" : "#6bcc35" // "#6bcc35" // green
                                     }
@@ -76,6 +81,7 @@ var vecCoordJsonBesselBias = {
                         , "g" : {"coordList" : [[[2,-2], [2,0]]
                                               , [[2,-2], [2,-3]]
                                               , [[2,-2], [2,3]]
+                                              , [[2,-2], [2,0]]
                                                 ]
                                         , "color" : "#6bcc35" // "#6bcc35" // green
                                     }
