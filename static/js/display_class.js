@@ -116,6 +116,7 @@ class DisplayConceptExamplePlot extends DisplayPlot{
 
       this.vecObjList = [];
       this.vecCoordJson = vecCoordJson;
+      this.caption = null;
       
 
   }
@@ -124,10 +125,23 @@ class DisplayConceptExamplePlot extends DisplayPlot{
         this.currSpace.plotSpace({someSvg : this.currSvg})
         
       }
+      makeText({textList, textCoordList, colorList} = {}){
+        this.caption = new Text({labelId : this.conceptExampleId + "_caption"
+                               , height : this.height
+                               , width : this.width
+                               , numTicks : this.numTicks
+                               , textList : textList
+                               , coordList : textCoordList
+                               , colorList : colorList
+                               });
+        this.caption.getText({someSvg : this.currSvg})
+
+      }
 
       makeButton(){
         var currSpace = this.currSpace
         var currSvg = this.currSvg
+        var caption = this.caption
         var listNextDotSpaces = this.listNextDotSpaces
         var duration = this.duration
         var vecCoordJson = this.vecCoordJson
@@ -152,11 +166,14 @@ class DisplayConceptExamplePlot extends DisplayPlot{
                 vecObj.move(svgContainer, duration)
               }
             }
+            // add text caption
+            if(caption != null){
+              caption.move({someSvg : svgContainer, duration : duration})  
+            }
             
           }
           )
       }
-
       makeVectors(){
         // vecCoordJson = {"xVec" : [
         //                     [[0,0], [0, 1]]

@@ -43,6 +43,7 @@ class DisplayDoubleConceptExamplePlot{
     var duration = this.firstPlot.duration
     // var vecCoordJson = this.vecCoordJson
     var vecObjList = this.firstPlot.vecObjList
+    var firstPlot = this.firstPlot
     var svgContainer = this.firstPlot.currSvg
     // var svgContainer = d3.select("#" + this.conceptExampleId)
     //                         .select("svg");
@@ -58,7 +59,10 @@ class DisplayDoubleConceptExamplePlot{
                 var vecObj = vecObjList[i]
                 vecObj.move(svgContainer, duration)
             }
-        
+
+        if(firstPlot.caption != null){
+              firstPlot.caption.move({someSvg : svgContainer, duration : duration})  
+            }
 
         // alert("i'm a butt")
       }
@@ -112,7 +116,9 @@ class DisplayDoubleConceptExamplePlot{
     this.firstPlot.currSpace.space = payload.space
     this.firstPlot.makePlot();
     this.firstPlot.makeVectors();
-    
+    this.firstPlot.makeText({textList : payload.textList
+                           , textCoordList : payload.textCoordList
+                           , colorList : payload.textColorList});
     // this.firstPlot = firstPlot
     // Plot the center line.
 

@@ -104,6 +104,9 @@ besselBiasPayload = {"conceptId" : "bessel-bias"
         , "space" : [[-3,-2], [0,-2], [3,-2] 
                       , [-1,0], [1,0]
                       , [-2,2], [2,2]]
+        , "textList" : ["HUEHUEHUEHUE", "WUBALUBADUBDUB", "OOOOOOH", "BOOOOOOOO"]
+        , "textCoordList" : Array(4).fill([[3,3], [3,3]])
+        , "textColorList" : Array(4).fill("green")
       };
 
 
