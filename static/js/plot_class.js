@@ -445,11 +445,12 @@ class Text {
         }
 
     move({someSvg, duration} = {}){
-
+      console.log("I get here")
       var currCaption = someSvg.select("text.caption#" + this.labelId)
       var textList = this.textList
         for (var j = 0; j < this.coordList.length; j++){
           // This set the duration to 0 to instantly reset an animation
+          console.log(j)
           var realDuration = 0;
           if(j > 0){
             realDuration = duration

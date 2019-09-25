@@ -62,6 +62,9 @@ linComboPayload = {"conceptId" : "linear-combination"
 				, "buttonId" : "lin_combo_button"
 				, "duration" : 1500
 				, "vecCoordJson": vecCoordJsonLinCombo
+        , "textList" : ["Vec D", "Vec D","Vec D", "Vec A", "Vec B", "VecC"]
+        , "textCoordList" : Array(6).fill([[3,3], [3,3]])
+        , "textColorList" : Array(6).fill("#68a2ff")
 			}
 
 

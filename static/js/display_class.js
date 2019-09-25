@@ -146,8 +146,8 @@ class DisplayConceptExamplePlot extends DisplayPlot{
         var duration = this.duration
         var vecCoordJson = this.vecCoordJson
         var vecObjList = this.vecObjList
-        var svgContainer = d3.select("#" + this.conceptExampleId)
-                                .select("svg");
+        var svgContainer = this.currSvg;
+        
         d3.select("#" + this.conceptExampleId)
           .append("button")
           .attr("class", this.buttonCssClass)

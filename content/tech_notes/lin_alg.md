@@ -56,6 +56,9 @@ draft: false
         })
   linCombo.makePlot();
   linCombo.makeVectors();
+  linCombo.makeText({textList : linComboPayload.textList
+                           , textCoordList : linComboPayload.textCoordList
+                           , colorList : linComboPayload.textColorList});
   linCombo.makeButton();
 </script>
 
