@@ -38,7 +38,10 @@ draft: false
         If you take all of the possible combinations of stretching and shrinking 
         <font color = "#68a2ff">a </font>,
         <font color = "#6bcc35">b </font>,
-        <font color = "#ff80ff">c </font>, all the resulting <font color = "#cc4634">vectors</font> are called the linear combination of a,b and c.
+        <font color = "#ff80ff">c </font>, all the resulting <font color = "#cc4634">vectors</font> are called the linear combination of 
+        <font color = "#68a2ff">a</font>,
+        <font color = "#6bcc35"> b </font> and
+        <font color = "#ff80ff"> c </font>.
       </p>
   </div>
 
@@ -99,6 +102,9 @@ draft: false
               })
       linIndependence.makePlot();
       linIndependence.makeVectors();
+      linIndependence.makeText({textList : linIndPayload.textList
+                           , textCoordList : linIndPayload.textCoordList
+                           , colorList : linIndPayload.textColorList});
       linIndependence.makeButton();
 </script>
 </div>
@@ -133,6 +139,9 @@ draft: false
               })
           basisOrtho.makePlot();
           basisOrtho.makeVectors();
+          basisOrtho.makeText({textList : basisPayload.textList
+                           , textCoordList : basisPayload.textCoordList
+                           , colorList : basisPayload.textColorList});
           basisOrtho.makeButton();
           
           </script>
@@ -179,7 +188,14 @@ draft: false
       <h3>Kernel</h3>
       <p>
         The Kernel of a linear transformation (red points) is the space that goes to 0 during the  linear transformation. <br>
-        When no dimensionality reduction happens eg. 2d to 1d, the only point in the kernel will be 0. 0 is always in the kernel.
+        When no dimensionality reduction happens eg. 2d to 1d, the only point in the kernel will be 0. 0 is always in the kernel.<br><br>
+        The following is the matrix which describes the linear transformation.
+
+        $$ \begin{bmatrix}
+            1&0\\
+            2&0\\
+            \end{bmatrix}$$
+
       </p>
   </div>
 
@@ -207,7 +223,14 @@ draft: false
     <div class = 'concept-text'>
       <h3>Image</h3>
       <p>
-        The Image of a linear transformation (red points) is the space (span) which the linear transformation maps to. 
+        The Image of a linear transformation (red points) is the space (span) which the linear transformation maps to. <br><br>
+        
+        The following is the matrix which describes the linear transformation.
+
+        $$ \begin{bmatrix}
+            1&0\\
+            2&0\\
+            \end{bmatrix}$$
       </p>
   </div>
 

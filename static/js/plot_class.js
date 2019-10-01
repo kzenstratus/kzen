@@ -403,6 +403,8 @@ class Text {
                 , coordList
                 , colorList
                 , fontWeight = "bold"
+                , fontSize = "20px"//"0.9em"
+                , fontFamily = "Roboto"
                 } = {}
                 ) {
         
@@ -414,6 +416,8 @@ class Text {
         this.textList = textList;
         this.coordList = coordList;
         this.colorList = colorList;
+        this.fontSize = fontSize
+        this.fontFamily = fontFamily
         
       }
     getText({someSvg} = {}){
@@ -439,18 +443,18 @@ class Text {
                  .text(function(d, i) {return d.label})
                  .attr("fill", function(d){return d.color})
                  .attr("font-weight", this.fontWeight)
-                 // .style("font-size", "0.7em")
+                 .style("font-size", this.fontSize)
+                 .style("font-family", this.fontFamily)
 
 
         }
 
     move({someSvg, duration} = {}){
-      console.log("I get here")
+      
       var currCaption = someSvg.select("text.caption#" + this.labelId)
       var textList = this.textList
         for (var j = 0; j < this.coordList.length; j++){
           // This set the duration to 0 to instantly reset an animation
-          console.log(j)
           var realDuration = 0;
           if(j > 0){
             realDuration = duration
@@ -464,6 +468,9 @@ class Text {
                                    , this.numTicks
                                    , this.height
                                    , this.width)
+          
+          var _color = this.colorList[j];
+          
           this.startCoord = _startCoord
           this.endCoord = _endCoord
           
@@ -472,6 +479,7 @@ class Text {
                        .attr("delay", function(d,i) {return 1000*i;})
                        .attr("x", function(d, i) {return _endCoord[0] * 1.04;})
                        .attr("y", function(d, i) {return _endCoord[1] * 0.96;})
+                       .attr("fill", function(d){return _color})
                        .text(function(d, i) {return textList[j]})
 
       }
