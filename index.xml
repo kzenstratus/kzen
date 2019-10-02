@@ -36,7 +36,7 @@ Instant Pot - Slow Cooker Tea Eggs + Tofu Ingredients  Eggs Firm Tofu (smoked/sp
       <pubDate>Sun, 30 Jun 2019 00:00:00 +0000</pubDate>
       
       <guid>https://kzenstratus.github.io/kzen/tech_notes/lin_alg/</guid>
-      <description>Linear Combination  We have 3 vectors a , b , c . If we connect each vector from head to tail, we get the sum of the vectors, vector d. We can stretch and shrink a , b , and c , to get many different vectors. If you take all of the possible combinations of stretching and shrinking a , b , c , all the resulting vectors are called the linear combination of a,b and c.</description>
+      <description>Linear Combination  We have 3 vectors a , b , c . If we connect each vector from head to tail, we get the sum of the vectors, vector d. We can stretch and shrink a , b , and c , to get many different vectors. If you take all of the possible combinations of stretching and shrinking a , b , c , all the resulting vectors are called the linear combination of a, b  and c .</description>
     </item>
     
   </channel>

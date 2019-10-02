@@ -81,7 +81,7 @@ our space.]
 the y axis]
 * @return {axis} [some d3 object which gets embedded in the svg.]
 **/
-function getGridlines(domain, range, tickSize, numTicks, isX) {
+function getGridlines({domain, range, tickSize, numTicks, isX} = {}) {
 
   var scale = d3.scaleLinear()
                     .domain(domain)
@@ -111,34 +111,34 @@ function getGridlines(domain, range, tickSize, numTicks, isX) {
 * @param {int} numTicks [number of ticks in the whole range.]
 * @return {svg} [contains the lines for the grid]
 **/
-var plotBasis = function (svg, xDomain, yDomain, width, height, numTicks){
-  var bot_axis = getGridlines(domain = xDomain, range = width
-    , tickSize = -height, numTicks = numTicks ,isX = true);
+var plotBasis = function ({svg, xDomain, yDomain, width, height, numTicks} = {}){
+  var bot_axis = getGridlines({domain : xDomain, range : width
+    , tickSize : -height, numTicks : numTicks , isX : true});
 
-  var top_axis = getGridlines(domain = xDomain, range = width
-    , tickSize = height, numTicks = numTicks, isX = true);
+  var top_axis = getGridlines({domain : xDomain, range : width
+    , tickSize : height, numTicks : numTicks, isX : true});
 
-  var left_axis = getGridlines(domain = yDomain, range = height
-    , tickSize = -width, numTicks = numTicks, isX = false);
+  var left_axis = getGridlines({domain : yDomain, range : height
+    , tickSize : -width, numTicks : numTicks, isX : false});
 
-  var right_axis = getGridlines(domain = yDomain, range = height
-    , tickSize = width, numTicks = numTicks, isX = false);
+  var right_axis = getGridlines({domain : yDomain, range : height
+    , tickSize : width, numTicks : numTicks, isX : false});
 
   //Append group and insert axis
   svg.append("g")
-    .attr('transform', "translate(0," + (height/2) + ")")
+    .attr('transform', "translate(-0.5," + (height/2) + ")")
     .call(bot_axis);
 
   svg.append("g")
-    .attr('transform', "translate(0," + (height/2) + ")")
+    .attr('transform', "translate(-0.5," + (height/2) + ")")
     .call(top_axis);
 
   svg.append("g")
-    .attr('transform', "translate(" + width/2 + ",0)")
+    .attr('transform', "translate(" + width/2 + ",-0.5)")
     .call(left_axis);
 
   svg.append("g")
-    .attr('transform', "translate(" + width/2 + ",0)")
+    .attr('transform', "translate(" + width/2 + ",-0.5)")
     .call(right_axis);
 }
 
@@ -292,12 +292,12 @@ var DisplayTransConceptPlot = function (conceptId
   var spaceGroup = svg.append('g')
 
   // Draw the underlying 2d grid lines.
-  plotBasis(svg
-            , domain
-            , domain
-            , width
-            , height
-            , numTicks
+  plotBasis({svg : svg
+            , xDomain : domain
+            , yDomain : domain
+            , width : width
+            , height : height
+            , numTicks : numTicks}
             );
 
   plotSpace(spaceGroup
@@ -339,5 +339,36 @@ var scaleLoc = function(tarCoord
           , height/2 - tarCoord[1] * width / numTicks])
 }
 
+// ARRAY COMPARISON
+
+// Warn if overriding existing method
+if(Array.prototype.equals)
+    console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+// attach the .equals method to Array's prototype to call it on any array
+Array.prototype.equals = function (array) {
+    // if the other array is a falsy value, return
+    if (!array)
+        return false;
+
+    // compare lengths - can save a lot of time 
+    if (this.length != array.length)
+        return false;
+
+    for (var i = 0, l=this.length; i < l; i++) {
+        // Check if we have nested arrays
+        if (this[i] instanceof Array && array[i] instanceof Array) {
+            // recurse into the nested arrays
+            if (!this[i].equals(array[i]))
+                return false;       
+        }           
+        else if (this[i] != array[i]) { 
+            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+            return false;   
+        }           
+    }       
+    return true;
+}
+// Hide method from for-in loops
+Object.defineProperty(Array.prototype, "equals", {enumerable: false});
 
 
