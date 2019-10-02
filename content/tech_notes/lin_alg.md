@@ -38,7 +38,10 @@ draft: false
         If you take all of the possible combinations of stretching and shrinking 
         <font color = "#68a2ff">a </font>,
         <font color = "#6bcc35">b </font>,
-        <font color = "#ff80ff">c </font>, all the resulting <font color = "#cc4634">vectors</font> are called the linear combination of a,b and c.
+        <font color = "#ff80ff">c </font>, all the resulting <font color = "#cc4634">vectors</font> are called the linear combination of 
+        <font color = "#68a2ff">a</font>,
+        <font color = "#6bcc35"> b </font> and
+        <font color = "#ff80ff"> c </font>.
       </p>
   </div>
 
@@ -54,6 +57,12 @@ draft: false
           , vecCoordJson: linComboPayload.vecCoordJson
           , duration: linComboPayload.duration
         })
+  linCombo.makePlot();
+  linCombo.makeVectors();
+  linCombo.makeText({textList : linComboPayload.textList
+                           , textCoordList : linComboPayload.textCoordList
+                           , colorList : linComboPayload.textColorList});
+  linCombo.makeButton();
 </script>
 
 </div>
@@ -91,6 +100,12 @@ draft: false
                 , vecCoordJson: linIndPayload.vecCoordJson
                 , duration: linIndPayload.duration
               })
+      linIndependence.makePlot();
+      linIndependence.makeVectors();
+      linIndependence.makeText({textList : linIndPayload.textList
+                           , textCoordList : linIndPayload.textCoordList
+                           , colorList : linIndPayload.textColorList});
+      linIndependence.makeButton();
 </script>
 </div>
 
@@ -122,7 +137,12 @@ draft: false
                 , vecCoordJson: basisPayload.vecCoordJson
                 , duration: basisPayload.duration
               })
-
+          basisOrtho.makePlot();
+          basisOrtho.makeVectors();
+          basisOrtho.makeText({textList : basisPayload.textList
+                           , textCoordList : basisPayload.textCoordList
+                           , colorList : basisPayload.textColorList});
+          basisOrtho.makeButton();
           
           </script>
 
@@ -156,6 +176,9 @@ draft: false
                 , vecCoordJson: basisNonOrthoPayload.vecCoordJson
                 , duration: basisNonOrthoPayload.duration
                 })
+          basisNonOrtho.makePlot();
+          basisNonOrtho.makeVectors();
+          basisNonOrtho.makeButton();
           
     </script>
   </div>
@@ -165,7 +188,14 @@ draft: false
       <h3>Kernel</h3>
       <p>
         The Kernel of a linear transformation (red points) is the space that goes to 0 during the  linear transformation. <br>
-        When no dimensionality reduction happens eg. 2d to 1d, the only point in the kernel will be 0. 0 is always in the kernel.
+        When no dimensionality reduction happens eg. 2d to 1d, the only point in the kernel will be 0. 0 is always in the kernel.<br><br>
+        The following is the matrix which describes this linear transformation.
+
+        $$ \begin{bmatrix}
+            1&0\\
+            2&0\\
+            \end{bmatrix}$$
+
       </p>
   </div>
 
@@ -183,6 +213,9 @@ draft: false
                 , tarSpace : kernelPayload.highlightSpace
                 , listNextDotSpaces : kernelPayload.listNextDotSpaces
                 })
+          kernel.makePlot();
+          kernel.makeVectors();
+          kernel.makeButton();
 
 </script>
   </div>
@@ -190,7 +223,14 @@ draft: false
     <div class = 'concept-text'>
       <h3>Image</h3>
       <p>
-        The Image of a linear transformation (red points) is the space (span) which the linear transformation maps to. 
+        The Image of a linear transformation (red points) is the space (span) which the linear transformation maps to. <br><br>
+
+        The following is the matrix which describes this linear transformation.
+
+        $$ \begin{bmatrix}
+            1&0\\
+            2&0\\
+            \end{bmatrix}$$
       </p>
   </div>
 
@@ -207,6 +247,9 @@ draft: false
                 , tarSpace : imagePayload.highlightSpace
                 , listNextDotSpaces : imagePayload.listNextDotSpaces
                 })
+      image.makePlot();
+      image.makeVectors();
+      image.makeButton();
 
 </script>
 

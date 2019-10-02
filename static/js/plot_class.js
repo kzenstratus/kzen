@@ -45,13 +45,14 @@ class Vector {
     constructor({startCoord
                 , endCoord
                 , lineSize
-                , lineStyle
+                , lineStyle = "solid"
                 , height
                 , width
                 , numTicks
                 , color
                 , arrowId
                 , coordList = []
+                , hasHead = true
                 , labels = null} = {}) {
 
         this.startCoord = scaleLoc(startCoord
@@ -81,6 +82,7 @@ class Vector {
         if(labels == null){
           this.labels = Array(coordList.length).fill("")  
         }
+        this.hasHead = hasHead
       }
         // Have a line, an arrow
         // and two points, a start and end point.
@@ -126,7 +128,10 @@ class Vector {
           this.getLine(someSvg);
           // Note arrowHead needs to be called after getLine does.
           
-          if(this.endCoord[0] != null ){
+          if(this.endCoord[0] != null &
+             this.hasHead &
+           !(this.endCoord.equals(this.startCoord))
+           ){
             this.getArrowHead(someSvg);  
           }
           
@@ -198,7 +203,7 @@ class Vector {
 
             this.startCoord = _startCoord
             this.endCoord = _endCoord
-            if(this.endCoord[0] != null){
+            if(this.endCoord[0] != null & this.hasHead & !(this.endCoord.equals(this.startCoord))){
               this.getArrowHead(someSvg)
             }
             label = label.transition()
@@ -207,7 +212,6 @@ class Vector {
                          .attr("x", function(d, i) {return _endCoord[0] * 1.04;})
                          .attr("y", function(d, i) {return _endCoord[1] * 0.96;})
                          .text(function(d, i) {return _labels[j]})
-                         
 
         }
       }
@@ -297,13 +301,12 @@ class Space {
 //The SVG Container
         
         plotBasis({someSvg} = {}){
-          
-          return(plotBasis(someSvg
-                          , this.xDomain
-                          , this.yDomain
-                          , this.width
-                          , this.height
-                          , this.numTicks
+          return(plotBasis({svg : someSvg 
+                          , xDomain: this.xDomain
+                          , yDomain: this.yDomain
+                          , width : this.width
+                          , height: this.height
+                          , numTicks: this.numTicks}
                           )
           )}
         
@@ -392,67 +395,95 @@ testSpace.move(svgContainer, nextDotSpace, duration = 4000)
 
 
 class Text {
-    constructor({height
+    constructor({labelId
+                , height
                 , width
                 , numTicks
                 , textList
+                , coordList
+                , colorList
+                , fontWeight = "bold"
+                , fontSize = "20px"//"0.9em"
+                , fontFamily = "Roboto"
                 } = {}
                 ) {
-
+        
+        this.labelId = labelId;
         this.numTicks = numTicks;
+        this.fontWeight = fontWeight;
         this.height = height;
         this.width = width;
         this.textList = textList;
-
+        this.coordList = coordList;
+        this.colorList = colorList;
+        this.fontSize = fontSize
+        this.fontFamily = fontFamily
         
       }
-        // Have a line, an arrow
-        // and two points, a start and end point.
-
-//The SVG Container
-        
-        
-        plotSpace({someSvg} = {}){
-          var spaceGroup = someSvg.append('g')
-          return(plotSpace(spaceGroup
-                            , this.space
-                            , this.width
-                            , this.height
-                            , this.numTicks
-                            , this.dotColor
-                            , this.dotRad
-                            , this.dotStrokeWidth
-                            , this.tarSpace
-                            , this.tarColor)
-          )
-        }
-
-
-        move({someSvg, listNextDotSpaces, duration} = {}){
-
-          var width = this.width
-          var height = this.height
-          var numTicks = this.numTicks
-          
-          var currSpace = someSvg.selectAll(".markers")
-          for(var i = 0; i < listNextDotSpaces.length; i ++ ){
-            var nextDotSpace = listNextDotSpaces[i]
-            currSpace = currSpace.transition()
-                                   .duration(4000)
-                                   .attr("delay", function(d,i) {
-                                           return 1000*i;
-                                           })
-                                   .attr("cx", function(d, i) {
-                                         return width/2 + nextDotSpace[i][0] * width/numTicks;  
-                                         
-                                          })
-                                   .attr("cy", function(d, i) {
-                                         return height/2 + nextDotSpace[i][1]* height/numTicks;  
-                                         
-                                           })
-            this.space = nextDotSpace;  
+    getText({someSvg} = {}){
+          // var vecDef = someSvg.selectAll("defs").select("marker#"+ this.arrowDefId)
+          var textData = []
+          for( var i = 0; i < this.coordList.length; i++){
+            textData.push({"coord" : scaleLoc(this.coordList[i][1]
+                                     , this.numTicks
+                                     , this.height
+                                     , this.width) // endCoord
+            , "label" : this.textList[i]
+            , "color" : this.colorList[i]}
+            )
           }
+          
+          // TODO set text style
+          someSvg.append("text")
+                 .attr("class", "caption")
+                 .attr("id", this.labelId)
+                 .data(textData)
+                 .attr("x", function(d) {return d.coord[0] * 1.04;})
+                 .attr("y", function(d) {return d.coord[1] * 0.96;})
+                 .text(function(d, i) {return d.label})
+                 .attr("fill", function(d){return d.color})
+                 .attr("font-weight", this.fontWeight)
+                 .style("font-size", this.fontSize)
+                 .style("font-family", this.fontFamily)
+
+
         }
+
+    move({someSvg, duration} = {}){
+      
+      var currCaption = someSvg.select("text.caption#" + this.labelId)
+      var textList = this.textList
+        for (var j = 0; j < this.coordList.length; j++){
+          // This set the duration to 0 to instantly reset an animation
+          var realDuration = 0;
+          if(j > 0){
+            realDuration = duration
+          }
+
+          var _startCoord = scaleLoc(this.coordList[j][0]
+                                     , this.numTicks
+                                     , this.height
+                                     , this.width)
+          var _endCoord = scaleLoc(this.coordList[j][1]
+                                   , this.numTicks
+                                   , this.height
+                                   , this.width)
+          
+          var _color = this.colorList[j];
+          
+          this.startCoord = _startCoord
+          this.endCoord = _endCoord
+          
+          currCaption = currCaption.transition()
+                       .duration(realDuration)
+                       .attr("delay", function(d,i) {return 1000*i;})
+                       .attr("x", function(d, i) {return _endCoord[0] * 1.04;})
+                       .attr("y", function(d, i) {return _endCoord[1] * 0.96;})
+                       .attr("fill", function(d){return _color})
+                       .text(function(d, i) {return textList[j]})
+
+      }
+  }
 }
 
 

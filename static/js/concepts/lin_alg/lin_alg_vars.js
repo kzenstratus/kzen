@@ -62,6 +62,12 @@ linComboPayload = {"conceptId" : "linear-combination"
 				, "buttonId" : "lin_combo_button"
 				, "duration" : 1500
 				, "vecCoordJson": vecCoordJsonLinCombo
+        , "textList" : Array(3).fill("Connect a,b,c to get Vec d").concat(
+                                     ["Stretch Vec A", "Stretch Vec B", "Shrink Vec C"])
+        , "textCoordList" : Array(6).fill([[-4.8,4.3], [-4.8,4.3]])
+        , "textColorList" : Array(3).fill("#cc4634").concat(["#68a2ff"
+                                                             , "#6bcc35"
+                                                             , "#ff80ff"])
 			}
 
 
@@ -101,6 +107,10 @@ linIndPayload = {"conceptId" : "linear-independence"
         , "buttonId" : "lin_ind_button"
         , "duration" : 1500
         , "vecCoordJson": vecCoordJsonLinInd
+        , "textList" : Array(3).fill("Flip and Stretch C").concat(
+                                     ["Shrink B"])
+        , "textCoordList" : Array(4).fill([[-4.8,4.3], [-4.8,4.3]])
+        , "textColorList" : Array(3).fill("#ff80ff").concat(["#6bcc35"])
         }
 
 var vecCoordJsonOrtho = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
@@ -131,26 +141,17 @@ vecCoordJsonOrtho = Object.assign(vecCoordJsonOrtho
 					   , "labels" : Array(6).fill("v3")
 					}
 				})
-            // vecCoordJsonOrtho = Object.assign(vecCoordJsonOrtho
-            //                                   , {"xVecHelp" : {"coordList" : math.add(swapVecCoord(vecCoordJsonOrtho.xVec.coordList), vecCoordJsonOrtho.vec.coordList)
-            //                                                   , "isLine" : true
-            //                                                   , "color" : "#6bcc35"
-                                                              
-            //                                                 }
-            //                                     , "yVecHelp" : {"coordList" : math.add(swapVecCoord(vecCoordJsonOrtho.yVec.coordList), vecCoordJsonOrtho.vec.coordList)
-            //                                                   , "isLine" : true
-            //                                                   , "color" : "#68a2ff"
-                                                              
-            //                                                 }
-            //                                      })
-            //                      
             
-
 
 basisPayload = {"conceptId" : "basis"
 				, "buttonId" : "basis_transform"
 				, "duration" : 1500
 				, "vecCoordJson": vecCoordJsonOrtho
+        , "textList" : Array(2).fill("Quadrant 1").concat(
+                       Array(2).fill("Quadrant 2"),
+                                     ["Quandrant 3", "Quandrant 4"])
+        , "textCoordList" : Array(6).fill([[-4.8,4.3], [-4.8,4.3]])
+        , "textColorList" : Array(6).fill("#cc4634")
 				}
 
 var vecCoordJsonBasisNonOrtho = {"xVec" : 
