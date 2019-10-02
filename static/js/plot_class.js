@@ -53,7 +53,9 @@ class Vector {
                 , arrowId
                 , coordList = []
                 , hasHead = true
-                , labels = null} = {}) {
+                , labels = null
+                , labelLoc = null // this is relative to the head of the vec.
+              } = {}) {
 
         this.startCoord = scaleLoc(startCoord
                                   , numTicks
@@ -79,8 +81,14 @@ class Vector {
         this.arrowDefId = "triangle_" + this.arrowId
         this.labelId = "label_" + this.arrowId
         this.labels = labels
+        this.labelLoc = labelLoc
+
         if(labels == null){
           this.labels = Array(coordList.length).fill("")  
+        }
+
+        if(labelLoc == null){
+          this.labelLoc = Array(coordList.length).fill([1.04, 0.96])   
         }
         this.hasHead = hasHead
       }
@@ -158,7 +166,9 @@ class Vector {
                                      , this.numTicks
                                      , this.height
                                      , this.width) // endCoord
-            , "label" : this.labels[i]})
+            , "label" : this.labels[i]
+            , "labelLoc" : this.labelLoc[i]
+            })
           }
           
           // TODO set text style
@@ -167,8 +177,8 @@ class Vector {
                  .attr("class", "vecLabel")
                  .attr("id", this.labelId)
                  .data(textData)
-                 .attr("x", function(d) {return d.coord[0] * 1.04;})
-                 .attr("y", function(d) {return d.coord[1] * 0.96;})
+                 .attr("x", function(d) {return d.coord[0] * d.labelLoc[0];})
+                 .attr("y", function(d) {return d.coord[1] * d.labelLoc[1];})
                  .text(function(d, i) {return d.label})
                  .attr("fill", this.arrowColor)
                  .attr("font-weight", "bold")
@@ -196,6 +206,8 @@ class Vector {
                                      , this.numTicks
                                      , this.height
                                      , this.width)
+            var _labelLoc = this.labelLoc[j];
+
             vec = vec.transition()
                     .duration(realDuration)
                     .attr("delay", function(d,i) {return 1000*i;})
@@ -209,8 +221,8 @@ class Vector {
             label = label.transition()
                          .duration(realDuration)
                          .attr("delay", function(d,i) {return 1000*i;})
-                         .attr("x", function(d, i) {return _endCoord[0] * 1.04;})
-                         .attr("y", function(d, i) {return _endCoord[1] * 0.96;})
+                         .attr("x", function(d, i) {return _endCoord[0] * _labelLoc[0];})
+                         .attr("y", function(d, i) {return _endCoord[1] * _labelLoc[1];})
                          .text(function(d, i) {return _labels[j]})
 
         }
@@ -470,7 +482,7 @@ class Text {
                                    , this.width)
           
           var _color = this.colorList[j];
-          
+
           this.startCoord = _startCoord
           this.endCoord = _endCoord
           

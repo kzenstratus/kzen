@@ -199,6 +199,11 @@ class DisplayConceptExamplePlot extends DisplayPlot{
           if(typeof vec['labels'] !== 'undefined'){
             labels = vec['labels']
           }
+          var labelLoc = null
+          if(typeof vec['labelLoc'] !== 'undefined'){
+            labelLoc = vec['labelLoc']
+          }
+          // console.log(labels)
           let tmpVec = new Vector({startCoord : startCoord[0]
             , endCoord : startCoord[1]
             , lineSize : 2
@@ -211,7 +216,8 @@ class DisplayConceptExamplePlot extends DisplayPlot{
             // Vec coord list starts at index 1, don't repeat index 0.
             , coordList : vecCoordList
             , hasHead : vec["hasHead"]
-            , labels : labels}
+            , labels : labels
+            , labelLoc : labelLoc}
             // , coordList : vecCoordList.slice(1, vecCoordList.length)}
             );
       

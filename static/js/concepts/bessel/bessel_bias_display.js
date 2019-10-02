@@ -37,9 +37,6 @@ class DisplayDoubleConceptExamplePlot{
    
   }
   makeButton(){
-    // var currSpace = this.currSpace
-    // var currSvg = this.currSvg
-    // var listNextDotSpaces = this.listNextDotSpaces
     var duration = this.firstPlot.duration
     // var vecCoordJson = this.vecCoordJson
     var vecObjList = this.firstPlot.vecObjList
@@ -67,31 +64,6 @@ class DisplayDoubleConceptExamplePlot{
         // alert("i'm a butt")
       }
       )
-
-      // var currSpace = this.currSpace
-      //   var currSvg = this.currSvg
-      //   var listNextDotSpaces = this.listNextDotSpaces
-      //   var duration = this.duration
-      //   var vecCoordJson = this.vecCoordJson
-      //   var vecObjList = this.vecObjList
-      //   var svgContainer = d3.select("#" + this.conceptExampleId)
-      //                           .select("svg");
-      //   d3.select("#" + this.conceptExampleId)
-      //     .append("button")
-      //     .attr("class", this.buttonCssClass)
-      //     .attr("id", this.buttonId)
-      //     .text(this.buttonLabel)
-      //     .on('click', function(){
-      //       // move space
-      //       currSpace.move({someSvg : currSvg
-      //                       , listNextDotSpaces : listNextDotSpaces
-      //                       , duration : duration}) 
-
-      //       // add vectors
-            
-            
-      //     }
-
   }
   makeFirstPlot({conceptExampleId
     , payload} = {}){

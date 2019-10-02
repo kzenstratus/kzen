@@ -21,15 +21,19 @@ var vecCoordJsonBesselBias = {
                                                    ]
                                               , "color" : "#68a2ff" // blue
                                               , "hasHead":false
+                                              , "labels" : Array(4).fill("avg 1")
+                                              , "labelLoc" : Array(4).fill([0.9, 0.96])
 
                                           }
                           , "movingMean" : {"coordList" : [[[-5,0], [5, 0]]
-                                                         , [[-5,-3], [5,-3]]
+                                                         , [[-5,-3],[5,-3]]
                                                          , [[-5,3], [5,3]]
                                                          , [[-5,0], [5, 0]]
                                                    ]
                                               , "color" : "#cc4634" // blue
                                               , "hasHead": false
+                                              , "labels" : Array(4).fill("avg 2")
+                                              , "labelLoc" : Array(4).fill([0.9, 1.06])
 
                                           }
                           , "a" : {"coordList" : [[[-3,2], [-3,0]]
@@ -104,8 +108,8 @@ besselBiasPayload = {"conceptId" : "bessel-bias"
         , "space" : [[-3,-2], [0,-2], [3,-2] 
                       , [-1,0], [1,0]
                       , [-2,2], [2,2]]
-        , "textList" : ["HUEHUEHUEHUE", "WUBALUBADUBDUB", "OOOOOOH", "BOOOOOOOO"]
-        , "textCoordList" : Array(4).fill([[3,3], [3,3]])
+        , "textList" : ["Average x ", "WUBALUBADUBDUB", "OOOOOOH", "BOOOOOOOO"]
+        , "textCoordList" : Array(4).fill([[-4,4.2], [-4,4.2]])
         , "textColorList" : Array(4).fill("green")
       };
 
