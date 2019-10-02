@@ -124,5 +124,3 @@ What does it mean to multiple 2 random variables?
 Is this convolution?
 multiplying 2 functions to get another function?
 
-
-
