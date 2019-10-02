@@ -189,7 +189,7 @@ draft: false
       <p>
         The Kernel of a linear transformation (red points) is the space that goes to 0 during the  linear transformation. <br>
         When no dimensionality reduction happens eg. 2d to 1d, the only point in the kernel will be 0. 0 is always in the kernel.<br><br>
-        The following is the matrix which describes the linear transformation.
+        The following is the matrix which describes this linear transformation.
 
         $$ \begin{bmatrix}
             1&0\\
@@ -224,8 +224,8 @@ draft: false
       <h3>Image</h3>
       <p>
         The Image of a linear transformation (red points) is the space (span) which the linear transformation maps to. <br><br>
-        
-        The following is the matrix which describes the linear transformation.
+
+        The following is the matrix which describes this linear transformation.
 
         $$ \begin{bmatrix}
             1&0\\

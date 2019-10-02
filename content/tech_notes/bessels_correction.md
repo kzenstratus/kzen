@@ -1,7 +1,7 @@
 ---
 title: "Bessel's Correction"
 date: 2019-06-30
-draft: false
+draft: true
 ---
 
 Why do we use n-1 when calculating the sample variance?

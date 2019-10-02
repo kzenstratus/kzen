@@ -20,7 +20,9 @@ main{
 .concept-text{
   position: relative;
   border: 1px solid #fff;  /* For debugging */
-  width: 40vw;
+  width: 600px;
+  /*width: 40vw;*/
+  /*width: 90vw;*/
   /*height: 600px;*/
 }
 

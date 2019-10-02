@@ -64,7 +64,7 @@ linComboPayload = {"conceptId" : "linear-combination"
 				, "vecCoordJson": vecCoordJsonLinCombo
         , "textList" : Array(3).fill("Connect a,b,c to get Vec d").concat(
                                      ["Stretch Vec A", "Stretch Vec B", "Shrink Vec C"])
-        , "textCoordList" : Array(6).fill([[-4.8,4.2], [-4.8,4.2]])
+        , "textCoordList" : Array(6).fill([[-4.8,4.3], [-4.8,4.3]])
         , "textColorList" : Array(3).fill("#cc4634").concat(["#68a2ff"
                                                              , "#6bcc35"
                                                              , "#ff80ff"])
@@ -109,7 +109,7 @@ linIndPayload = {"conceptId" : "linear-independence"
         , "vecCoordJson": vecCoordJsonLinInd
         , "textList" : Array(3).fill("Flip and Stretch C").concat(
                                      ["Shrink B"])
-        , "textCoordList" : Array(4).fill([[-4.8,4.2], [-4.8,4.2]])
+        , "textCoordList" : Array(4).fill([[-4.8,4.3], [-4.8,4.3]])
         , "textColorList" : Array(3).fill("#ff80ff").concat(["#6bcc35"])
         }
 
@@ -150,7 +150,7 @@ basisPayload = {"conceptId" : "basis"
         , "textList" : Array(2).fill("Quadrant 1").concat(
                        Array(2).fill("Quadrant 2"),
                                      ["Quandrant 3", "Quandrant 4"])
-        , "textCoordList" : Array(6).fill([[-4.8,4.2], [-4.8,4.2]])
+        , "textCoordList" : Array(6).fill([[-4.8,4.3], [-4.8,4.3]])
         , "textColorList" : Array(6).fill("#cc4634")
 				}
 
