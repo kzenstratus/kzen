@@ -22,7 +22,7 @@ var vecCoordJsonBesselBias = {
                                               , "color" : "#68a2ff" // blue
                                               , "hasHead":false
                                               , "labels" : Array(4).fill("avg 1")
-                                              , "labelLoc" : Array(4).fill([0.9, 0.96])
+                                              , "labelLoc" : Array(4).fill([-45, -10])
 
                                           }
                           , "movingMean" : {"coordList" : [[[-5,0], [5, 0]]
@@ -30,10 +30,10 @@ var vecCoordJsonBesselBias = {
                                                          , [[-5,3], [5,3]]
                                                          , [[-5,0], [5, 0]]
                                                    ]
-                                              , "color" : "#cc4634" // blue
+                                              , "color" : "#FD5F00" // orange
                                               , "hasHead": false
                                               , "labels" : Array(4).fill("avg 2")
-                                              , "labelLoc" : Array(4).fill([0.9, 1.06])
+                                              , "labelLoc" : Array(4).fill([-45, 15])
 
                                           }
                           , "a" : {"coordList" : [[[-3,2], [-3,0]]
@@ -41,7 +41,7 @@ var vecCoordJsonBesselBias = {
                                               	, [[-3,2], [-3,3]]
                                                 , [[-3,2], [-3,0]]
                                               	   ]
-                                              , "color" : "#6bcc35" // blue
+                                              , "color" : "#6bcc35" // green
 
 
                                           }

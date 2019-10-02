@@ -88,7 +88,7 @@ class Vector {
         }
 
         if(labelLoc == null){
-          this.labelLoc = Array(coordList.length).fill([1.04, 0.96])   
+          this.labelLoc = Array(coordList.length).fill([7, -7])   
         }
         this.hasHead = hasHead
       }
@@ -177,8 +177,8 @@ class Vector {
                  .attr("class", "vecLabel")
                  .attr("id", this.labelId)
                  .data(textData)
-                 .attr("x", function(d) {return d.coord[0] * d.labelLoc[0];})
-                 .attr("y", function(d) {return d.coord[1] * d.labelLoc[1];})
+                 .attr("x", function(d) {return d.coord[0] + d.labelLoc[0];})
+                 .attr("y", function(d) {return d.coord[1] + d.labelLoc[1];})
                  .text(function(d, i) {return d.label})
                  .attr("fill", this.arrowColor)
                  .attr("font-weight", "bold")
@@ -221,8 +221,8 @@ class Vector {
             label = label.transition()
                          .duration(realDuration)
                          .attr("delay", function(d,i) {return 1000*i;})
-                         .attr("x", function(d, i) {return _endCoord[0] * _labelLoc[0];})
-                         .attr("y", function(d, i) {return _endCoord[1] * _labelLoc[1];})
+                         .attr("x", function(d, i) {return _endCoord[0] + _labelLoc[0];})
+                         .attr("y", function(d, i) {return _endCoord[1] + _labelLoc[1];})
                          .text(function(d, i) {return _labels[j]})
 
         }

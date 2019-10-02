@@ -54,7 +54,7 @@ var vecCoordJsonLinCombo = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
                                                    ]
                                         , "color" : "#cc4634" // orange
                                         , "labels" : Array(6).fill("d")
-                                        , "labelLoc" : Array(6).fill([0.96, 0.96])
+                                        , "labelLoc" : Array(6).fill([-10, 0])
                                         }
                                     };
 
