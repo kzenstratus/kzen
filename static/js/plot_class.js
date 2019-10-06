@@ -1,3 +1,120 @@
+/**
+ * plotBasis
+ * [Draw the underlying 2d grid lines.]
+ *
+ * @param {svg} svg [an svg object]
+ * @param {int list} xDomain [2 value list representing the xDomain]
+ * @param {int list} yDomain [2 value list representing the yDomain]
+ * @param {double} width [The width of a container]
+ * @param {int} numTicks [number of ticks in the whole range.]
+ * @return {svg} [contains the lines for the grid]
+ **/
+class BasisPlot {
+    constructor({
+        svg,
+        xDomain,
+        yDomain,
+        width,
+        height,
+        numTicksArr,
+        basisType = "1_2_3_4"
+    } = {}) {
+        this.svg = svg
+        this.height = height;
+        this.width = width;
+        this.numTicksArr = numTicksArr;
+        this.basisType = basisType
+        this.bot_axis = getGridlines({
+            domain: xDomain,
+            range: width,
+            tickSize: -height, // use ticksize to draw gridline.
+            numTicks: numTicksArr[0],
+            isX: true
+        });
+
+        this.top_axis = getGridlines({
+            domain: xDomain,
+            range: width,
+            tickSize: height,
+            numTicks: numTicksArr[0],
+            isX: true
+        });
+
+        this.left_axis = getGridlines({
+            domain: yDomain,
+            range: height,
+            tickSize: -width,
+            numTicks: numTicksArr[1],
+            isX: false
+        });
+
+        this.right_axis = getGridlines({
+            domain: yDomain,
+            range: height,
+            tickSize: width,
+            numTicks: numTicksArr[1],
+            isX: false
+        });
+
+    }
+    makePlot() {
+        var funcMap = {
+            "1_2_3_4": this.make1234,
+            "1_2": this.make12
+        };
+        var axes = {
+            "top": this.top_axis,
+            "bot": this.bot_axis,
+            "left": this.left_axis,
+            "right": this.right_axis
+        }
+        // Execute basis Function
+        // somehow I can't call a class function from another function and have the original
+        // use this
+        funcMap[this.basisType]({
+            svg: this.svg
+            ,height: this.height
+            ,width : this.width
+            ,numTicksArr : this.numTicksArr
+            ,axes : axes
+        });
+    }
+    make1234({ svg, height, width, bot_axis, numTicksArr, axes} = {}) {
+
+        svg.append("g")
+            .attr('transform', "translate(-0.5," + (height / 2) + ")")
+            .call(axes["bot"]);
+
+        svg.append("g")
+            .attr('transform', "translate(-0.5," + (height / 2) + ")")
+            .call(axes["top"]);
+
+        svg.append("g")
+            .attr('transform', "translate(" + width / 2 + ",-0.5)")
+            .call(axes["left"]);
+
+        svg.append("g")
+            .attr('transform', "translate(" + width / 2 + ",-0.5)")
+            .call(axes["right"]);
+    }
+    make12({ svg, height, width, bot_axis, numTicksArr, axes} = {}) {
+        svg.append("g")
+            .attr('transform', "translate(-0.5," + (height - (height / numTicksArr[1])) + ")")
+            .call(axes["bot"]);
+
+        svg.append("g")
+            .attr('transform', "translate(" + width / 2 + ",-0.5)")
+            .call(axes["left"]);
+
+        svg.append("g")
+            .attr('transform', "translate(" + width / 2 + ",-0.5)")
+            .call(axes["right"]);
+    }
+
+
+}
+
+
 /* ----------------------
 Set up fake data and params for the grid
 and dot spaces.
@@ -44,21 +161,22 @@ testLine.move(svgContainer, coordList, 2000);
  * @param {[type]} lineColor [The color of the line]
  */
 class Vector {
-    constructor({startCoord
-                , endCoord
-                , lineSize
-                , lineStyle = "solid"
-                , height
-                , width
-                , numTicksArr
-                , color
-                , arrowId
-                , coordList = []
-                , hasHead = true
-                , labels = null
-                , labelLoc = null // this is relative to the head of the vec.
-              } = {}) {
-        
+    constructor({
+        startCoord,
+        endCoord,
+        lineSize,
+        lineStyle = "solid",
+        height,
+        width,
+        numTicksArr,
+        color,
+        arrowId,
+        coordList = [],
+        hasHead = true,
+        labels = null,
+        labelLoc = null // this is relative to the head of the vec.
+    } = {}) {
+
 
 
         this.lineSize = lineSize;
@@ -77,37 +195,41 @@ class Vector {
         this.labels = labels
         this.labelLoc = labelLoc
 
-        this.startCoord = scaleLoc({ tarCoord : startCoord
-                                    , numTicksX : numTicksArr[0]
-                                    , numTicksY : numTicksArr[1]
-                                    , height : height
-                                    , width : width});
+        this.startCoord = scaleLoc({
+            tarCoord: startCoord,
+            numTicksX: numTicksArr[0],
+            numTicksY: numTicksArr[1],
+            height: height,
+            width: width
+        });
 
-        this.endCoord = scaleLoc({ tarCoord : endCoord
-                                    , numTicksX : numTicksArr[0]
-                                    , numTicksY : numTicksArr[1]
-                                    , height : height
-                                    , width : width});
+        this.endCoord = scaleLoc({
+            tarCoord: endCoord,
+            numTicksX: numTicksArr[0],
+            numTicksY: numTicksArr[1],
+            height: height,
+            width: width
+        });
 
-        if(labels == null){
-          this.labels = Array(coordList.length).fill("")  
+        if (labels == null) {
+            this.labels = Array(coordList.length).fill("")
         }
 
-        if(labelLoc == null){
-          this.labelLoc = Array(coordList.length).fill([7, -7])   
+        if (labelLoc == null) {
+            this.labelLoc = Array(coordList.length).fill([7, -7])
         }
         this.hasHead = hasHead
-      }
-        // Have a line, an arrow
-        // and two points, a start and end point.
+    }
+    // Have a line, an arrow
+    // and two points, a start and end point.
 
-//The SVG Container
-        
-        getLine(someSvg){
-          
-          var lineData = [this.startCoord, this.endCoord];
-          
-          return(someSvg.append("path")
+    //The SVG Container
+
+    getLine(someSvg) {
+
+        var lineData = [this.startCoord, this.endCoord];
+
+        return (someSvg.append("path")
             // .attr("id", "vecLine")
             .attr("class", "vector")
             .attr("id", this.arrowId)
@@ -115,130 +237,138 @@ class Vector {
             .attr("stroke", this.arrowColor)
             .attr("stroke-width", this.lineSize)
             .attr("fill", "none")
-            )
+        )
+    }
+
+    getArrowHead(someSvg) {
+        // if arrow doesn't already exist, add it
+        if (d3.select("path.vector#" + this.arrowId).attr("marker-end") == null) {
+            someSvg.append("svg:defs").append("svg:marker")
+                .attr("id", "triangle_" + this.arrowId)
+                .attr("refX", 12)
+                .attr("refY", 6)
+                .attr("markerWidth", 30)
+                .attr("markerHeight", 30)
+                .attr("orient", "auto")
+                .append("path")
+                .attr("d", "M 0 0 12 6 0 12 3 6")
+                .style("fill", this.arrowColor);
+
+            d3.select("path.vector#" + this.arrowId)
+                .attr("marker-end", "url(#" + this.arrowDefId + ")")
         }
 
-        getArrowHead(someSvg){
-          // if arrow doesn't already exist, add it
-          if(d3.select("path.vector#" + this.arrowId).attr("marker-end") == null){
-            someSvg.append("svg:defs").append("svg:marker")
-            .attr("id", "triangle_" + this.arrowId)
-            .attr("refX", 12)
-            .attr("refY", 6)
-            .attr("markerWidth", 30)
-            .attr("markerHeight", 30)
-            .attr("orient", "auto")
-            .append("path")
-            .attr("d", "M 0 0 12 6 0 12 3 6")
-            .style("fill", this.arrowColor);
-          
-            d3.select("path.vector#" + this.arrowId)
-              .attr("marker-end", "url(#" + this.arrowDefId + ")")  
-          }
-          
-          return(someSvg)
+        return (someSvg)
+    }
+    getVector(someSvg) {
+        this.getLine(someSvg);
+        // Note arrowHead needs to be called after getLine does.
+
+        if (this.endCoord[0] != null &
+            this.hasHead &
+            !(this.endCoord.equals(this.startCoord))
+        ) {
+            this.getArrowHead(someSvg);
         }
-        getVector(someSvg){
-          this.getLine(someSvg);
-          // Note arrowHead needs to be called after getLine does.
-          
-          if(this.endCoord[0] != null &
-             this.hasHead &
-           !(this.endCoord.equals(this.startCoord))
-           ){
-            this.getArrowHead(someSvg);  
-          }
-          
-          return(someSvg)
-        }
-        getPoint(someSvg){
-          someSvg.selectAll(".markers")
+
+        return (someSvg)
+    }
+    getPoint(someSvg) {
+        someSvg.selectAll(".markers")
             .data([this.startCoord])
             .enter()
             .append("circle")
-            .attr("class","markers")
-            .attr("cx", function(d) {return d[0];})
-            .attr("cy", function(d) {return d[1];})
+            .attr("class", "markers")
+            .attr("cx", function(d) { return d[0]; })
+            .attr("cy", function(d) { return d[1]; })
             .attr('fill', this.dotColor)
             .attr('stroke', this.dotColor)
             .attr('stroke-width', this.dotStrokeWidth)
             .attr("r", this.dotRad);
-        }
-        getText(someSvg){
-          // var vecDef = someSvg.selectAll("defs").select("marker#"+ this.arrowDefId)
-          var textData = []
-          for( var i = 0; i < this.coordList.length; i++){
-          
-            textData.push({"coord" : scaleLoc({tarCoord : this.coordList[i][1]
-                                     , numTicksX : this.numTicksArr[0]
-                                     , numTicksY : this.numTicksArr[1]
-                                     , height : this.height
-                                     , width : this.width}) // endCoord
-            , "label" : this.labels[i]
-            , "labelLoc" : this.labelLoc[i]
+    }
+    getText(someSvg) {
+        // var vecDef = someSvg.selectAll("defs").select("marker#"+ this.arrowDefId)
+        var textData = []
+        for (var i = 0; i < this.coordList.length; i++) {
+
+            textData.push({
+                "coord": scaleLoc({
+                        tarCoord: this.coordList[i][1],
+                        numTicksX: this.numTicksArr[0],
+                        numTicksY: this.numTicksArr[1],
+                        height: this.height,
+                        width: this.width
+                    }) // endCoord
+                    ,
+                "label": this.labels[i],
+                "labelLoc": this.labelLoc[i]
             })
-          }
-          
-          // TODO set text style
-          // TODO fix overlap issue
-          someSvg.append("text")
-                 .attr("class", "vecLabel")
-                 .attr("id", this.labelId)
-                 .data(textData)
-                 .attr("x", function(d) {return d.coord[0] + d.labelLoc[0];})
-                 .attr("y", function(d) {return d.coord[1] + d.labelLoc[1];})
-                 .text(function(d, i) {return d.label})
-                 .attr("fill", this.arrowColor)
-                 .attr("font-weight", "bold")
-                 // .style("font-size", "0.7em")
-
-
         }
-        move(someSvg, duration){
 
-          var vec = someSvg.select("path.vector#" + this.arrowId)
-          var label = someSvg.select("text.vecLabel#" + this.labelId)
-          var _labels = this.labels // need to define this because transition can't look outside its environment
-          for (var j = 0; j < this.coordList.length; j++){
+        // TODO set text style
+        // TODO fix overlap issue
+        someSvg.append("text")
+            .attr("class", "vecLabel")
+            .attr("id", this.labelId)
+            .data(textData)
+            .attr("x", function(d) { return d.coord[0] + d.labelLoc[0]; })
+            .attr("y", function(d) { return d.coord[1] + d.labelLoc[1]; })
+            .text(function(d, i) { return d.label })
+            .attr("fill", this.arrowColor)
+            .attr("font-weight", "bold")
+        // .style("font-size", "0.7em")
+
+
+    }
+    move(someSvg, duration) {
+
+        var vec = someSvg.select("path.vector#" + this.arrowId)
+        var label = someSvg.select("text.vecLabel#" + this.labelId)
+        var _labels = this.labels // need to define this because transition can't look outside its environment
+        for (var j = 0; j < this.coordList.length; j++) {
             // This set the duration to 0 to instantly reset an animation
             // 
             var realDuration = 0;
-            if(j > 0){
-              realDuration = duration
+            if (j > 0) {
+                realDuration = duration
             }
-            
-            var _startCoord = scaleLoc({tarCoord : this.coordList[j][0]
-                                       , numTicksX : this.numTicksArr[0]
-                                       , numTicksY : this.numTicksArr[1]
-                                       , height : this.height
-                                       , width : this.width})
-            
-            var _endCoord = scaleLoc({tarCoord : this.coordList[j][1]
-                                       , numTicksX : this.numTicksArr[0]
-                                       , numTicksY : this.numTicksArr[1]
-                                       , height : this.height
-                                       , width : this.width})
+
+            var _startCoord = scaleLoc({
+                tarCoord: this.coordList[j][0],
+                numTicksX: this.numTicksArr[0],
+                numTicksY: this.numTicksArr[1],
+                height: this.height,
+                width: this.width
+            })
+
+            var _endCoord = scaleLoc({
+                tarCoord: this.coordList[j][1],
+                numTicksX: this.numTicksArr[0],
+                numTicksY: this.numTicksArr[1],
+                height: this.height,
+                width: this.width
+            })
             var _labelLoc = this.labelLoc[j];
 
             vec = vec.transition()
-                    .duration(realDuration)
-                    .attr("delay", function(d,i) {return 1000*i;})
-                    .attr("d", linFunction([_startCoord, _endCoord]))
+                .duration(realDuration)
+                .attr("delay", function(d, i) { return 1000 * i; })
+                .attr("d", linFunction([_startCoord, _endCoord]))
 
             this.startCoord = _startCoord
             this.endCoord = _endCoord
-            if(this.endCoord[0] != null & this.hasHead & !(this.endCoord.equals(this.startCoord))){
-              this.getArrowHead(someSvg)
+            if (this.endCoord[0] != null & this.hasHead & !(this.endCoord.equals(this.startCoord))) {
+                this.getArrowHead(someSvg)
             }
             label = label.transition()
-                         .duration(realDuration)
-                         .attr("delay", function(d,i) {return 1000*i;})
-                         .attr("x", function(d, i) {return _endCoord[0] + _labelLoc[0];})
-                         .attr("y", function(d, i) {return _endCoord[1] + _labelLoc[1];})
-                         .text(function(d, i) {return _labels[j]})
+                .duration(realDuration)
+                .attr("delay", function(d, i) { return 1000 * i; })
+                .attr("x", function(d, i) { return _endCoord[0] + _labelLoc[0]; })
+                .attr("y", function(d, i) { return _endCoord[1] + _labelLoc[1]; })
+                .text(function(d, i) { return _labels[j] })
 
         }
-      }
+    }
 }
 
 // d3.select("path.vector#" + arrowId).attr("marker-end")
@@ -290,21 +420,21 @@ testSpace.move(svgContainer, nextDotSpace, duration = 4000)
 **********************************************/
 
 class Space {
-    constructor({xDomain
-                , yDomain
-                , height
-                , width
-                , numTicksArr
-                , dotColor
-                , space
-                , tarSpace = []
-                , tarColor = 'red'
-                , dotRad = 5
-                , dotStrokeWidth = 4
-                , gridColor = 'grey'
-                , basisType = '1_2_3_4'
-                } = {}
-                ) {
+    constructor({
+        xDomain,
+        yDomain,
+        height,
+        width,
+        numTicksArr,
+        dotColor,
+        space,
+        tarSpace = [],
+        tarColor = 'red',
+        dotRad = 5,
+        dotStrokeWidth = 4,
+        gridColor = 'grey',
+        basisType = '1_2_3_4'
+    } = {}) {
 
         this.xDomain = xDomain;
         this.yDomain = yDomain;
@@ -320,86 +450,89 @@ class Space {
         this.tarcolor = tarColor
         this.space = space
         this.basisType = basisType
-        this.basisFuncDict = {'1_2_3_4' : plotBasis
-                              , '1_2' : plotBasis1_2}
-        
-      }
-        // Have a line, an arrow
-        // and two points, a start and end point.
-
-//The SVG Container
-        
-        plotBasis({someSvg
-                  , basisType = this.basisType} = {}){
-
-          return(this.basisFuncDict[basisType]({svg : someSvg 
-                          , xDomain: this.xDomain
-                          , yDomain: this.yDomain
-                          , width : this.width
-                          , height: this.height
-                          , numTicksArr : this.numTicksArr}
-                          )
-          )}
-        
-        plotSpace({someSvg} = {}){
-
-          var spaceGroup = someSvg.append('g')
-          
-          return(plotSpace({svg : spaceGroup
-                            , space : this.space
-                            , width : this.width
-                            , height : this.height
-                            , numTicksArr : this.numTicksArr
-                            , color : this.dotColor
-                            , radius : this.dotRad
-                            , strokeWidth : this.dotStrokeWidth
-                            , tarSpace : this.tarSpace
-                            , tarColor : this.tarColor})
-          )
-        }
 
 
-        move({someSvg, listNextDotSpaces, duration} = {}){
 
-          // TODO: why do I need to define a variable inside here
-          // for d3 to see it?
-          // 
-          var width = this.width
-          var height = this.height
-          var numTicksArr = this.numTicksArr
-          // console.log(numTicks)
-          
-          var currSpace = someSvg.selectAll(".markers")
-          for(var i = 0; i < listNextDotSpaces.length; i ++ ){
+    }
+    // Have a line, an arrow
+    // and two points, a start and end point.
+
+    //The SVG Container
+
+    plotBasis({
+        someSvg,
+        basisType = this.basisType
+    } = {}) {
+
+        var basis = new BasisPlot({
+            svg: someSvg,
+            xDomain: this.xDomain,
+            yDomain: this.yDomain,
+            width: this.width,
+            height: this.height,
+            numTicksArr: this.numTicksArr,
+            basisType: basisType
+        })
+        return (basis.makePlot())
+    }
+
+    plotSpace({ someSvg } = {}) {
+
+        var spaceGroup = someSvg.append('g')
+
+        return (plotSpace({
+            svg: spaceGroup,
+            space: this.space,
+            width: this.width,
+            height: this.height,
+            numTicksArr: this.numTicksArr,
+            color: this.dotColor,
+            radius: this.dotRad,
+            strokeWidth: this.dotStrokeWidth,
+            tarSpace: this.tarSpace,
+            tarColor: this.tarColor
+        }))
+    }
+
+
+    move({ someSvg, listNextDotSpaces, duration } = {}) {
+
+        // TODO: why do I need to define a variable inside here
+        // for d3 to see it?
+        // 
+        var width = this.width
+        var height = this.height
+        var numTicksArr = this.numTicksArr
+
+        var currSpace = someSvg.selectAll(".markers")
+        for (var i = 0; i < listNextDotSpaces.length; i++) {
+
             var nextDotSpace = listNextDotSpaces[i]
-            
-            // for(var j = 0; j < nextDotSpace.length; j ++ ){
-            //   nextDotSpace[i] = scaleLoc({tarCoord : nextDotSpace[j]
-            //                                   , numTicksX : this.numTicksArr[0]
-            //                                   , numTicksY : this.numTicksArr[1]
-            //                                   , height : this.height
-            //                                   , width : this.width})
-            // }
-            console.log(currSpace)
-            console.log(nextDotSpace)    
+
+
+            for (var j = 0; j < nextDotSpace.length; j++) {
+                nextDotSpace[j] = scaleLoc({
+                    tarCoord: nextDotSpace[j],
+                    numTicksX: this.numTicksArr[0],
+                    numTicksY: this.numTicksArr[1],
+                    height: this.height,
+                    width: this.width
+                })
+            }
             currSpace = currSpace.transition()
-                                   .duration(4000)
-                                   .attr("delay", function(d,i) {
-                                           return 1000*i;
-                                           })
-                                   .attr("cx", function(d, i) {
-                                          // return nextDotSpace[i][0];
-                                         return width/2 + nextDotSpace[i][0] * width/numTicksArr[0];  
-                                         
-                                          })
-                                   .attr("cy", function(d, i) {
-                                          // return nextDotSpace[i][1];
-                                         return height/2 - nextDotSpace[i][1]* height/numTicksArr[1];  
-                                         
-                                           })
-            this.space = nextDotSpace;  
-          }
+                .duration(4000)
+                .attr("delay", function(d, i) {
+                    return 1000 * i;
+                })
+                .attr("cx", function(d, i) {
+                    return nextDotSpace[i][0];
+                })
+                .attr("cy", function(d, i) {
+                    return nextDotSpace[i][1];
+                })
+            this.space = nextDotSpace;
         }
+    }
 }
 
 
@@ -440,19 +573,20 @@ testSpace.move(svgContainer, nextDotSpace, duration = 4000)
 
 
 class Text {
-    constructor({labelId
-                , height
-                , width
-                , numTicksArr
-                , textList
-                , coordList
-                , colorList
-                , fontWeight = "bold"
-                , fontSize = "20px"//"0.9em"
-                , fontFamily = "Roboto"
-                } = {}
-                ) {
-        
+    constructor({
+        labelId,
+        height,
+        width,
+        numTicksArr,
+        textList,
+        coordList,
+        colorList,
+        fontWeight = "bold",
+        fontSize = "20px" //"0.9em"
+        ,
+        fontFamily = "Roboto"
+    } = {}) {
+
         this.labelId = labelId;
         this.numTicksArr = numTicksArr;
         this.fontWeight = fontWeight;
@@ -463,98 +597,85 @@ class Text {
         this.colorList = colorList;
         this.fontSize = fontSize
         this.fontFamily = fontFamily
-        
-      }
-      
-    getText({someSvg} = {}){
-          // var vecDef = someSvg.selectAll("defs").select("marker#"+ this.arrowDefId)
-          var textData = []
-          for( var i = 0; i < this.coordList.length; i++){
-            textData.push({"coord" : scaleLoc({ tarCoord : this.coordList[i][1]
-                                              , numTicksX : this.numTicksArr[0]
-                                              , numTicksY : this.numTicksArr[1]
-                                              , height : this.height
-                                              , width : this.width}) // endCoord
-            , "label" : this.textList[i]
-            , "color" : this.colorList[i]}
-            )
-          }
-          
-          // TODO set text style
-          someSvg.append("text")
-                 .attr("class", "caption")
-                 .attr("id", this.labelId)
-                 .data(textData)
-                 .attr("x", function(d) {return d.coord[0] * 1.04;})
-                 .attr("y", function(d) {return d.coord[1] * 0.96;})
-                 .text(function(d, i) {return d.label})
-                 .attr("fill", function(d){return d.color})
-                 .attr("font-weight", this.fontWeight)
-                 .style("font-size", this.fontSize)
-                 .style("font-family", this.fontFamily)
 
+    }
 
+    getText({ someSvg } = {}) {
+        // var vecDef = someSvg.selectAll("defs").select("marker#"+ this.arrowDefId)
+        var textData = []
+        for (var i = 0; i < this.coordList.length; i++) {
+            textData.push({
+                "coord": scaleLoc({
+                        tarCoord: this.coordList[i][1],
+                        numTicksX: this.numTicksArr[0],
+                        numTicksY: this.numTicksArr[1],
+                        height: this.height,
+                        width: this.width
+                    }) // endCoord
+                    ,
+                "label": this.textList[i],
+                "color": this.colorList[i]
+            })
         }
 
-    move({someSvg, duration} = {}){
-      
-      var currCaption = someSvg.select("text.caption#" + this.labelId)
-      var textList = this.textList
-      
-      for (var j = 0; j < this.coordList.length; j++){
-          // This set the duration to 0 to instantly reset an animation
-          var realDuration = 0;
-          if(j > 0){
-            realDuration = duration
-          }
+        // TODO set text style
+        someSvg.append("text")
+            .attr("class", "caption")
+            .attr("id", this.labelId)
+            .data(textData)
+            .attr("x", function(d) { return d.coord[0] * 1.04; })
+            .attr("y", function(d) { return d.coord[1] * 0.96; })
+            .text(function(d, i) { return d.label })
+            .attr("fill", function(d) { return d.color })
+            .attr("font-weight", this.fontWeight)
+            .style("font-size", this.fontSize)
+            .style("font-family", this.fontFamily)
 
 
-          var _startCoord = scaleLoc({ tarCoord : this.coordList[j][0]
-                                    , numTicksX : this.numTicksArr[0]
-                                    , numTicksY : this.numTicksArr[1]
-                                    , height : this.height
-                                    , width : this.width})
+    }
 
-          var _endCoord = scaleLoc({ tarCoord : this.coordList[j][1]
-                                    , numTicksX : this.numTicksArr[0]
-                                    , numTicksY : this.numTicksArr[1]
-                                    , height : this.height
-                                    , width : this.width})
-          
-          var _color = this.colorList[j];
+    move({ someSvg, duration } = {}) {
 
-          this.startCoord = _startCoord
-          this.endCoord = _endCoord
-          
-          currCaption = currCaption.transition()
-                       .duration(realDuration)
-                       .attr("delay", function(d,i) {return 1000*i;})
-                       .attr("x", function(d, i) {return _endCoord[0] * 1.04;})
-                       .attr("y", function(d, i) {return _endCoord[1] * 0.96;})
-                       .attr("fill", function(d){return _color})
-                       .text(function(d, i) {return textList[j]})
+        var currCaption = someSvg.select("text.caption#" + this.labelId)
+        var textList = this.textList
 
-      }
-  }
+        for (var j = 0; j < this.coordList.length; j++) {
+            // This set the duration to 0 to instantly reset an animation
+            var realDuration = 0;
+            if (j > 0) {
+                realDuration = duration
+            }
+
+
+            var _startCoord = scaleLoc({
+                tarCoord: this.coordList[j][0],
+                numTicksX: this.numTicksArr[0],
+                numTicksY: this.numTicksArr[1],
+                height: this.height,
+                width: this.width
+            })
+
+            var _endCoord = scaleLoc({
+                tarCoord: this.coordList[j][1],
+                numTicksX: this.numTicksArr[0],
+                numTicksY: this.numTicksArr[1],
+                height: this.height,
+                width: this.width
+            })
+
+            var _color = this.colorList[j];
+
+            this.startCoord = _startCoord
+            this.endCoord = _endCoord
+
+            currCaption = currCaption.transition()
+                .duration(realDuration)
+                .attr("delay", function(d, i) { return 1000 * i; })
+                .attr("x", function(d, i) { return _endCoord[0] * 1.04; })
+                .attr("y", function(d, i) { return _endCoord[1] * 0.96; })
+                .attr("fill", function(d) { return _color })
+                .text(function(d, i) { return textList[j] })
+
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

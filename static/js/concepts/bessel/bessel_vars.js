@@ -280,7 +280,7 @@ var vecCoordJsonBesselBiasVar = {
     
 };
 
-var besselBiasVarShift = -22
+var besselBiasVarShift = -24
 besselBiasVarPayload = {
     "conceptId": "bessel-bias",
     "duration": 1500,
@@ -288,7 +288,7 @@ besselBiasVarPayload = {
     "plotDomain": [-5, 5],
     "plotWidth": 500,
     "plotHeight": 500,
-    "numTicksArr": [10,50],
+    "numTicksArr": [10,52],
     "space": [
         [0, 0 + besselBiasVarShift]
         ,[1, 20 + besselBiasVarShift]
