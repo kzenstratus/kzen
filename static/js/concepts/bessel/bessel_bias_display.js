@@ -65,8 +65,7 @@ class DisplayDoubleConceptExamplePlot{
       }
       )
   }
-  makeFirstPlot({conceptExampleId
-    , payload} = {}){
+  makeFirstPlot({conceptExampleId, payload} = {}){
     // this.firstPlot = new DisplayPlot({conceptId : this.conceptId
     // , height : this.height
     // , width : this.width});
@@ -82,27 +81,42 @@ class DisplayDoubleConceptExamplePlot{
                 , numTicks : payload.numTicks
                 , dotColor : "red"
                 , vecCoordJson: payload.vecCoordJson
-                , vecCoordJson: payload.vecCoordJson
+                , captionCoordJson: payload.captionCoordJson
                 , duration: 4000
               })
+    
     this.firstPlot.currSpace.space = payload.space
     this.firstPlot.makePlot();
     this.firstPlot.makeVectors();
-    this.firstPlot.makeText({textList : payload.textList
-                           , textCoordList : payload.textCoordList
-                           , colorList : payload.textColorList});
+    this.firstPlot.makeText();
     // this.firstPlot = firstPlot
     // Plot the center line.
 
 
 
   }
-  makeSecondPlot({conceptExampleId} = {}){
-    this.secondPlot = new DisplayPlot({conceptId : this.conceptId
-    , height : this.height
-    , width : this.width});
-    this.secondPlot.makeConceptExampleDiv({conceptExampleId : conceptExampleId})
-    this.secondPlot.makeConceptExampleSvg({conceptExampleId : conceptExampleId})
+  makeSecondPlot({conceptExampleId, payload} = {}){
+
+    this.secondPlot = new DisplayConceptExamplePlot({conceptId : this.conceptId
+                , conceptExampleId : "bessel-bias-second"
+                , xDomain : payload.plotDomain
+                , yDomain : payload.plotDomain
+                , height : this.height
+                , width : this.width
+                , numTicks : 50
+                , dotColor : "red"
+                , vecCoordJson: payload.vecCoordJson
+                , captionCoordJson: payload.captionCoordJson
+                , duration: 4000
+                , basisType : "1_2"
+              })
+    this.secondPlot.currSpace.space = payload.space
+    this.secondPlot.currSpace.plotBasis({someSvg: this.secondPlot.currSvg})
+    this.secondPlot.currSpace.plotSpace({someSvg: this.secondPlot.currSvg})
+    // this.secondPlot.makePlot();
+    // this.secondPlot.makeVectors();
+    // this.secondPlot.makeText();
+    
   }
 
 }

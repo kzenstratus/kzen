@@ -74,7 +74,8 @@ class DisplayConceptExamplePlot extends DisplayPlot{
                 , width
                 , numTicks
                 , listNextDotSpaces = [] // a list of spaces
-                , vecCoordJson = {}
+                , vecCoordJson = {} // assumes textList, textCoordList, colorList
+                , captionCoordJson = {}
                 , textList = [] // a list of jsons of the form {"frames" : 2}
                 , dotColor = 'grey'
                 , tarSpace = []
@@ -83,6 +84,7 @@ class DisplayConceptExamplePlot extends DisplayPlot{
                 , dotStrokeWidth = 4
                 , gridColor = 'grey'
                 , duration = 4000
+                , basisType = '1_2_3_4'
                 } = {}) {
       super({conceptId : conceptId
               , height : height
@@ -111,12 +113,14 @@ class DisplayConceptExamplePlot extends DisplayPlot{
                                 , width : width
                                 , numTicks : numTicks
                                 , dotColor : dotColor
-                                , tarSpace : tarSpace}
+                                , tarSpace : tarSpace
+                                , basisType : basisType}
                                 );
 
       this.vecObjList = [];
       this.vecCoordJson = vecCoordJson;
-      this.caption = null;
+      this.captionCoordJson = captionCoordJson;
+      this.captionObjList = [];
       
 
   }
@@ -125,23 +129,37 @@ class DisplayConceptExamplePlot extends DisplayPlot{
         this.currSpace.plotSpace({someSvg : this.currSvg})
         
       }
-      makeText({textList, textCoordList, colorList} = {}){
-        this.caption = new Text({labelId : this.conceptExampleId + "_caption"
+      makeText(){
+        
+        this.captionObjList = []
+        if(Object.keys(this.captionCoordJson).length == 0){
+          return;
+        }
+        
+        for(var captionName in this.captionCoordJson){
+          
+          var currCaption = this.captionCoordJson[captionName];
+
+          var caption = new Text({labelId : this.conceptExampleId + "_" + captionName + "_caption"
                                , height : this.height
                                , width : this.width
                                , numTicks : this.numTicks
-                               , textList : textList
-                               , coordList : textCoordList
-                               , colorList : colorList
+                               , textList : currCaption['textList']
+                               , coordList : currCaption['textCoordList']
+                               , colorList : currCaption['colorList']
                                });
-        this.caption.getText({someSvg : this.currSvg})
 
+          caption.getText({someSvg : this.currSvg})
+
+          this.captionObjList.push(caption)
+        }
+        
       }
 
       makeButton(){
         var currSpace = this.currSpace
         var currSvg = this.currSvg
-        var caption = this.caption
+        var captionObjList = this.captionObjList
         var listNextDotSpaces = this.listNextDotSpaces
         var duration = this.duration
         var vecCoordJson = this.vecCoordJson
@@ -167,10 +185,12 @@ class DisplayConceptExamplePlot extends DisplayPlot{
               }
             }
             // add text caption
-            if(caption != null){
-              caption.move({someSvg : svgContainer, duration : duration})  
+            if (Object.keys(captionObjList).length > 0){
+              for(var j in captionObjList){
+                var captionObj = captionObjList[j]
+                captionObj.move({someSvg : svgContainer, duration : duration})
+              }
             }
-            
           }
           )
       }

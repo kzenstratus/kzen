@@ -45,7 +45,8 @@ $$\bar{x}$$
   
   testDisplay.makeFirstPlot({conceptExampleId : "blahblah1"
                                     , payload : besselBiasPayload});
-  testDisplay.makeSecondPlot({conceptExampleId : "blahblah2"});
+  testDisplay.makeSecondPlot({conceptExampleId : "blahblah2"
+                                    , payload: besselBiasVarPayload});
   // testDisplay.makeConceptExampleDiv({conceptExampleId : 'blahblah3'})
   // testDisplay.makeConceptExampleSvg({conceptExampleId : 'blahblah3'})
   testDisplay.makeButton()

@@ -289,7 +289,9 @@ class Space {
                 , tarColor = 'red'
                 , dotRad = 5
                 , dotStrokeWidth = 4
-                , gridColor = 'grey'} = {}
+                , gridColor = 'grey'
+                , basisType = '1_2_3_4'
+                } = {}
                 ) {
 
         this.xDomain = xDomain;
@@ -305,6 +307,9 @@ class Space {
         this.tarSpace = tarSpace;
         this.tarcolor = tarColor
         this.space = get2dDotSpace(xDomain, yDomain, numTicks);
+        this.basisType = basisType
+        this.basisFuncDict = {'1_2_3_4' : plotBasis
+                              , '1_2' : plotBasis1_2}
         
       }
         // Have a line, an arrow
@@ -312,8 +317,10 @@ class Space {
 
 //The SVG Container
         
-        plotBasis({someSvg} = {}){
-          return(plotBasis({svg : someSvg 
+        plotBasis({someSvg
+                  , basisType = this.basisType} = {}){
+
+          return(this.basisFuncDict[basisType]({svg : someSvg 
                           , xDomain: this.xDomain
                           , yDomain: this.yDomain
                           , width : this.width
@@ -323,6 +330,7 @@ class Space {
           )}
         
         plotSpace({someSvg} = {}){
+          
           var spaceGroup = someSvg.append('g')
           return(plotSpace(spaceGroup
                             , this.space
@@ -465,7 +473,8 @@ class Text {
       
       var currCaption = someSvg.select("text.caption#" + this.labelId)
       var textList = this.textList
-        for (var j = 0; j < this.coordList.length; j++){
+      
+      for (var j = 0; j < this.coordList.length; j++){
           // This set the duration to 0 to instantly reset an animation
           var realDuration = 0;
           if(j > 0){

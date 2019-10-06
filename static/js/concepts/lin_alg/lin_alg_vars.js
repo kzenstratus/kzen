@@ -66,7 +66,7 @@ linComboPayload = {"conceptId" : "linear-combination"
         , "textList" : Array(3).fill("Connect a,b,c to get Vec d").concat(
                                      ["Stretch Vec A", "Stretch Vec B", "Shrink Vec C"])
         , "textCoordList" : Array(6).fill([[-4.8,4.3], [-4.8,4.3]])
-        , "textColorList" : Array(3).fill("#cc4634").concat(["#68a2ff"
+        , "colorList" : Array(3).fill("#cc4634").concat(["#68a2ff"
                                                              , "#6bcc35"
                                                              , "#ff80ff"])
 			}
@@ -111,7 +111,7 @@ linIndPayload = {"conceptId" : "linear-independence"
         , "textList" : Array(3).fill("Flip and Stretch C").concat(
                                      ["Shrink B"])
         , "textCoordList" : Array(4).fill([[-4.8,4.3], [-4.8,4.3]])
-        , "textColorList" : Array(3).fill("#ff80ff").concat(["#6bcc35"])
+        , "colorList" : Array(3).fill("#ff80ff").concat(["#6bcc35"])
         }
 
 var vecCoordJsonOrtho = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
@@ -152,7 +152,7 @@ basisPayload = {"conceptId" : "basis"
                        Array(2).fill("Quadrant 2"),
                                      ["Quandrant 3", "Quandrant 4"])
         , "textCoordList" : Array(6).fill([[-4.8,4.3], [-4.8,4.3]])
-        , "textColorList" : Array(6).fill("#cc4634")
+        , "colorList" : Array(6).fill("#cc4634")
 				}
 
 var vecCoordJsonBasisNonOrtho = {"xVec" : 
