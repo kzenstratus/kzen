@@ -15,15 +15,30 @@ certain dots. Scales the points to the width]
 * @param {string} tarColor [defines the color for the targetted points]
 * @param {double} width [The width of a container]
 * @param {double} height [The height of a container]
-* @param {int} numTicks [number of ticks in the whole range.]
+* @param {int} numTicksArr [number of ticks in the whole range.]
 * @return {svg} [contains the dot space and highlighted points]
 **/
-function plotSpace(svg, space, width, height, numTicks, color = "", radius = 5, strokeWidth = 4, tarSpace = [], tarColor = "red") {
+function plotSpace({svg
+                  , space
+                  , width
+                  , height
+                  , numTicksArr
+                  , color = ""
+                  , radius = 5
+                  , strokeWidth = 4
+                  , tarSpace = []
+                  , tarColor = "red"} = {}) {
 
   // console.log(space);
     var scaledSpace = [];
     for (var i = 0; i < space.length; i++) {
-        scaledSpace.push(scaleLoc(space[i], numTicks, height, width)) // endCoord
+        scaledSpace.push(scaleLoc({tarCoord : space[i]
+                                , numTicksX : numTicksArr[0]
+                                , numTicksY : numTicksArr[1]
+                                , height : height
+                                , width : width
+                                }
+                              )) // endCoord
 
     }
     
@@ -33,9 +48,7 @@ function plotSpace(svg, space, width, height, numTicks, color = "", radius = 5, 
         .append("circle")
         .attr("class", "markers")
         /* markers are both positive and negative.
-         d[0] is the x value of each unscaled coordinate.
-         this part essentially scales the plot to a given width
-         and height.
+         d[0] is the x value of each scaled coordinate.
          */
         .attr("cx", function(d) {
             // return width/2 + d[0]*width/numTicks;
@@ -110,12 +123,12 @@ function getGridlines({ domain, range, tickSize, numTicks, isX } = {}) {
  * @param {int} numTicks [number of ticks in the whole range.]
  * @return {svg} [contains the lines for the grid]
  **/
-var plotBasis = function({ svg, xDomain, yDomain, width, height, numTicks } = {}) {
+var plotBasis = function({ svg, xDomain, yDomain, width, height, numTicksArr} = {}) {
     var bot_axis = getGridlines({
         domain: xDomain,
         range: width,
         tickSize: -height,
-        numTicks: numTicks,
+        numTicks: numTicksArr[0],
         isX: true
     });
 
@@ -123,7 +136,7 @@ var plotBasis = function({ svg, xDomain, yDomain, width, height, numTicks } = {}
         domain: xDomain,
         range: width,
         tickSize: height,
-        numTicks: numTicks,
+        numTicks: numTicksArr[0],
         isX: true
     });
 
@@ -131,7 +144,7 @@ var plotBasis = function({ svg, xDomain, yDomain, width, height, numTicks } = {}
         domain: yDomain,
         range: height,
         tickSize: -width,
-        numTicks: numTicks,
+        numTicks: numTicksArr[1],
         isX: false
     });
 
@@ -139,7 +152,7 @@ var plotBasis = function({ svg, xDomain, yDomain, width, height, numTicks } = {}
         domain: yDomain,
         range: height,
         tickSize: width,
-        numTicks: numTicks,
+        numTicks: numTicksArr[1],
         isX: false
     });
 
@@ -172,12 +185,12 @@ var plotBasis = function({ svg, xDomain, yDomain, width, height, numTicks } = {}
  * @param {int} numTicks [number of ticks in the whole range.]
  * @return {svg} [contains the lines for the grid]
  **/
-var plotBasis1 = function({ svg, xDomain, yDomain, width, height, numTicks } = {}) {
+var plotBasis1 = function({ svg, xDomain, yDomain, width, height, numTicksArr} = {}) {
     var bot_axis = getGridlines({
         domain: xDomain,
         range: width,
         tickSize: -height,
-        numTicks: numTicks,
+        numTicks: numTicksArr[0],
         isX: true
     });
 
@@ -185,14 +198,14 @@ var plotBasis1 = function({ svg, xDomain, yDomain, width, height, numTicks } = {
         domain: yDomain,
         range: height,
         tickSize: -width,
-        numTicks: numTicks,
+        numTicks: numTicksArr[1],
         isX: false
     });
 
 
     //Append group and insert axis
     svg.append("g")
-        .attr('transform', "translate(-0.5," + (height - (height / numTicks)) + ")")
+        .attr('transform', "translate(-0.5," + (height - (height / numTicksArr[0])) + ")")
         .call(bot_axis);
 
     svg.append("g")
@@ -212,12 +225,12 @@ var plotBasis1 = function({ svg, xDomain, yDomain, width, height, numTicks } = {
  * @param {int} numTicks [number of ticks in the whole range.]
  * @return {svg} [contains the lines for the grid]
  **/
-var plotBasis1_2 = function({ svg, xDomain, yDomain, width, height, numTicks } = {}) {
+var plotBasis1_2 = function({ svg, xDomain, yDomain, width, height, numTicksArr } = {}) {
     var bot_axis = getGridlines({
         domain: xDomain,
         range: width,
         tickSize: -height,
-        numTicks: numTicks,
+        numTicks: numTicksArr[0],
         isX: true
     });
 
@@ -225,7 +238,7 @@ var plotBasis1_2 = function({ svg, xDomain, yDomain, width, height, numTicks } =
         domain: yDomain,
         range: height,
         tickSize: -width,
-        numTicks: numTicks,
+        numTicks: numTicksArr[1],
         isX: false
     });
 
@@ -233,13 +246,13 @@ var plotBasis1_2 = function({ svg, xDomain, yDomain, width, height, numTicks } =
         domain: yDomain,
         range: height,
         tickSize: width,
-        numTicks: numTicks,
+        numTicks: numTicksArr[1],
         isX: false
     });
 
     //Append group and insert axis
     svg.append("g")
-        .attr('transform', "translate(-0.5," + (height - (height / numTicks)) + ")")
+        .attr('transform', "translate(-0.5," + (height - (height / numTicksArr[0])) + ")")
         .call(bot_axis);
 
 
@@ -254,165 +267,18 @@ var plotBasis1_2 = function({ svg, xDomain, yDomain, width, height, numTicks } =
 }
 
 
-/**
-* display2dTransform
-* [Function that creates the animation for the transform between
-two spaces.]
-*
-* @param {boolean} isOriginSpace [marks the current state of the graph]
-* @param {[1,2]d double array} initDotSpace [a list of coordinates]
-* @param {[1,2]d double array} transMatrix [matrix used to perform a linear transformation]
-* @param {svg} spaceGroup [essentially an empty svg group]
-* @param {double} width [The width of a container]
-* @param {int} numTicks [number of ticks in the whole range.]
-* @param {int} duration [the time in milliseconds for the transition to happen.]
-* @return {boolean} [returns the updated state of if origin space or not.]
-**/
-function display2dTransform(isOriginSpace, initDotSpace, transMatrix, conceptId, width, numTicks, duration) {
-    if (isOriginSpace) {
-        var nextDotSpace = getTransformSpace(space = initDotSpace, transMatrix = transMatrix)._data;
-        isOriginSpace = false;
-    } else {
-        var nextDotSpace = initDotSpace;
-        isOriginSpace = true;
-    }
-
-    d3.select(conceptId).selectAll(".markers")
-        .transition()
-        .duration(duration)
-        // i is the index, d is the 
-        .attr("delay", function(d, i) {
-            return 1000 * i;
-        })
-        .attr("cx", function(d, i) {
-            return width / 2 + nextDotSpace[i][0] * width / numTicks;
-
-
-        })
-        .attr("cy", function(d, i) {
-            return width / 2 + nextDotSpace[i][1] * width / numTicks;
-
-        })
-    return (isOriginSpace);
-
-}
-
-// var test = function(svg){
-
-//   console.log(svg);
-
-//   svg.append("g");
-
-//   return(svg);
-// }
-
-// class User {
-
-//   constructor(conceptId
-//         , buttonId
-//         , initDotSpace
-//         , highlightSpace
-//         , domain
-//         , width
-//         , height
-//         , numTicks
-//         , transMatrix
-//         , duration
-//         , tarColor) {
-//     // invokes the setter
-//   this._conceptId = conceptId;
-//   this._buttonId = buttonId;
-//   this._initDotSpace = initDotSpace;
-//   this._highlightSpace = highlightSpace;
-//   this._domain = domain;
-//   this._width = width;
-//   this._height = height;
-//   this._numTicks = numTicks;
-//   this._transMatrix = transMatrix;
-//   this._duration = duration;
-//   this._tarColor = tarColor;
-//   this._isOriginSpace = false;
-//   this._svg = d3.select(conceptId)
-//             .append("svg")
-//             .attr("width", width)
-//             .attr("height", height)
-
-//   this._spaceGroup = this._svg.append('g')
-
-//   // Can't explicitely name the paremeters somehow ???
-//   // have to rely on order ... :(
-//   plotBasis(this._svg
-//             , this._domain
-//             , this._domain
-//             , this._width
-//             , this._height
-//             , this._numTicks
-//             );
-
-//   plotSpace(this._spaceGroup
-//             , this._initDotSpace
-//             , this._highlightSpace
-//             , this._tarColor
-//             , this._width
-//             , this._height
-//             , this._numTicks);
-//   }
-//   animate(){
-//       d3.select(buttonId).on('click', function(){
-//       this._isOriginSpace = display2dTransform(
-//                     this._isOriginSpace
-//                    , this._initDotSpace
-//                    , this._transMatrix
-//                    , this._conceptId
-//                    , this._width
-//                    , this._numTicks
-//                    , this._duration)
-//                    })
-//   }
-// }
-
-// An object which draws lines a grid paper, plots points
-// and performs a 2d transformation on a click.
-// This needs to perform some set of animations on a given plot.
-// 
-var DisplayTransConceptPlot = function(conceptId, buttonId, initDotSpace, highlightSpace, domain, width, height, numTicks, transMatrix, duration, tarColor) {
-    var _isOriginSpace = true
-    var svg = d3.select(conceptId)
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height)
-
-    var spaceGroup = svg.append('g')
-
-    // Draw the underlying 2d grid lines.
-    plotBasis({
-        svg: svg,
-        xDomain: domain,
-        yDomain: domain,
-        width: width,
-        height: height,
-        numTicks: numTicks
-    });
-
-    plotSpace(spaceGroup, initDotSpace, width, height, numTicks, "grey", 5, 4, highlightSpace, tarColor);
-
-    d3.select(buttonId)
-        .on('click', function() {
-            _isOriginSpace = display2dTransform(
-                _isOriginSpace, initDotSpace, transMatrix, conceptId, width, numTicks, duration)
-        })
-}
 
 var linFunction = d3.line()
     .x(function(d) { return d[0]; })
     .y(function(d) { return d[1]; });
 
 
-var scaleLoc = function(tarCoord, numTicks, height, width) {
+var scaleLoc = function({tarCoord, numTicksX, numTicksY = numTicksX, height, width} = {}) {
     if (tarCoord[0] == null) {
         return (tarCoord)
     }
-    return ([width / 2 + tarCoord[0] * width / numTicks, height / 2 - tarCoord[1] * height / numTicks])
+    return ([width / 2 + tarCoord[0] * width / numTicksX
+          , height / 2 - tarCoord[1] * height / numTicksY])
 }
 
 // ARRAY COMPARISON

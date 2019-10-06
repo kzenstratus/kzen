@@ -8,7 +8,7 @@ besselBias = {
     "plotDomain": [-5, 5],
     "plotWidth": 500,
     "plotHeight": 500,
-    "numTicks": 10,
+    "numTicksArr": [10, 10],
     "space": get2dDotSpace([-5, 5], [-5, 5], 10)
 };
 
@@ -235,7 +235,7 @@ besselBiasPayload = {
     "plotDomain": [-5, 5],
     "plotWidth": 500,
     "plotHeight": 500,
-    "numTicks": 10,
+    "numTicksArr": [10, 10],
     "space": [
         [-3, 2],
         [0 , 2],
@@ -280,6 +280,7 @@ var vecCoordJsonBesselBiasVar = {
     
 };
 
+var besselBiasVarShift = -22
 besselBiasVarPayload = {
     "conceptId": "bessel-bias",
     "duration": 1500,
@@ -287,15 +288,13 @@ besselBiasVarPayload = {
     "plotDomain": [-5, 5],
     "plotWidth": 500,
     "plotHeight": 500,
-    "numTicks": 10,
+    "numTicksArr": [10,50],
     "space": [
-        [0, 20],
-        [0, -2],
-        [3, -2]
-        // , [-1,0], [1,0]
-        ,
-        [-2, 2],
-        [2, 2]
+        [0, 0 + besselBiasVarShift]
+        ,[1, 20 + besselBiasVarShift]
+        ,[-1, 20 + besselBiasVarShift]
+        ,[2, 48 + besselBiasVarShift]
+        ,[-2, 48 + besselBiasVarShift]
     ],
     "captionCoordJson": captionCoordJson
 

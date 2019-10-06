@@ -9,7 +9,8 @@ and dot spaces.
 var startCoord = {"x" : 1, "y": 10}
 
 scaleLoc(tarCoord = startCoord
-  , numTicks = numTicks
+  , numTicksX = numTicksX
+  , numTicksY = numTicksY
   , height = height
   , width = width);
 
@@ -19,7 +20,8 @@ let testLine1 = new Vector({startCoord : [ 0, 0]
   , lineStyle : "solid"
   , height : 500
   , width : 500
-  , numTicks : 10
+  , numTicksX : 10
+  , numTicksY : 10
   , color : "blue"});
 
 var coordList = [[[0, 0], [100, 80]]
@@ -48,7 +50,7 @@ class Vector {
                 , lineStyle = "solid"
                 , height
                 , width
-                , numTicks
+                , numTicksArr
                 , color
                 , arrowId
                 , coordList = []
@@ -56,16 +58,8 @@ class Vector {
                 , labels = null
                 , labelLoc = null // this is relative to the head of the vec.
               } = {}) {
+        
 
-        this.startCoord = scaleLoc(startCoord
-                                  , numTicks
-                                  , height
-                                  , width );
-
-        this.endCoord = scaleLoc(endCoord
-                                  , numTicks
-                                  , height
-                                  , width);
 
         this.lineSize = lineSize;
         this.lineStyle = lineStyle;
@@ -76,12 +70,24 @@ class Vector {
         this.height = height;
         this.width = width;
         this.arrowId = arrowId;
-        this.numTicks = numTicks;
+        this.numTicksArr = numTicksArr;
         this.coordList = coordList
         this.arrowDefId = "triangle_" + this.arrowId
         this.labelId = "label_" + this.arrowId
         this.labels = labels
         this.labelLoc = labelLoc
+
+        this.startCoord = scaleLoc({ tarCoord : startCoord
+                                    , numTicksX : numTicksArr[0]
+                                    , numTicksY : numTicksArr[1]
+                                    , height : height
+                                    , width : width});
+
+        this.endCoord = scaleLoc({ tarCoord : endCoord
+                                    , numTicksX : numTicksArr[0]
+                                    , numTicksY : numTicksArr[1]
+                                    , height : height
+                                    , width : width});
 
         if(labels == null){
           this.labels = Array(coordList.length).fill("")  
@@ -162,10 +168,12 @@ class Vector {
           // var vecDef = someSvg.selectAll("defs").select("marker#"+ this.arrowDefId)
           var textData = []
           for( var i = 0; i < this.coordList.length; i++){
-            textData.push({"coord" : scaleLoc(this.coordList[i][1]
-                                     , this.numTicks
-                                     , this.height
-                                     , this.width) // endCoord
+          
+            textData.push({"coord" : scaleLoc({tarCoord : this.coordList[i][1]
+                                     , numTicksX : this.numTicksArr[0]
+                                     , numTicksY : this.numTicksArr[1]
+                                     , height : this.height
+                                     , width : this.width}) // endCoord
             , "label" : this.labels[i]
             , "labelLoc" : this.labelLoc[i]
             })
@@ -198,14 +206,18 @@ class Vector {
             if(j > 0){
               realDuration = duration
             }
-            var _startCoord = scaleLoc(this.coordList[j][0]
-                                       , this.numTicks
-                                       , this.height
-                                       , this.width)
-            var _endCoord = scaleLoc(this.coordList[j][1]
-                                     , this.numTicks
-                                     , this.height
-                                     , this.width)
+            
+            var _startCoord = scaleLoc({tarCoord : this.coordList[j][0]
+                                       , numTicksX : this.numTicksArr[0]
+                                       , numTicksY : this.numTicksArr[1]
+                                       , height : this.height
+                                       , width : this.width})
+            
+            var _endCoord = scaleLoc({tarCoord : this.coordList[j][1]
+                                       , numTicksX : this.numTicksArr[0]
+                                       , numTicksY : this.numTicksArr[1]
+                                       , height : this.height
+                                       , width : this.width})
             var _labelLoc = this.labelLoc[j];
 
             vec = vec.transition()
@@ -277,14 +289,14 @@ testSpace.move(svgContainer, nextDotSpace, duration = 4000)
 
 **********************************************/
 
-
 class Space {
     constructor({xDomain
                 , yDomain
                 , height
                 , width
-                , numTicks
+                , numTicksArr
                 , dotColor
+                , space
                 , tarSpace = []
                 , tarColor = 'red'
                 , dotRad = 5
@@ -296,7 +308,7 @@ class Space {
 
         this.xDomain = xDomain;
         this.yDomain = yDomain;
-        this.numTicks = numTicks;
+        this.numTicksArr = numTicksArr;
         this.height = height;
         this.width = width;
         this.dotColor = dotColor;
@@ -306,7 +318,7 @@ class Space {
         this.dotStrokeWidth = dotStrokeWidth;
         this.tarSpace = tarSpace;
         this.tarcolor = tarColor
-        this.space = get2dDotSpace(xDomain, yDomain, numTicks);
+        this.space = space
         this.basisType = basisType
         this.basisFuncDict = {'1_2_3_4' : plotBasis
                               , '1_2' : plotBasis1_2}
@@ -325,23 +337,24 @@ class Space {
                           , yDomain: this.yDomain
                           , width : this.width
                           , height: this.height
-                          , numTicks: this.numTicks}
+                          , numTicksArr : this.numTicksArr}
                           )
           )}
         
         plotSpace({someSvg} = {}){
-          
+
           var spaceGroup = someSvg.append('g')
-          return(plotSpace(spaceGroup
-                            , this.space
-                            , this.width
-                            , this.height
-                            , this.numTicks
-                            , this.dotColor
-                            , this.dotRad
-                            , this.dotStrokeWidth
-                            , this.tarSpace
-                            , this.tarColor)
+          
+          return(plotSpace({svg : spaceGroup
+                            , space : this.space
+                            , width : this.width
+                            , height : this.height
+                            , numTicksArr : this.numTicksArr
+                            , color : this.dotColor
+                            , radius : this.dotRad
+                            , strokeWidth : this.dotStrokeWidth
+                            , tarSpace : this.tarSpace
+                            , tarColor : this.tarColor})
           )
         }
 
@@ -353,23 +366,35 @@ class Space {
           // 
           var width = this.width
           var height = this.height
-          var numTicks = this.numTicks
+          var numTicksArr = this.numTicksArr
           // console.log(numTicks)
           
           var currSpace = someSvg.selectAll(".markers")
           for(var i = 0; i < listNextDotSpaces.length; i ++ ){
             var nextDotSpace = listNextDotSpaces[i]
+            
+            // for(var j = 0; j < nextDotSpace.length; j ++ ){
+            //   nextDotSpace[i] = scaleLoc({tarCoord : nextDotSpace[j]
+            //                                   , numTicksX : this.numTicksArr[0]
+            //                                   , numTicksY : this.numTicksArr[1]
+            //                                   , height : this.height
+            //                                   , width : this.width})
+            // }
+            console.log(currSpace)
+            console.log(nextDotSpace)    
             currSpace = currSpace.transition()
                                    .duration(4000)
                                    .attr("delay", function(d,i) {
                                            return 1000*i;
                                            })
                                    .attr("cx", function(d, i) {
-                                         return width/2 + nextDotSpace[i][0] * width/numTicks;  
+                                          // return nextDotSpace[i][0];
+                                         return width/2 + nextDotSpace[i][0] * width/numTicksArr[0];  
                                          
                                           })
                                    .attr("cy", function(d, i) {
-                                         return height/2 + nextDotSpace[i][1]* height/numTicks;  
+                                          // return nextDotSpace[i][1];
+                                         return height/2 - nextDotSpace[i][1]* height/numTicksArr[1];  
                                          
                                            })
             this.space = nextDotSpace;  
@@ -418,7 +443,7 @@ class Text {
     constructor({labelId
                 , height
                 , width
-                , numTicks
+                , numTicksArr
                 , textList
                 , coordList
                 , colorList
@@ -429,7 +454,7 @@ class Text {
                 ) {
         
         this.labelId = labelId;
-        this.numTicks = numTicks;
+        this.numTicksArr = numTicksArr;
         this.fontWeight = fontWeight;
         this.height = height;
         this.width = width;
@@ -440,14 +465,16 @@ class Text {
         this.fontFamily = fontFamily
         
       }
+      
     getText({someSvg} = {}){
           // var vecDef = someSvg.selectAll("defs").select("marker#"+ this.arrowDefId)
           var textData = []
           for( var i = 0; i < this.coordList.length; i++){
-            textData.push({"coord" : scaleLoc(this.coordList[i][1]
-                                     , this.numTicks
-                                     , this.height
-                                     , this.width) // endCoord
+            textData.push({"coord" : scaleLoc({ tarCoord : this.coordList[i][1]
+                                              , numTicksX : this.numTicksArr[0]
+                                              , numTicksY : this.numTicksArr[1]
+                                              , height : this.height
+                                              , width : this.width}) // endCoord
             , "label" : this.textList[i]
             , "color" : this.colorList[i]}
             )
@@ -481,14 +508,18 @@ class Text {
             realDuration = duration
           }
 
-          var _startCoord = scaleLoc(this.coordList[j][0]
-                                     , this.numTicks
-                                     , this.height
-                                     , this.width)
-          var _endCoord = scaleLoc(this.coordList[j][1]
-                                   , this.numTicks
-                                   , this.height
-                                   , this.width)
+
+          var _startCoord = scaleLoc({ tarCoord : this.coordList[j][0]
+                                    , numTicksX : this.numTicksArr[0]
+                                    , numTicksY : this.numTicksArr[1]
+                                    , height : this.height
+                                    , width : this.width})
+
+          var _endCoord = scaleLoc({ tarCoord : this.coordList[j][1]
+                                    , numTicksX : this.numTicksArr[0]
+                                    , numTicksY : this.numTicksArr[1]
+                                    , height : this.height
+                                    , width : this.width})
           
           var _color = this.colorList[j];
 

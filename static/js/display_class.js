@@ -72,7 +72,8 @@ class DisplayConceptExamplePlot extends DisplayPlot{
                 , yDomain
                 , height
                 , width
-                , numTicks
+                , numTicksArr
+                , startSpace
                 , listNextDotSpaces = [] // a list of spaces
                 , vecCoordJson = {} // assumes textList, textCoordList, colorList
                 , captionCoordJson = {}
@@ -102,7 +103,7 @@ class DisplayConceptExamplePlot extends DisplayPlot{
       this.makeConceptExampleDiv({conceptExampleId : conceptExampleId})
       this.makeConceptExampleSvg({conceptExampleId : conceptExampleId})
       
-      this.numTicks = numTicks;
+      this.numTicksArr = numTicksArr;
 
       // Make Initial Plot
       // 
@@ -111,8 +112,9 @@ class DisplayConceptExamplePlot extends DisplayPlot{
                                 , yDomain : yDomain
                                 , height : height
                                 , width : width
-                                , numTicks : numTicks
+                                , numTicksArr : numTicksArr
                                 , dotColor : dotColor
+                                , space : startSpace
                                 , tarSpace : tarSpace
                                 , basisType : basisType}
                                 );
@@ -143,7 +145,7 @@ class DisplayConceptExamplePlot extends DisplayPlot{
           var caption = new Text({labelId : this.conceptExampleId + "_" + captionName + "_caption"
                                , height : this.height
                                , width : this.width
-                               , numTicks : this.numTicks
+                               , numTicksArr : this.numTicksArr
                                , textList : currCaption['textList']
                                , coordList : currCaption['textCoordList']
                                , colorList : currCaption['colorList']
@@ -230,7 +232,7 @@ class DisplayConceptExamplePlot extends DisplayPlot{
             , lineStyle : "solid"
             , height : this.height
             , width : this.width
-            , numTicks : this.numTicks
+            , numTicksArr : this.numTicksArr
             , color : vec["color"]
             , arrowId : this.conceptExampleId + vecName
             // Vec coord list starts at index 1, don't repeat index 0.

@@ -53,7 +53,8 @@ draft: false
           , yDomain : linAlgGlobalVar.plotDomain
           , height : linAlgGlobalVar.plotHeight
           , width : linAlgGlobalVar.plotWidth
-          , numTicks : linAlgGlobalVar.numTicks
+          , startSpace : linAlgGlobalVar.space
+          , numTicksArr : linAlgGlobalVar.numTicksArr
           , vecCoordJson: linComboPayload.vecCoordJson
           , duration: linComboPayload.duration
         })
@@ -61,7 +62,7 @@ draft: false
   linCombo.makeVectors();
   linCombo.makeText({textList : linComboPayload.textList
                            , textCoordList : linComboPayload.textCoordList
-                           , colorList : linComboPayload.textColorList});
+                           , colorList : linComboPayload.colorList});
   linCombo.makeButton();
 </script>
 
@@ -94,7 +95,8 @@ draft: false
                 , yDomain : linAlgGlobalVar.plotDomain
                 , height : linAlgGlobalVar.plotHeight
                 , width : linAlgGlobalVar.plotWidth
-                , numTicks : linAlgGlobalVar.numTicks
+                , numTicksArr : linAlgGlobalVar.numTicksArr
+                , startSpace : linAlgGlobalVar.space
                 , tarColor : linIndPayload.tarColor
                 , tarSpace : linIndPayload.highlightSpace
                 , vecCoordJson: linIndPayload.vecCoordJson
@@ -104,7 +106,7 @@ draft: false
       linIndependence.makeVectors();
       linIndependence.makeText({textList : linIndPayload.textList
                            , textCoordList : linIndPayload.textCoordList
-                           , colorList : linIndPayload.textColorList});
+                           , colorList : linIndPayload.colorList});
       linIndependence.makeButton();
 </script>
 </div>
@@ -133,7 +135,8 @@ draft: false
                 , yDomain : linAlgGlobalVar.plotDomain
                 , height : linAlgGlobalVar.plotHeight
                 , width : linAlgGlobalVar.plotWidth
-                , numTicks : linAlgGlobalVar.numTicks
+                , startSpace : linAlgGlobalVar.space
+                , numTicksArr : linAlgGlobalVar.numTicksArr
                 , vecCoordJson: basisPayload.vecCoordJson
                 , duration: basisPayload.duration
               })
@@ -141,7 +144,7 @@ draft: false
           basisOrtho.makeVectors();
           basisOrtho.makeText({textList : basisPayload.textList
                            , textCoordList : basisPayload.textCoordList
-                           , colorList : basisPayload.textColorList});
+                           , colorList : basisPayload.colorList});
           basisOrtho.makeButton();
           
           </script>
@@ -172,7 +175,8 @@ draft: false
                 , yDomain : linAlgGlobalVar.plotDomain
                 , height : linAlgGlobalVar.plotHeight
                 , width : linAlgGlobalVar.plotWidth
-                , numTicks : linAlgGlobalVar.numTicks
+                , numTicksArr : linAlgGlobalVar.numTicksArr
+                , startSpace : linAlgGlobalVar.space
                 , vecCoordJson: basisNonOrthoPayload.vecCoordJson
                 , duration: basisNonOrthoPayload.duration
                 })
@@ -192,8 +196,8 @@ draft: false
         The following is the matrix which describes this linear transformation.
 
         $$ \begin{bmatrix}
-            1&0\\
-            2&0\\
+            1&-2\\
+            0&0\\
             \end{bmatrix}$$
 
       </p>
@@ -208,7 +212,8 @@ draft: false
                 , yDomain : linAlgGlobalVar.plotDomain
                 , height : linAlgGlobalVar.plotHeight
                 , width : linAlgGlobalVar.plotWidth
-                , numTicks : linAlgGlobalVar.numTicks
+                , numTicksArr : linAlgGlobalVar.numTicksArr
+                , startSpace : linAlgGlobalVar.space
                 , tarColor : kernelPayload.tarColor
                 , tarSpace : kernelPayload.highlightSpace
                 , listNextDotSpaces : kernelPayload.listNextDotSpaces
@@ -228,8 +233,8 @@ draft: false
         The following is the matrix which describes this linear transformation.
 
         $$ \begin{bmatrix}
-            1&0\\
-            2&0\\
+            1&-2\\
+            0&0\\
             \end{bmatrix}$$
       </p>
   </div>
@@ -242,7 +247,8 @@ draft: false
                 , yDomain : linAlgGlobalVar.plotDomain
                 , height : linAlgGlobalVar.plotHeight
                 , width : linAlgGlobalVar.plotWidth
-                , numTicks : linAlgGlobalVar.numTicks
+                , numTicksArr : linAlgGlobalVar.numTicksArr
+                , startSpace : linAlgGlobalVar.space
                 , tarColor : imagePayload.tarColor
                 , tarSpace : imagePayload.highlightSpace
                 , listNextDotSpaces : imagePayload.listNextDotSpaces

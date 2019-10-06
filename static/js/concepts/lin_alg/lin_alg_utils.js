@@ -10,20 +10,20 @@
 *
 * @param {int list} xDomain [2 value list representing the xDomain]
 * @param {int list} yDomain [2 value list representing the yDomain]
-* numTicks {int} number of 
+* numTicksArr {int list} number of ticks on X and Y axis respectively
 * @return {n x 2 array} - essentially a list of coordinates. 
 **/
-function get2dDotSpace(xDomain, yDomain, numTicks){
+function get2dDotSpace(xDomain, yDomain, numTicksArr){
   // interpolate between these two points
 
   var xPoints = math.range(start = xDomain[0]
     , end = xDomain[1]
-    , step = (xDomain[1] - xDomain[0])/numTicks
+    , step = (xDomain[1] - xDomain[0])/numTicksArr[0]
     , includeEnd = true)._data;
 
   var yPoints = math.range(start = yDomain[0]
     , end = yDomain[1]
-    , step = (yDomain[1] - yDomain[0])/numTicks
+    , step = (yDomain[1] - yDomain[0])/numTicksArr[1]
     , includeEnd = true)._data;
 
   // Map these xPoints across all y points.

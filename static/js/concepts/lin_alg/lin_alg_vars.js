@@ -7,8 +7,8 @@
 linAlgGlobalVar = {"plotDomain" : [-5,5]
 					, "plotWidth" : 500
 					, "plotHeight" : 500
-					, "numTicks" : 10
-					, "space" : get2dDotSpace([-5,5], [-5,5], 10)
+					, "numTicksArr" : [10,10]
+					, "space" : get2dDotSpace([-5,5], [-5,5], [10,10])
 				}
 
 
@@ -69,7 +69,7 @@ linComboPayload = {"conceptId" : "linear-combination"
         , "colorList" : Array(3).fill("#cc4634").concat(["#68a2ff"
                                                              , "#6bcc35"
                                                              , "#ff80ff"])
-			}
+       }
 
 
 
@@ -207,27 +207,22 @@ basisNonOrthoPayload = {"conceptId" : "basis_non_ortho"
 
 
 
-var startSpace = get2dDotSpace(linAlgGlobalVar.plotDomain
-                                        , linAlgGlobalVar.plotDomain
-                                        , linAlgGlobalVar.numTicks);
-
-var kernelNextDotSpace = getTransformSpace(startSpace, [[1, 0], [2, 0]])._data
+var kernelNextDotSpace = getTransformSpace(linAlgGlobalVar.space, [[1, 0], [-2, 0]])._data
 
 kernelPayload = {"conceptId" : "kernel"
 				, "buttonId" : "kernel_transform"
 				, "duration" : 4000
 				, "tarColor" : "red"
-				, "highlightSpace" : [18, 39, 60, 81, 102]
-				, "transMatrix" : [[1, 0], [2, 0]]
-				, "listNextDotSpaces" : [kernelNextDotSpace, startSpace]}
+				, "highlightSpace" : [14, 37, 60, 83, 106]
+				, "listNextDotSpaces" : [kernelNextDotSpace, linAlgGlobalVar.space]
+      }
 
 imagePayload = {"conceptId" : "image"
 				, "buttonId" : "image_transform"
 				, "duration" : 4000
 				, "tarColor" : "red"
 				, "highlightSpace" : [5, 16, 27, 38, 49, 60, 71, 82, 93, 104, 115]
-				, "transMatrix" : [[1, 0], [2, 0]]
-				, "listNextDotSpaces" : [kernelNextDotSpace, startSpace]}
+				, "listNextDotSpaces" : [kernelNextDotSpace, linAlgGlobalVar.space]}
 
 
 
@@ -236,11 +231,13 @@ transposeNormalPayload = {"conceptId" : "#transpose_normal"
 				, "duration" : 4000
 				, "tarColor" : "red"
 				, "highlightSpace" : []
-				, "transMatrix" : [[1, 0], [2, 0]]}
+				
+      }
 
 transposePayload = {"conceptId" : "#transpose"
 				, "buttonId" : "#transpose_transform"
 				, "duration" : 4000
 				, "tarColor" : "red"
 				, "highlightSpace" : []
-				, "transMatrix" : [[1, 2], [0, 0]]}
+				// , "transMatrix" : [[1, 2], [0, 0]]
+      }

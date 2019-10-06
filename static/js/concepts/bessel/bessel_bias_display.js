@@ -78,13 +78,13 @@ class DisplayDoubleConceptExamplePlot{
                 , yDomain : payload.plotDomain
                 , height : this.height
                 , width : this.width
-                , numTicks : payload.numTicks
+                , numTicksArr : payload.numTicksArr
                 , dotColor : "red"
                 , vecCoordJson: payload.vecCoordJson
                 , captionCoordJson: payload.captionCoordJson
                 , duration: 4000
               })
-    
+
     this.firstPlot.currSpace.space = payload.space
     this.firstPlot.makePlot();
     this.firstPlot.makeVectors();
@@ -103,7 +103,7 @@ class DisplayDoubleConceptExamplePlot{
                 , yDomain : payload.plotDomain
                 , height : this.height
                 , width : this.width
-                , numTicks : 50
+                , numTicksArr : payload.numTicksArr
                 , dotColor : "red"
                 , vecCoordJson: payload.vecCoordJson
                 , captionCoordJson: payload.captionCoordJson
