@@ -29,18 +29,10 @@ function plotSpace({svg
                   , tarSpace = []
                   , tarColor = "red"} = {}) {
 
-  // console.log(space);
-    var scaledSpace = [];
-    for (var i = 0; i < space.length; i++) {
-        scaledSpace.push(scaleLoc({tarCoord : space[i]
-                                , numTicksX : numTicksArr[0]
-                                , numTicksY : numTicksArr[1]
-                                , height : height
-                                , width : width
-                                }
-                              )) // endCoord
-
-    }
+    var scaledSpace = scaleLocSpace({space : space
+                  , numTicksArr : numTicksArr
+                  , height : height
+                  , width : width})
     
     return (svg.selectAll(".markers")
         .data(scaledSpace)
@@ -117,6 +109,19 @@ var linFunction = d3.line()
     .x(function(d) { return d[0]; })
     .y(function(d) { return d[1]; });
 
+var scaleLocSpace = function({space, numTicksArr, height, width} = {}){
+  var scaledSpace = []
+  for (var i = 0; i < space.length; i++) {
+    scaledSpace.push(scaleLoc({tarCoord : space[i]
+                                , numTicksX : numTicksArr[0]
+                                , numTicksY : numTicksArr[1]
+                                , height : height
+                                , width : width
+                                }
+                              ))
+  }
+  return(scaledSpace)
+}
 
 var scaleLoc = function({tarCoord, numTicksX, numTicksY = numTicksX, height, width} = {}) {
     if (tarCoord[0] == null) {

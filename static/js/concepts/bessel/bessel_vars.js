@@ -238,12 +238,12 @@ besselBiasPayload = {
     "numTicksArr": [10, 10],
     "space": [
         [-3, 2],
-        [0 , 2],
-        [3 , 2]
+        [0, 2],
+        [3, 2]
         // , [-1,0], [1,0]
         ,
         [-2, -2],
-        [2 , -2]
+        [2, -2]
     ],
     "captionCoordJson": captionCoordJson
 
@@ -277,7 +277,7 @@ var vecCoordJsonBesselBiasVar = {
         "labels": Array(4).fill("avg 1"),
         "labelLoc": Array(4).fill([-45, -10])
     },
-    
+
 };
 
 var besselBiasVarShift = -24
@@ -288,13 +288,14 @@ besselBiasVarPayload = {
     "plotDomain": [-5, 5],
     "plotWidth": 500,
     "plotHeight": 500,
-    "numTicksArr": [10,52],
+    "numTicksArr": [10, 52],
     "space": [
-        [0, 0 + besselBiasVarShift]
-        ,[1, 20 + besselBiasVarShift]
+        [-2, 48 + besselBiasVarShift]
         ,[-1, 20 + besselBiasVarShift]
+        ,[0, 0 + besselBiasVarShift]
+        ,[1, 20 + besselBiasVarShift]
         ,[2, 48 + besselBiasVarShift]
-        ,[-2, 48 + besselBiasVarShift]
+        
     ],
     "captionCoordJson": captionCoordJson
 
