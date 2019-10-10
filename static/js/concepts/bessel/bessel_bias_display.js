@@ -116,23 +116,143 @@ class DisplayDoubleConceptExamplePlot {
         this.secondPlot.currSpace.plotBasis({ someSvg: this.secondPlot.currSvg })
         this.secondPlot.currSpace.plotSpace({ someSvg: this.secondPlot.currSvg })
 
-        var currSvg = this.secondPlot.currSvg.append('g')
-        
+        // Adding Curve
+        var currSvg = this.secondPlot.currSvg
+        // .append('g')
+
         var lineGenerator = d3.line()
             .curve(d3.curveCardinal);
 
-        var scaledCurvePoints = scaleLocSpace({space : payload.space
-                  , numTicksArr : payload.numTicksArr
-                  , height : this.height
-                  , width : this.width})
-        console.log(scaledCurvePoints)
-        console.log(lineGenerator(scaledCurvePoints))
-        currSvg.append('path')
-            .attr('d', lineGenerator(scaledCurvePoints))
+        var scaledCurvePoints = scaleLocSpace({
+            space: payload.space,
+            numTicksArr: payload.numTicksArr,
+            height: this.height,
+            width: this.width
+        })
+        // console.log(scaledCurvePoints)
+        // console.log(lineGenerator(scaledCurvePoints))
+        // var secondPath = scaledCurvePoints;
+        // var firstPath = secondPath.splice(2,4)
+        // secondPath.reverse().unshift(firstPath[0])
+
+        var curve = currSvg.append('path')
+            .data([scaledCurvePoints])
+            .attr('id', "bessel_curve")
+            .attr('d', lineGenerator)
             .attr('fill', 'none')
             .attr('stroke', 'black')
+
+        // var curve2 = currSvg.append('path')
+        //     .data([secondPath])
+        //     .attr('d', lineGenerator)
+        //     .attr('fill', 'none')
+        //     .attr('stroke', 'black')
+        // console.log(curve)
+        var circle = currSvg.append("circle")
+            .attr("r", 12)
+            .attr("transform", "translate(250, 480.77)");
+
+        var lookup = [];
+        var granularity = 1000;
+        var l = curve.node().getTotalLength();
+        for (var i = 1; i <= granularity; i++) {
+            var p = curve.node().getPointAtLength(l * (i / granularity))
+            lookup.push({
+                x: p.x,
+                y: p.y
+            })
+        }
+
+        var xBisect = d3.bisector(function(d) { return d.x; }).left;
+        // https://stackoverflow.com/questions/25655372/d3-steady-horizontal-transition-along-an-svg-path
+        // 
+        // function translateAlong(path) {
+        //     var l = path.getTotalLength();
+        //     return function(d, i, a) {
+        //         return function(t) {
+        //             var index = xBisect(lookup, l * t);
+        //             var p = lookup[index];
+        //             return "translate(" + p.x + "," + p.y + ")";
+        //         };
+        //     };
+        // }
+
+        // for (var curvePoint in curveAnimation) {
+
+        //     var captionObj = curveAnimation[j]
+        //     captionObj.move({ someSvg: svgContainer, duration: duration })
+        // }
+
+        transition();
+
+        function transition() {
+            circle.transition()
+                .duration(10000)
+                .ease(d3.easeLinear)
+                // .attr("transform", translateAlong(curve.node()))
+                .attrTween("transform", translateAlong({path : curve.node()}))
+                // .each("end", transition);
+        }
+
+        // Returns an attrTween for translating along the specified path element.
         
+        // t is time between 0 and 1
+        // l is constant at 1900, unsure what it is.
+        // getPointAtLength returns the point along a path.
+        // / is the end of the path.
+        console.log(lookup)
+        function translateAlong({path} = {}) {
+            var countFirst = 0;
+            var countSecond = 0;
+            var totalCount = 0
+            var l = path.getTotalLength();
+            var maxL = path.getPointAtLength(l).x;
+
+            console.log(l)
+            console.log(xBisect(lookup, 300))
+            console.log(maxL)
+            // console.log(path)
+            return function(d, i, a) {
+
+                return function(t) {
+                    // console.log(t * maxL)
+                    var index = xBisect(lookup, maxL * t)
+                    var p = lookup[index];
+                    // console.log(p)
+                    // totalCount = totalCount + 1
+                    // console.log(t, l)
+                    // // var p = path.getPointAtLength((1-t)/4 * l);
+                    // if (t <= 1 / 4) {
+                    //     console.log("First")
+                    //     var p = lookup[l / 2 + (l * t * 2)]
+                    //     // var p = path.getPointAtLength(l / 2 + (l * t * 2))
+                    //     countFirst = countFirst + 1
+                    //     console.log(countFirst)
+                    // } else if (t <= 1 / 2) {
+                    //     console.log("Second")
+                    //     var p = lookup[l - l * (t - 1 / 4) * 2]
+                    //     // var p = path.getPointAtLength(l - l * (t - 1 / 4) * 2)
+                    //     countSecond = countSecond + 1
+                    //     console.log(countSecond)
+                    // } else {
+                    //     var p = path.getPointAtLength(t * l);
+                    // }
+                    // console.log(totalCount)                    
+                    return "translate(" + p.x + "," + p.y + ")";
+                };
+
+
+
+            };
+
+        }
+        return(curve)
+
     }
+
+    // moveAlongCurve({someSvg, } = {}){
+
+    // }
 
 }
 

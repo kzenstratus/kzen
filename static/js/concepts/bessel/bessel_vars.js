@@ -295,7 +295,6 @@ besselBiasVarPayload = {
         ,[0, 0 + besselBiasVarShift]
         ,[1, 20 + besselBiasVarShift]
         ,[2, 48 + besselBiasVarShift]
-        
     ],
     "captionCoordJson": captionCoordJson
 

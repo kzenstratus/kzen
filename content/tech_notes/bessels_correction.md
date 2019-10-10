@@ -1,5 +1,5 @@
 ---
-title: "Bessel's Correction"
+title: "Why Use N-1 : Bessel's Correction"
 date: 2019-06-30
 draft: false
 ---
@@ -20,7 +20,8 @@ $$\bar{x}$$
 <link rel= "stylesheet" type= "text/css" href= "/kzen/css/concept.css">
 
 
-<script src="/kzen/js/d3.min.js"></script>
+<!-- <script src="/kzen/js/d3.min.js"></script> -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="/kzen/js/math.min.js"></script>
 <script src="/kzen/js/plot_utils.js"></script>
 <script src="/kzen/js/plot_class.js"></script>
@@ -45,7 +46,7 @@ $$\bar{x}$$
   
   testDisplay.makeFirstPlot({conceptExampleId : "blahblah1"
                                     , payload : besselBiasPayload});
-  testDisplay.makeSecondPlot({conceptExampleId : "blahblah2"
+  var curve = testDisplay.makeSecondPlot({conceptExampleId : "blahblah2"
                                     , payload: besselBiasVarPayload});
   // testDisplay.makeConceptExampleDiv({conceptExampleId : 'blahblah3'})
   // testDisplay.makeConceptExampleSvg({conceptExampleId : 'blahblah3'})
