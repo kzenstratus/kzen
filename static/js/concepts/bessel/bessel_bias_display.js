@@ -163,6 +163,14 @@ class DisplayDoubleConceptExamplePlot {
             })
         }
 
+        // var leftPoints = lookup.slice(0,500)
+        // var rightPoints = lookup.slice(500,1000)
+        // var leftPointsSecond = lookup.slice(1,500).reverse()
+        // var rightPointsSecond = lookup.slice(500,1000).reverse()
+
+        // leftPoints = leftPoints.concat(leftPointsSecond)
+        // rightPoints = rightPoints.concat(rightPointsSecond)
+        // lookup = rightPoints
         var xBisect = d3.bisector(function(d) { return d.x; }).left;
         // https://stackoverflow.com/questions/25655372/d3-steady-horizontal-transition-along-an-svg-path
         // 
@@ -207,7 +215,10 @@ class DisplayDoubleConceptExamplePlot {
             var totalCount = 0
             var l = path.getTotalLength();
             var maxL = path.getPointAtLength(l).x;
+            var minL = path.getPointAtLength(0).x;
 
+            l = maxL-minL;
+            var halfL = minL + l/2
             console.log(l)
             console.log(xBisect(lookup, 300))
             console.log(maxL)
@@ -216,28 +227,37 @@ class DisplayDoubleConceptExamplePlot {
 
                 return function(t) {
                     // console.log(t * maxL)
-                    var index = xBisect(lookup, maxL * t)
-                    var p = lookup[index];
+                    // var index = xBisect(lookup, maxL * t)
+                    // var p = lookup[index];
                     // console.log(p)
-                    // totalCount = totalCount + 1
-                    // console.log(t, l)
-                    // // var p = path.getPointAtLength((1-t)/4 * l);
-                    // if (t <= 1 / 4) {
-                    //     console.log("First")
-                    //     var p = lookup[l / 2 + (l * t * 2)]
-                    //     // var p = path.getPointAtLength(l / 2 + (l * t * 2))
-                    //     countFirst = countFirst + 1
-                    //     console.log(countFirst)
-                    // } else if (t <= 1 / 2) {
-                    //     console.log("Second")
-                    //     var p = lookup[l - l * (t - 1 / 4) * 2]
-                    //     // var p = path.getPointAtLength(l - l * (t - 1 / 4) * 2)
-                    //     countSecond = countSecond + 1
-                    //     console.log(countSecond)
-                    // } else {
-                    //     var p = path.getPointAtLength(t * l);
-                    // }
-                    // console.log(totalCount)                    
+                    // The *2 is because we aren't doubling the length, just
+                    // speeding up the time it takes to travel along the path
+                    // since we're essentially traveling 2x the distance.
+                    if(t <= 1/4){
+                      var index = xBisect(lookup, halfL + (l * t * 2))
+                      var p = lookup[index];
+                      // console.log(index)
+                      // console.log(maxL/2 + (maxL * t))
+                      // console.log(p)
+                    }
+                    else if(t <= 1/2){
+                      var index = xBisect(lookup, maxL - (l * (t - 1/4) * 2))
+                      var p = lookup[index];
+                      // console.log(index)
+                      // console.log(maxL/2 + (maxL * t))
+                      // console.log(p)s
+                    }
+                    else if (t <= 3/4){
+                      var index = xBisect(lookup, halfL - (l * (t - 1/2) * 2))
+                      var p = lookup[index];
+                    }
+                    else{
+                      var index = xBisect(lookup, minL + (l * (t - 3/4) * 2))
+                      var p = lookup[index];
+                    }
+
+                    // console.log(index)
+                    // console.log(p)              
                     return "translate(" + p.x + "," + p.y + ")";
                 };
 
@@ -246,7 +266,7 @@ class DisplayDoubleConceptExamplePlot {
             };
 
         }
-        return(curve)
+        return(lookup)
 
     }
 
