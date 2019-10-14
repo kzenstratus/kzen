@@ -320,8 +320,7 @@ class Vector {
 
 
     }
-    move(someSvg, duration) {
-
+    move({someSvg, duration, delay, ease = d3.easeCubic} = {}) {
         var vec = someSvg.select("path.vector#" + this.arrowId)
         var label = someSvg.select("text.vecLabel#" + this.labelId)
         var _labels = this.labels // need to define this because transition can't look outside its environment
@@ -352,7 +351,8 @@ class Vector {
 
             vec = vec.transition()
                 .duration(realDuration)
-                .attr("delay", function(d, i) { return 1000 * i; })
+                .ease(ease)
+                .attr("delay", function(d, i) { return delay * i; })
                 .attr("d", linFunction([_startCoord, _endCoord]))
 
             this.startCoord = _startCoord
@@ -362,7 +362,8 @@ class Vector {
             }
             label = label.transition()
                 .duration(realDuration)
-                .attr("delay", function(d, i) { return 1000 * i; })
+                .ease(ease)
+                .attr("delay", function(d, i) { return delay * i; })
                 .attr("x", function(d, i) { return _endCoord[0] + _labelLoc[0]; })
                 .attr("y", function(d, i) { return _endCoord[1] + _labelLoc[1]; })
                 .text(function(d, i) { return _labels[j] })
@@ -495,7 +496,10 @@ class Space {
     }
 
 
-    move({ someSvg, listNextDotSpaces, duration } = {}) {
+    move({ someSvg, listNextDotSpaces
+                  , duration
+                  , delay
+                  , ease = d3.easeCubic} = {}) {
 
         // TODO: why do I need to define a variable inside here
         // for d3 to see it?
@@ -520,9 +524,10 @@ class Space {
                 })
             }
             currSpace = currSpace.transition()
-                .duration(4000)
+                .duration(duration)
+                .ease(ease)
                 .attr("delay", function(d, i) {
-                    return 1000 * i;
+                    return delay * i;
                 })
                 .attr("cx", function(d, i) {
                     return nextDotSpace[i][0];
@@ -634,8 +639,7 @@ class Text {
 
     }
 
-    move({ someSvg, duration } = {}) {
-
+    move({ someSvg, duration, ease = d3.easeCubic } = {}) {
         var currCaption = someSvg.select("text.caption#" + this.labelId)
         var textList = this.textList
 
@@ -670,7 +674,8 @@ class Text {
 
             currCaption = currCaption.transition()
                 .duration(realDuration)
-                .attr("delay", function(d, i) { return 1000 * i; })
+                .ease(ease)
+                .attr("delay", function(d, i) { return delay * i; })
                 .attr("x", function(d, i) { return _endCoord[0] * 1.04; })
                 .attr("y", function(d, i) { return _endCoord[1] * 0.96; })
                 .attr("fill", function(d) { return _color })

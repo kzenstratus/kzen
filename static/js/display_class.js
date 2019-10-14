@@ -85,6 +85,7 @@ class DisplayConceptExamplePlot extends DisplayPlot{
                 , dotStrokeWidth = 4
                 , gridColor = 'grey'
                 , duration = 4000
+                , delay = 1000
                 , basisType = '1_2_3_4'
                 } = {}) {
       super({conceptId : conceptId
@@ -164,6 +165,7 @@ class DisplayConceptExamplePlot extends DisplayPlot{
         var captionObjList = this.captionObjList
         var listNextDotSpaces = this.listNextDotSpaces
         var duration = this.duration
+        var delay = this.delay
         var vecCoordJson = this.vecCoordJson
         var vecObjList = this.vecObjList
         var svgContainer = this.currSvg;
@@ -177,20 +179,25 @@ class DisplayConceptExamplePlot extends DisplayPlot{
             // move space
             currSpace.move({someSvg : currSvg
                             , listNextDotSpaces : listNextDotSpaces
-                            , duration : duration}) 
+                            , duration : duration
+                            , delay : delay}) 
 
             // add vectors
             if(Object.keys(vecCoordJson).length > 0){
               for(var i in vecObjList){
                 var vecObj = vecObjList[i]
-                vecObj.move(svgContainer, duration)
+                vecObj.move({someSvg : svgContainer
+                          , duration : duration
+                          , delay : delay})
               }
             }
             // add text caption
             if (Object.keys(captionObjList).length > 0){
               for(var j in captionObjList){
                 var captionObj = captionObjList[j]
-                captionObj.move({someSvg : svgContainer, duration : duration})
+                captionObj.move({someSvg : svgContainer
+                              , duration : duration
+                              , delay : delay})
               }
             }
           }

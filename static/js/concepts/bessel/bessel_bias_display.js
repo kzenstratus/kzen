@@ -21,7 +21,10 @@ class DisplayDoubleConceptExamplePlot {
         conceptId,
         height,
         width,
-        buttonId
+        buttonId,
+        duration = 4000,
+        delay = 0 // this ONLY WORKS WITH DELAY = 0
+
     } = {}) {
         this.conceptId = conceptId; // 
         // You can have multiple concept examples underneath a conceptId
@@ -35,6 +38,8 @@ class DisplayDoubleConceptExamplePlot {
         this.buttonLabel = "Go!"
         this.buttonCssClass = "gobutton"
         this.vecObjList = []
+        this.duration = duration
+        this.delay = delay
 
     }
     makeButton() {
@@ -45,6 +50,8 @@ class DisplayDoubleConceptExamplePlot {
         var svgContainer = this.firstPlot.currSvg
         // var svgContainer = d3.select("#" + this.conceptExampleId)
         //                         .select("svg");
+        var secondPlotPoint = this.besselVarPoint
+        var delay = this.delay
 
         d3.select("#" + this.conceptId)
             .append("button")
@@ -55,14 +62,24 @@ class DisplayDoubleConceptExamplePlot {
                 // move space
                 for (var i in vecObjList) {
                     var vecObj = vecObjList[i]
-                    vecObj.move(svgContainer, duration)
+                    vecObj.move({
+                        someSvg: svgContainer,
+                        duration: duration,
+                        delay: delay,
+                        ease: d3.easeLinear
+                    })
                 }
 
                 if (firstPlot.caption != null) {
                     firstPlot.caption.move({ someSvg: svgContainer, duration: duration })
                 }
 
-                // alert("i'm a butt")
+                // make bessel var point
+                secondPlotPoint.move({
+                    totalDuration: duration * 3, // essentially 3 vector movements
+                    delay: delay
+                });
+
             })
     }
     makeFirstPlot({ conceptExampleId, payload } = {}) {
@@ -83,7 +100,7 @@ class DisplayDoubleConceptExamplePlot {
             dotColor: "red",
             vecCoordJson: payload.vecCoordJson,
             captionCoordJson: payload.captionCoordJson,
-            duration: 4000
+            duration: this.duration
         })
 
         this.firstPlot.currSpace.space = payload.space
@@ -92,10 +109,8 @@ class DisplayDoubleConceptExamplePlot {
         this.firstPlot.makeText();
         // this.firstPlot = firstPlot
         // Plot the center line.
-
-
-
     }
+
     makeSecondPlot({ conceptExampleId, payload } = {}) {
 
         this.secondPlot = new DisplayConceptExamplePlot({
@@ -114,7 +129,7 @@ class DisplayDoubleConceptExamplePlot {
         })
         this.secondPlot.currSpace.space = payload.space
         this.secondPlot.currSpace.plotBasis({ someSvg: this.secondPlot.currSvg })
-        this.secondPlot.currSpace.plotSpace({ someSvg: this.secondPlot.currSvg })
+        // this.secondPlot.currSpace.plotSpace({ someSvg: this.secondPlot.currSvg })
 
         // Adding Curve
         var currSvg = this.secondPlot.currSvg
@@ -142,118 +157,82 @@ class DisplayDoubleConceptExamplePlot {
             .attr('fill', 'none')
             .attr('stroke', 'black')
 
-        // var curve2 = currSvg.append('path')
-        //     .data([secondPath])
-        //     .attr('d', lineGenerator)
-        //     .attr('fill', 'none')
-        //     .attr('stroke', 'black')
-        // console.log(curve)
-        var circle = currSvg.append("circle")
-            .attr("r", 12)
-            .attr("transform", "translate(250, 480.77)");
+        this.besselVarPoint = new BesselBiasPointAlongCurve({
+            curve: curve,
+            startCoord: [250, 480.77],
+            pointSize: 12
+        })
 
-        var lookup = [];
-        var granularity = 1000;
-        var l = curve.node().getTotalLength();
-        for (var i = 1; i <= granularity; i++) {
-            var p = curve.node().getPointAtLength(l * (i / granularity))
-            lookup.push({
-                x: p.x,
-                y: p.y
-            })
-        }
+        this.besselVarPoint.makePoint({ currSvg: currSvg })
 
-        // var leftPoints = lookup.slice(0,500)
-        // var rightPoints = lookup.slice(500,1000)
-        // var leftPointsSecond = lookup.slice(1,500).reverse()
-        // var rightPointsSecond = lookup.slice(500,1000).reverse()
 
-        // leftPoints = leftPoints.concat(leftPointsSecond)
-        // rightPoints = rightPoints.concat(rightPointsSecond)
-        // lookup = rightPoints
-        var xBisect = d3.bisector(function(d) { return d.x; }).left;
+    }
+
+
+}
+
+class BesselBiasPointAlongCurve {
+    constructor({
+        curve, // curve is a path
+        startCoord = [250, 480.77],
+        pointSize = 12
+
+
+    } = {}) {
         // https://stackoverflow.com/questions/25655372/d3-steady-horizontal-transition-along-an-svg-path
-        // 
-        // function translateAlong(path) {
-        //     var l = path.getTotalLength();
-        //     return function(d, i, a) {
-        //         return function(t) {
-        //             var index = xBisect(lookup, l * t);
-        //             var p = lookup[index];
-        //             return "translate(" + p.x + "," + p.y + ")";
-        //         };
-        //     };
-        // }
+        this.pointSize = pointSize
+        this.startCoord = startCoord
+        this.curve = curve
 
-        // for (var curvePoint in curveAnimation) {
+    }
+    makePoint({ currSvg } = {}) {
+        this.circle = currSvg.append("circle")
+            .attr("r", this.pointSize)
+            .attr("transform", "translate(" + this.startCoord[0] + ", " + this.startCoord[1] + ")");
 
-        //     var captionObj = curveAnimation[j]
-        //     captionObj.move({ someSvg: svgContainer, duration: duration })
-        // }
+    }
+    move({ totalDuration, delay, granularity = 1000 } = {}) {
 
-        transition();
-
-        function transition() {
+        function transition({ circle, totalDuration, delay, lookup, curve } = {}) {
             circle.transition()
-                .duration(10000)
+                .duration(totalDuration)
+                .attr("delay", function(d, i) { return delay * i; })
                 .ease(d3.easeLinear)
-                // .attr("transform", translateAlong(curve.node()))
-                .attrTween("transform", translateAlong({path : curve.node()}))
-                // .each("end", transition);
+                .attrTween("transform", translateAlong({
+                    path: curve.node(),
+                    lookup: lookup
+                }))
+            // .each("end", transition);
         }
 
-        // Returns an attrTween for translating along the specified path element.
-        
-        // t is time between 0 and 1
-        // l is constant at 1900, unsure what it is.
-        // getPointAtLength returns the point along a path.
-        // / is the end of the path.
-        console.log(lookup)
-        function translateAlong({path} = {}) {
-            var countFirst = 0;
-            var countSecond = 0;
-            var totalCount = 0
+        function translateAlong({ path, lookup } = {}) {
             var l = path.getTotalLength();
             var maxL = path.getPointAtLength(l).x;
             var minL = path.getPointAtLength(0).x;
 
-            l = maxL-minL;
-            var halfL = minL + l/2
-            console.log(l)
-            console.log(xBisect(lookup, 300))
-            console.log(maxL)
+            l = maxL - minL;
+            var halfL = minL + l / 2
             // console.log(path)
             return function(d, i, a) {
 
                 return function(t) {
-                    // console.log(t * maxL)
-                    // var index = xBisect(lookup, maxL * t)
-                    // var p = lookup[index];
-                    // console.log(p)
-                    // The *2 is because we aren't doubling the length, just
+                    // 
+                    // The * 2 is because we aren't doubling the length, just
                     // speeding up the time it takes to travel along the path
                     // since we're essentially traveling 2x the distance.
-                    if(t <= 1/4){
-                      var index = xBisect(lookup, halfL + (l * t * 2))
-                      var p = lookup[index];
-                      // console.log(index)
-                      // console.log(maxL/2 + (maxL * t))
-                      // console.log(p)
-                    }
-                    else if(t <= 1/2){
-                      var index = xBisect(lookup, maxL - (l * (t - 1/4) * 2))
-                      var p = lookup[index];
-                      // console.log(index)
-                      // console.log(maxL/2 + (maxL * t))
-                      // console.log(p)s
-                    }
-                    else if (t <= 3/4){
-                      var index = xBisect(lookup, halfL - (l * (t - 1/2) * 2))
-                      var p = lookup[index];
-                    }
-                    else{
-                      var index = xBisect(lookup, minL + (l * (t - 3/4) * 2))
-                      var p = lookup[index];
+
+                    if (t <= 1 / 4) {
+                        var index = xBisect(lookup, halfL + (l * t * 2))
+                        var p = lookup[index];
+                    } else if (t <= 1 / 2) {
+                        var index = xBisect(lookup, maxL - (l * (t - 1 / 4) * 2))
+                        var p = lookup[index];
+                    } else if (t <= 3 / 4) {
+                        var index = xBisect(lookup, halfL - (l * (t - 1 / 2) * 2))
+                        var p = lookup[index];
+                    } else {
+                        var index = xBisect(lookup, minL + (l * (t - 3 / 4) * 2))
+                        var p = lookup[index];
                     }
 
                     // console.log(index)
@@ -261,21 +240,43 @@ class DisplayDoubleConceptExamplePlot {
                     return "translate(" + p.x + "," + p.y + ")";
                 };
 
-
-
             };
-
         }
-        return(lookup)
+
+        var lookup = [];
+
+        // Returns an attrTween for translating along the specified path element.
+
+        // t is time between 0 and 1
+        // l is constant at 1900, unsure what it is.
+        // getPointAtLength returns the point along a path.
+        // / is the end of the path.
+
+        var l = this.curve.node().getTotalLength();
+        for (var i = 1; i <= granularity; i++) {
+            var p = this.curve.node().getPointAtLength(l * (i / granularity))
+            lookup.push({
+                x: p.x,
+                y: p.y
+            })
+        }
+
+
+        var xBisect = d3.bisector(function(d) { return d.x; }).left;
+
+        transition({
+            circle: this.circle,
+            totalDuration: totalDuration // this is because the path length is 2x
+                ,
+            delay: delay,
+            lookup: lookup,
+            curve: this.curve
+        });
+
 
     }
 
-    // moveAlongCurve({someSvg, } = {}){
-
-    // }
-
 }
-
 // let testDisplay = new DisplayDoubleConceptExamplePlot({conceptId : "bessel-bias"
 //   , height : 500
 //   , width : 500});
