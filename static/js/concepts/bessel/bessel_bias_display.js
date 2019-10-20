@@ -22,7 +22,7 @@ class DisplayDoubleConceptExamplePlot {
         height,
         width,
         buttonId,
-        duration = 4000,
+        duration = 8000,
         delay = 0 // this ONLY WORKS WITH DELAY = 0
 
     } = {}) {
@@ -76,7 +76,7 @@ class DisplayDoubleConceptExamplePlot {
 
                 // make bessel var point
                 secondPlotPoint.move({
-                    totalDuration: duration * 3, // essentially 3 vector movements
+                    totalDuration: duration * 4, // essentially 3 vector movements
                     delay: delay
                 });
 
@@ -100,7 +100,8 @@ class DisplayDoubleConceptExamplePlot {
             dotColor: "red",
             vecCoordJson: payload.vecCoordJson,
             captionCoordJson: payload.captionCoordJson,
-            duration: this.duration
+            duration: this.duration,
+            basisType:"1_4"
         })
 
         this.firstPlot.currSpace.space = payload.space
@@ -111,7 +112,11 @@ class DisplayDoubleConceptExamplePlot {
         // Plot the center line.
     }
 
-    makeSecondPlot({ conceptExampleId, payload } = {}) {
+    // for different tensions look at this
+    // http://bl.ocks.org/valex/1c6f648d0b035c6b2f2269c56d64e696
+    makeSecondPlot({ conceptExampleId, payload
+                    , curveFunc = d3.curveCardinal
+                    , tension = 0} = {}) {
 
         this.secondPlot = new DisplayConceptExamplePlot({
             conceptId: this.conceptId,
@@ -124,9 +129,11 @@ class DisplayDoubleConceptExamplePlot {
             dotColor: "red",
             vecCoordJson: payload.vecCoordJson,
             captionCoordJson: payload.captionCoordJson,
-            duration: 4000,
+            duration: this.duration,
             basisType: "1_2"
         })
+
+
         this.secondPlot.currSpace.space = payload.space
         this.secondPlot.currSpace.plotBasis({ someSvg: this.secondPlot.currSvg })
         // this.secondPlot.currSpace.plotSpace({ someSvg: this.secondPlot.currSvg })
@@ -136,7 +143,7 @@ class DisplayDoubleConceptExamplePlot {
         // .append('g')
 
         var lineGenerator = d3.line()
-            .curve(d3.curveCardinal);
+            .curve(curveFunc.tension(tension));
 
         var scaledCurvePoints = scaleLocSpace({
             space: payload.space,
@@ -159,8 +166,8 @@ class DisplayDoubleConceptExamplePlot {
 
         this.besselVarPoint = new BesselBiasPointAlongCurve({
             curve: curve,
-            startCoord: [250, 480.77],
-            pointSize: 12
+            startCoord: [250, 475],
+            pointSize: 8
         })
 
         this.besselVarPoint.makePoint({ currSvg: currSvg })
@@ -176,9 +183,7 @@ class BesselBiasPointAlongCurve {
         curve, // curve is a path
         startCoord = [250, 480.77],
         pointSize = 12
-
-
-    } = {}) {
+      } = {}) {
         // https://stackoverflow.com/questions/25655372/d3-steady-horizontal-transition-along-an-svg-path
         this.pointSize = pointSize
         this.startCoord = startCoord

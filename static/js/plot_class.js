@@ -60,7 +60,8 @@ class BasisPlot {
     makePlot() {
         var funcMap = {
             "1_2_3_4": this.make1234,
-            "1_2": this.make12
+            "1_2": this.make12,
+            "1_4" : this.make14
         };
         var axes = {
             "top": this.top_axis,
@@ -110,8 +111,20 @@ class BasisPlot {
             .attr('transform', "translate(" + width / 2 + ",-0.5)")
             .call(axes["right"]);
     }
+    make14({ svg, height, width, bot_axis, numTicksArr, axes} = {}) {
+        
+        svg.append("g")
+            .attr('transform', "translate(-0.5," + (height / 2) + ")")
+            .call(axes["bot"]);
 
+        svg.append("g")
+            .attr('transform', "translate(-0.5," + (height / 2) + ")")
+            .call(axes["top"]);
 
+        svg.append("g")
+            .attr('transform', "translate(" + -1 + ",-0.5)")
+            .call(axes["left"]);
+    }
 }
 
 
