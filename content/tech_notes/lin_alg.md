@@ -5,7 +5,7 @@ draft: false
 ---
 
 <html>
- 
+
 <link rel= "stylesheet" type= "text/css" href= "/kzen/css/concept.css">
 
 
@@ -19,7 +19,6 @@ draft: false
 
 
 <body>
-
   <div class = 'concept-container' id = "linear-combination">
     <div class = 'concept-text'>
     	<h3>Linear Combination</h3>
@@ -57,12 +56,11 @@ draft: false
           , numTicksArr : linAlgGlobalVar.numTicksArr
           , vecCoordJson: linComboPayload.vecCoordJson
           , duration: linComboPayload.duration
+          , captionCoordJson: linComboPayload.captionCoordJson
         })
   linCombo.makePlot();
   linCombo.makeVectors();
-  linCombo.makeText({textList : linComboPayload.textList
-                           , textCoordList : linComboPayload.textCoordList
-                           , colorList : linComboPayload.colorList});
+  linCombo.makeText();
   linCombo.makeButton();
 </script>
 
@@ -101,12 +99,11 @@ draft: false
                 , tarSpace : linIndPayload.highlightSpace
                 , vecCoordJson: linIndPayload.vecCoordJson
                 , duration: linIndPayload.duration
+                , captionCoordJson: linIndPayload.captionCoordJson
               })
       linIndependence.makePlot();
       linIndependence.makeVectors();
-      linIndependence.makeText({textList : linIndPayload.textList
-                           , textCoordList : linIndPayload.textCoordList
-                           , colorList : linIndPayload.colorList});
+      linIndependence.makeText();
       linIndependence.makeButton();
 </script>
 </div>
@@ -139,16 +136,13 @@ draft: false
                 , numTicksArr : linAlgGlobalVar.numTicksArr
                 , vecCoordJson: basisPayload.vecCoordJson
                 , duration: basisPayload.duration
+                , captionCoordJson: basisPayload.captionCoordJson
               })
           basisOrtho.makePlot();
           basisOrtho.makeVectors();
-          basisOrtho.makeText({textList : basisPayload.textList
-                           , textCoordList : basisPayload.textCoordList
-                           , colorList : basisPayload.colorList});
+          basisOrtho.makeText();
           basisOrtho.makeButton();
-          
-          </script>
-
+  </script>
   </div>
 
 
@@ -194,13 +188,13 @@ draft: false
         The Kernel of a linear transformation (red points) is the space that goes to 0 during the  linear transformation. <br>
         When no dimensionality reduction happens eg. 2d to 1d, the only point in the kernel will be 0. 0 is always in the kernel.<br><br>
         The following is the matrix which describes this linear transformation.
-
+      </p>
         $$ \begin{bmatrix}
             1&-2\\
             0&0\\
             \end{bmatrix}$$
-
-      </p>
+      
+      
   </div>
 
 <script type="text/javascript">
@@ -229,14 +223,13 @@ draft: false
       <h3>Image</h3>
       <p>
         The Image of a linear transformation (red points) is the space (span) which the linear transformation maps to. <br><br>
-
         The following is the matrix which describes this linear transformation.
-
+      </p>
         $$ \begin{bmatrix}
             1&-2\\
             0&0\\
             \end{bmatrix}$$
-      </p>
+      
   </div>
 
 <script type="text/javascript">

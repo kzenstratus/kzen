@@ -251,7 +251,6 @@ class BesselBiasPointAlongCurve {
         var lookup = [];
 
         // Returns an attrTween for translating along the specified path element.
-
         // t is time between 0 and 1
         // l is constant at 1900, unsure what it is.
         // getPointAtLength returns the point along a path.
@@ -282,10 +281,3 @@ class BesselBiasPointAlongCurve {
     }
 
 }
-// let testDisplay = new DisplayDoubleConceptExamplePlot({conceptId : "bessel-bias"
-//   , height : 500
-//   , width : 500});
-
-// testDisplay.makeConceptExampleDiv({conceptExampleId : 'blahblah2'})
-// testDisplay.makeConceptExampleSvg({conceptExampleId : 'blahblah2'})
-//

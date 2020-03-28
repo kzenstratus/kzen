@@ -18,6 +18,9 @@ googleAnalytics = ""
     highlightLanguages = ["go", "r", "python"]
     favicon = "https://kzenstratus.github.io/kzen/favicon.ico"
 
+[markup.goldmark.renderer]
+  unsafe= true
+
 [[menu.main]]
     url = "/"
     name = "Home"

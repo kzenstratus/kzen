@@ -12,18 +12,18 @@ linAlgGlobalVar = {"plotDomain" : [-5,5]
 				}
 
 
-var vecCoordJsonLinCombo = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
+var vecCoordJsonLinCombo = {"xVec" : {"coordList" : [[[0,0], [1,0]]
                                               	   , [[0,0], [1,0]]
                                               	   , [[0,0], [1,0]]
                                               	   // start stretching to get different vecs
                                               	   , [[0,0], [3,0]]
                                               	   , [[0,0], [3,0]]
-                                              	   , [[0,0], [3,0]]
-                                              ]
+                                                   , [[0,0], [3,0]]
+                                                  ]
                                               , "color" : "#68a2ff" // blue
                                               , "labels" : Array(6).fill("a")
-
-                                          }
+                                              , "style" : "solid"
+                                            }
                           , "yVec" : {"coordList" : [[[0,0], [0,1]]
                                                      , [[1,0], [1,1]]
                                                      , [[1,0], [1,1]]
@@ -31,9 +31,10 @@ var vecCoordJsonLinCombo = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
                                                      , [[3,0], [3,1]]
                                                      , [[3,0], [3,3]]
                                                      , [[3,0], [3,3]]
-                                                     ]
+                                                    ]
                                         , "color" : "#6bcc35" // "#6bcc35" // green
                                         , "labels" : Array(6).fill("b")
+                                        , "style" : "solid"
                                     }
                         , "zVec" : {"coordList" : [[[0,0], [-2,1]]
                                                  , [[0,0], [-2,1]]
@@ -41,9 +42,10 @@ var vecCoordJsonLinCombo = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
                                                  , [[3,1], [1,2]]
                                                  , [[3,3], [1,4]]
                                                  , [[3,3], [4,2]]
-                                                  ]
+                                                ]
                                         , "color" : "#ff80ff" // "#6bcc35" // green
                                         , "labels" : Array(6).fill("c")
+                                        , "style" : "solid"
                                     }
                         , "vec" : {"coordList" : [[[null, null], [null,null]]
                                                  , [[null,null], [null,null]]
@@ -51,10 +53,11 @@ var vecCoordJsonLinCombo = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
                                                  , [[0,0], [1,2]]
                                                  , [[0,0], [1,4]]
                                                  , [[0,0], [4,2]]
-                                                   ]
+                                                ]
                                         , "color" : "#cc4634" // orange
                                         , "labels" : Array(6).fill("d")
                                         , "labelLoc" : Array(6).fill([-10, 0])
+                                        , "style" : "solid"
                                         }
                                     };
 
@@ -62,13 +65,14 @@ var vecCoordJsonLinCombo = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
 linComboPayload = {"conceptId" : "linear-combination"
 				, "buttonId" : "lin_combo_button"
 				, "duration" : 1500
-				, "vecCoordJson": vecCoordJsonLinCombo
-        , "textList" : Array(3).fill("Connect a,b,c to get Vec d").concat(
-                                     ["Stretch Vec A", "Stretch Vec B", "Shrink Vec C"])
-        , "textCoordList" : Array(6).fill([[-4.8,4.3], [-4.8,4.3]])
-        , "colorList" : Array(3).fill("#cc4634").concat(["#68a2ff"
-                                                             , "#6bcc35"
-                                                             , "#ff80ff"])
+        , "vecCoordJson": vecCoordJsonLinCombo
+        , "captionCoordJson": {"caption": 
+                                {"textList" : Array(3).fill("Connect a,b,c to get Vec d").concat(["Stretch Vec A"
+                                  , "Stretch Vec B", "Shrink Vec C"])
+                                , "textCoordList" : Array(6).fill([[-4.8,4.3], [-4.8,4.3]])
+                                , "colorList" : Array(3).fill("#cc4634").concat(["#68a2ff", "#6bcc35", "#ff80ff"])
+                                }
+                              } 
        }
 
 
@@ -81,6 +85,7 @@ var vecCoordJsonLinInd = {"xVec" : {"coordList" : [[[0,0], [2, 0]]
                                               ]
                                               , "color" : "#68a2ff" // blue
                                               , "labels" : Array(4).fill("a")
+                                              , "style" : "solid"
 
                                           }
                           , "yVec" : {"coordList" : [[[0,0], [0,2]]
@@ -91,6 +96,7 @@ var vecCoordJsonLinInd = {"xVec" : {"coordList" : [[[0,0], [2, 0]]
                                                      ]
                                         , "color" : "#6bcc35"
                                         , "labels" : Array(4).fill("b")
+                                        , "style" : "solid"
                                     }
                         , "zVec" : {"coordList" : [[[0,0], [-2,1]]
                                                  , [[0,2], [-2,3]]
@@ -100,18 +106,21 @@ var vecCoordJsonLinInd = {"xVec" : {"coordList" : [[[0,0], [2, 0]]
                                                   ]
                                         , "color" : "#ff80ff"
                                         , "labels" : Array(4).fill("c")
+                                        , "style" : "solid"
                                     }
-
                                   };
 
 linIndPayload = {"conceptId" : "linear-independence"
         , "buttonId" : "lin_ind_button"
         , "duration" : 1500
         , "vecCoordJson": vecCoordJsonLinInd
-        , "textList" : Array(3).fill("Flip and Stretch C").concat(
-                                     ["Shrink B"])
-        , "textCoordList" : Array(4).fill([[-4.8,4.3], [-4.8,4.3]])
-        , "colorList" : Array(3).fill("#ff80ff").concat(["#6bcc35"])
+        , "captionCoordJson": {"caption": {
+                                  "textList" : Array(3).fill("Flip and Stretch C").concat(
+                                    ["Shrink B"])
+                                , "textCoordList" : Array(4).fill([[-4.8,4.3], [-4.8,4.3]])
+                                , "colorList" : Array(3).fill("#ff80ff").concat(["#6bcc35"])
+                                          }
+                              }
         }
 
 var vecCoordJsonOrtho = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
@@ -123,6 +132,7 @@ var vecCoordJsonOrtho = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
                                               ]
                                               , "color" : "#68a2ff" // blue
                                               , "labels" : Array(6).fill("v1")
+                                              , "style" : "solid"
                                 }
                                 , "yVec" : {"coordList" : [[[0,0], [0,1]]
                                                      , [[0,0], [0,1]]
@@ -133,6 +143,7 @@ var vecCoordJsonOrtho = {"xVec" : {"coordList" : [[[0,0], [1, 0]]
                                                      ]
                                         , "color" : "#68a2ff" // "#6bcc35" // green
                                         , "labels" : Array(6).fill("v2")
+                                        , "style" : "solid"
                                       }
                                     };
             // Calculate the sum of vectors.
@@ -147,12 +158,14 @@ vecCoordJsonOrtho = Object.assign(vecCoordJsonOrtho
 basisPayload = {"conceptId" : "basis"
 				, "buttonId" : "basis_transform"
 				, "duration" : 1500
-				, "vecCoordJson": vecCoordJsonOrtho
-        , "textList" : Array(2).fill("Quadrant 1").concat(
-                       Array(2).fill("Quadrant 2"),
-                                     ["Quandrant 3", "Quandrant 4"])
-        , "textCoordList" : Array(6).fill([[-4.8,4.3], [-4.8,4.3]])
-        , "colorList" : Array(6).fill("#cc4634")
+        , "vecCoordJson": vecCoordJsonOrtho
+        , "captionCoordJson": {"caption": {
+                                  "textList" : Array(2).fill("Quadrant 1").concat(
+                                    Array(2).fill("Quadrant 2"),["Quandrant 3", "Quandrant 4"])
+                                , "textCoordList" : Array(6).fill([[-4.8,4.3], [-4.8,4.3]])
+                                , "colorList" : Array(6).fill("#cc4634")
+                                          }
+                              }
 				}
 
 var vecCoordJsonBasisNonOrtho = {"xVec" : 

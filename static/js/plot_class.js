@@ -520,7 +520,6 @@ class Space {
         var width = this.width
         var height = this.height
         var numTicksArr = this.numTicksArr
-
         var currSpace = someSvg.selectAll(".markers")
         for (var i = 0; i < listNextDotSpaces.length; i++) {
 
@@ -652,7 +651,7 @@ class Text {
 
     }
 
-    move({ someSvg, duration, ease = d3.easeCubic } = {}) {
+    move({ someSvg, duration, delay, ease = d3.easeCubic } = {}) {
         var currCaption = someSvg.select("text.caption#" + this.labelId)
         var textList = this.textList
 

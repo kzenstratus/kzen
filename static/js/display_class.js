@@ -4,7 +4,7 @@
 //   );
 // testDisplay.makeConceptExampleDiv({conceptExampleId : 'blahblah'})
 // testDisplay.makeConceptExampleSvg({conceptExampleId : 'blahblah'})
-
+// * @param {[string]} conceptId unique tag id for this viz
 class DisplayPlot {
     constructor({conceptId
                 , height
@@ -42,7 +42,8 @@ class DisplayPlot {
 
 /* ----------------------
 The Plotting Classes describe abstract notions of concepts
-such as a space, or a vector. The display class grounds those classes 
+such as a space, or a vector. This is our Bread and Butter.
+The display class grounds those classes 
 to an actual DOM.
 * ----------------------- */
 /*********************************************
@@ -51,19 +52,65 @@ to an actual DOM.
 ** plot_utils.js linFunction scaleLoc
 ** plot_class.js Space
 **********************************************/
-
 /**
  * *
- * @param {[numeric n x 1 array]} coord [represents the x,y,z ...
- * coordinates in a hilbert space ]
- * @param {[type]} lineSize  [The thickness of the line]
- * @param {[type]} lineStyle [The style of the line]
- * @param {[type]} lineColor [The color of the line]
- * @param {[list of jsons]} [textList] [json of the form 
- * {"frames" : numeric // this uses the duration to determine length of frame
- * , "text" : text // this can be html text
- * , "coord" : [x,y] // }]
+ * @param {[string]} conceptId [Inherited from DisplayPlot]
+ * @param {[string]} conceptExampleId [Unique tag id for specific example within concept]
+ * @param {[string]} buttonId [Unique tag id for action button]
+ * @param {[int]} height [Inherited from DisplayPlot]
+ * @param {[int]} width [Inherited from DisplayPlot]
+ * ----------------- SPACE PARAMETERS ----------------------------
+ * @param {[[start int, end int]]} xDomain [range for 2d plot on x axis, eg. [-5,5]]
+ * @param {[[start int, end int]]} yDomain [range for 2d plot on y axis, eg. [-5,5]]
+ * @param {[[x int, y int]]} numTicksArr [Number of ticks in each domain eg. x,y]
+ * @param {[[x int, y int]]} startSpace [N x 2 space of coordinates which display dots.]
+ * @param {[[spaces]]} listNextDotSpaces [N x (N x 2) List of dot spaces that describe transformations of that space]
+ * @param {[string]} dotColor [color of dots as defined in space]
+ * @param {[numeric]} dotRad  [radius of each point]
+ * @param {[numeric]} dotStrokeWidth  [thickness of donut aorund each point]
+ * @param {[string]} gridColor [color of the grid lines]
+ * @param {[string]} basisType [Which quadrants to show, 1_2_3_4 = all 4 quadrants.]
+ * ---------------- Highlighted Space Parameters ------------------
+ * @param {[numeric n x d array]} tarSpace  [Space to be highlighted with tarColor]
+ * @param {[string]} tarColor  [color of tarSpace]
+ * 
+ * @param {[set of jsons]} vecCoordJson [
+ * {"coordList" : [[[start x, start y], [end x, end y]]] // Describes movement of a vector
+ * , "color" : [string] Describes color of vector
+ * , "labels": [list string] list of text attached to vector
+ * , "labelLoc": [list [x,y]] list of coords of where text will be appear relative to vector
+ * , "lineColor": [string] The color of the line
+ * , "lineSize": [numeric] The thickness of the line // TODO: Currently fixed at 2
+ * , "lineStyle": [numeric] The style of the line
+ * }
+ * ] 
+ * @param {[numeric]} duration  [time between transition for space, vectors and caption in ms]
+ * @param {[set of jsons]} captionCoordJson [json of the form 
+ * {"textList" : [string list] // Sequence of text to be displayed
+ * , "textCoordList" : [[x int, y int]] // Sequence of coordinates where text will be displayed
+ * , "colorList" : [string list] // Sequence of colors associated with text }]
  */
+/*************************************
+* Example:
+*
+* let testSpace = new Space(xDomain = [-5,5]
+*   , yDomain = [-5, 5]
+*   , height = 500
+*   , width = 500
+*   , numTicks = 10
+*   , dotColor = "blue"
+*   , classId = "#testId"
+*   );*
+* var svgContainer = d3.select("body").append("svg:svg")
+*                                     .attr("width", 600)
+*                                     .attr("height", 600)
+*                                     .attr("class", "testId");
+* testSpace.plotSpace(svgContainer)
+* testSpace.plotBasis(svgContainer)*
+* var currSpace = testSpace.space
+* var nextDotSpace = getTransformSpace(currSpace, transMatrix)._data
+*/
+
 class DisplayConceptExamplePlot extends DisplayPlot{
     constructor({conceptId
                 , conceptExampleId
@@ -75,10 +122,9 @@ class DisplayConceptExamplePlot extends DisplayPlot{
                 , numTicksArr
                 , startSpace
                 , listNextDotSpaces = [] // a list of spaces
-                , vecCoordJson = {} // assumes textList, textCoordList, colorList
-                , captionCoordJson = {}
-                , textList = [] // a list of jsons of the form {"frames" : 2}
                 , dotColor = 'grey'
+                , vecCoordJson = {} // list of vector names with sub nested transitions
+                , captionCoordJson = {} // assumes textList, textCoordList, colorList
                 , tarSpace = []
                 , tarColor = 'red'
                 , dotRad = 5
@@ -99,6 +145,7 @@ class DisplayConceptExamplePlot extends DisplayPlot{
       this.buttonLabel = "Go!"
       this.buttonCssClass = "gobutton"
       this.duration = duration
+      this.delay = delay
       this.listNextDotSpaces = listNextDotSpaces
       
       this.makeConceptExampleDiv({conceptExampleId : conceptExampleId})
@@ -107,8 +154,6 @@ class DisplayConceptExamplePlot extends DisplayPlot{
       this.numTicksArr = numTicksArr;
 
       // Make Initial Plot
-      // 
-      
       this.currSpace = new Space({xDomain : xDomain
                                 , yDomain : yDomain
                                 , height : height
@@ -117,6 +162,10 @@ class DisplayConceptExamplePlot extends DisplayPlot{
                                 , dotColor : dotColor
                                 , space : startSpace
                                 , tarSpace : tarSpace
+                                , tarColor : tarColor
+                                , dotRad : dotRad
+                                , dotStrokeWidth : dotStrokeWidth
+                                , gridColor : gridColor
                                 , basisType : basisType}
                                 );
 
@@ -168,7 +217,7 @@ class DisplayConceptExamplePlot extends DisplayPlot{
         var delay = this.delay
         var vecCoordJson = this.vecCoordJson
         var vecObjList = this.vecObjList
-        var svgContainer = this.currSvg;
+        var svgContainer = this.currSvg
         
         d3.select("#" + this.conceptExampleId)
           .append("button")
@@ -204,21 +253,16 @@ class DisplayConceptExamplePlot extends DisplayPlot{
           )
       }
       makeVectors(){
-        // vecCoordJson = {"xVec" : [
-        //                     [[0,0], [0, 1]]
-        //                   , [[0, 0], [0, 3]]
-        //                   , [[0,0], [2,4]]]
-        //               , "yVec" : [[[0, 0], [3, 0]]
-        //                   , [[0,0], [2,5]]]};
+        // Ignore if no vectors are passed
         this.vecObjList = []
         if(Object.keys(this.vecCoordJson).length == 0){
           return;
         }
         
-        // var svgContainer = d3.select("#" + this.conceptExampleId)
-        //                         .select("svg");
+        // Create svg container to hold all vectors
         var svgContainer = this.currSvg;
 
+        // Populate each vector
         for(var vecName in this.vecCoordJson){
           var vec = this.vecCoordJson[vecName];
           var vecCoordList = vec["coordList"]
@@ -236,7 +280,7 @@ class DisplayConceptExamplePlot extends DisplayPlot{
           let tmpVec = new Vector({startCoord : startCoord[0]
             , endCoord : startCoord[1]
             , lineSize : 2
-            , lineStyle : "solid"
+            , lineStyle : vec['style']
             , height : this.height
             , width : this.width
             , numTicksArr : this.numTicksArr
@@ -247,39 +291,11 @@ class DisplayConceptExamplePlot extends DisplayPlot{
             , hasHead : vec["hasHead"]
             , labels : labels
             , labelLoc : labelLoc}
-            // , coordList : vecCoordList.slice(1, vecCoordList.length)}
             );
       
           this.vecObjList.push(tmpVec);
           tmpVec.getVector(svgContainer);
-          // if(vec["isLine"] == true){
-          //   tmpVec.getLine(svgContainer);
-          // }else{
-          //   tmpVec.getVector(svgContainer);  
-          // }
-          
           tmpVec.getText(svgContainer);
         }
       }
-
 }
-// let testSpace = new Space(xDomain = [-5,5]
-//   , yDomain = [-5, 5]
-//   , height = 500
-//   , width = 500
-//   , numTicks = 10
-//   , dotColor = "blue"
-//   , classId = "#testId"
-//   );
-
-
-// var svgContainer = d3.select("body").append("svg:svg")
-//                                     .attr("width", 600)
-//                                     .attr("height", 600)
-//                                     .attr("class", "testId");
-// testSpace.plotSpace(svgContainer)
-// testSpace.plotBasis(svgContainer)
-
-// var currSpace = testSpace.space
-// var nextDotSpace = getTransformSpace(currSpace, transMatrix)._data
-

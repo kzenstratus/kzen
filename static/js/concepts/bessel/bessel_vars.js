@@ -42,7 +42,8 @@ var vecCoordJsonBesselBias = {
             ,
         "hasHead": false,
         "labels": Array(5).fill("avg 1"),
-        "labelLoc": Array(5).fill([-45, 15])
+        "labelLoc": Array(5).fill([-45, 15]),
+        "style" : "solid"
     },
     "movingMean": {
         "coordList": [
@@ -71,7 +72,8 @@ var vecCoordJsonBesselBias = {
             ,
         "hasHead": false,
         "labels": Array(5).fill("avg 2"),
-        "labelLoc": Array(5).fill([10, 15])
+        "labelLoc": Array(5).fill([10, 15]),
+        "style" : "solid"
 
     },
     "right": {
@@ -100,7 +102,8 @@ var vecCoordJsonBesselBias = {
         "color": "#6bcc35" // "#6bcc35" // green
             ,
         "labels": Array(5).fill("a"),
-        "labelLoc": Array(5).fill([5, -10])
+        "labelLoc": Array(5).fill([5, -10]),
+        "style" : "solid"
     }
     ,
     "left": {
@@ -129,7 +132,8 @@ var vecCoordJsonBesselBias = {
         "color": "#6bcc35" // "#6bcc35" // green
             ,
         "labels": Array(5).fill("b"),
-        "labelLoc": Array(5).fill([-11, -10])
+        "labelLoc": Array(5).fill([-11, -10]),
+        "style" : "solid"
     }
 };
 var captionCoordJson = {
@@ -167,7 +171,6 @@ besselBiasPayload = {
     "captionCoordJson": captionCoordJson
 
 };
-
 
 var vecCoordJsonBesselBiasVar = {
 
