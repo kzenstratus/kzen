@@ -5,16 +5,7 @@
  ** plot_class.js Space
  **********************************************/
 /**
- * *
- * @param {[numeric n x 1 array]} coord [represents the x,y,z ...
- * coordinates in a hilbert space ]
- * @param {[type]} lineSize  [The thickness of the line]
- * @param {[type]} lineStyle [The style of the line]
- * @param {[type]} lineColor [The color of the line]
- * @param {[list of jsons]} [textList] [json of the form 
- * {"frames" : numeric // this uses the duration to determine length of frame
- * , "text" : text // this can be html text
- * , "coord" : [x,y] // }]
+ * 
  */
 class DisplayDoubleConceptExamplePlot {
     constructor({
@@ -101,9 +92,9 @@ class DisplayDoubleConceptExamplePlot {
             vecCoordJson: payload.vecCoordJson,
             captionCoordJson: payload.captionCoordJson,
             duration: this.duration,
-            basisType:"1_4"
+            basisType:"xNumLine"
         })
-
+        
         this.firstPlot.currSpace.space = payload.space
         this.firstPlot.makePlot();
         this.firstPlot.makeVectors();

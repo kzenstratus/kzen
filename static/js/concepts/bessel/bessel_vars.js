@@ -73,7 +73,7 @@ var vecCoordJsonBesselBias = {
         "hasHead": false,
         "labels": Array(5).fill("avg 2"),
         "labelLoc": Array(5).fill([10, 15]),
-        "style" : "solid"
+        "style" : "dash"
 
     },
     "right": {

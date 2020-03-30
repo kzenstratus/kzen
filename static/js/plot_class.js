@@ -6,7 +6,7 @@
  * @param {int list} xDomain [2 value list representing the xDomain]
  * @param {int list} yDomain [2 value list representing the yDomain]
  * @param {double} width [The width of a container]
- * @param {int} numTicks [number of ticks in the whole range.]
+ * @param {[x int, y int]} numTicksArr [number of ticks in the whole range on each axis]
  * @return {svg} [contains the lines for the grid]
  **/
 class BasisPlot {
@@ -24,7 +24,9 @@ class BasisPlot {
         this.width = width;
         this.numTicksArr = numTicksArr;
         this.basisType = basisType
-        this.bot_axis = getGridlines({
+        this.xDomain = xDomain
+        this.yDomain = yDomain
+        this.botAxis = getGridlines({
             domain: xDomain,
             range: width,
             tickSize: -height, // use ticksize to draw gridline.
@@ -32,7 +34,7 @@ class BasisPlot {
             isX: true
         });
 
-        this.top_axis = getGridlines({
+        this.topAxis = getGridlines({
             domain: xDomain,
             range: width,
             tickSize: height,
@@ -40,7 +42,7 @@ class BasisPlot {
             isX: true
         });
 
-        this.left_axis = getGridlines({
+        this.leftAxis = getGridlines({
             domain: yDomain,
             range: height,
             tickSize: -width,
@@ -48,7 +50,7 @@ class BasisPlot {
             isX: false
         });
 
-        this.right_axis = getGridlines({
+        this.rightAxis = getGridlines({
             domain: yDomain,
             range: height,
             tickSize: width,
@@ -56,18 +58,28 @@ class BasisPlot {
             isX: false
         });
 
+        // Number line in the middle of the plot
+        this.xNumLine = getGridlines({
+          domain: xDomain,
+          range: width,
+          tickSize: -height/(100),
+          numTicks: numTicksArr[0],
+          isX: true
+      });
     }
     makePlot() {
         var funcMap = {
             "1_2_3_4": this.make1234,
             "1_2": this.make12,
-            "1_4" : this.make14
+            "1_4" : this.make14,
+            "xNumLine" : this.makeXNumLine
         };
         var axes = {
-            "top": this.top_axis,
-            "bot": this.bot_axis,
-            "left": this.left_axis,
-            "right": this.right_axis
+            "top": this.topAxis,
+            "bot": this.botAxis,
+            "left": this.leftAxis,
+            "right": this.rightAxis,
+            "xNumLine": this.xNumLine
         }
         // Execute basis Function
         // somehow I can't call a class function from another function and have the original
@@ -79,8 +91,11 @@ class BasisPlot {
             ,numTicksArr : this.numTicksArr
             ,axes : axes
         });
+
+        // Adjust the style of the axis
+        
     }
-    make1234({ svg, height, width, bot_axis, numTicksArr, axes} = {}) {
+    make1234({ svg, height, width, numTicksArr, xDomain, yDomain, axes} = {}) {
 
         svg.append("g")
             .attr('transform', "translate(-0.5," + (height / 2) + ")")
@@ -98,7 +113,7 @@ class BasisPlot {
             .attr('transform', "translate(" + width / 2 + ",-0.5)")
             .call(axes["right"]);
     }
-    make12({ svg, height, width, bot_axis, numTicksArr, axes} = {}) {
+    make12({ svg, height, width, numTicksArr, axes} = {}) {
         svg.append("g")
             .attr('transform', "translate(-0.5," + (height - (height / numTicksArr[1])) + ")")
             .call(axes["bot"]);
@@ -111,7 +126,7 @@ class BasisPlot {
             .attr('transform', "translate(" + width / 2 + ",-0.5)")
             .call(axes["right"]);
     }
-    make14({ svg, height, width, bot_axis, numTicksArr, axes} = {}) {
+    make14({ svg, height, width, numTicksArr, axes} = {}) {
         
         svg.append("g")
             .attr('transform', "translate(-0.5," + (height / 2) + ")")
@@ -125,6 +140,39 @@ class BasisPlot {
             .attr('transform', "translate(" + -1 + ",-0.5)")
             .call(axes["left"]);
     }
+    makeXNumLine({ svg, height, width, numTicksArr, axes} = {}) {
+      // Overlay 2 vectors for thicker lines and to get an arrow.
+      
+      var rAxis = new Vector({startCoord : [0, 0]
+        , endCoord : [numTicksArr[0] / 2 - numTicksArr[0]/50, 0]
+        , lineSize : 1
+        , lineStyle : 'solid'
+        , height : height
+        , width : width
+        , numTicksArr : numTicksArr
+        , color : "black"
+        , arrowId : "rNumLine"
+        , hasHead : true}
+        );
+
+      var lAxis = new Vector({startCoord : [0, 0]
+        , endCoord : [-(numTicksArr[0] / 2), 0]
+        , lineSize : 1
+        , lineStyle : 'solid'
+        , height : height
+        , width : width
+        , numTicksArr : numTicksArr
+        , color : "black"
+        , arrowId : "lNumLine"
+        , hasHead : true}
+        );
+      svg.append("g")
+          .attr('transform', "translate(-0.5," + (height / 2) + ")")
+          .call(axes["xNumLine"]);
+      rAxis.getVector(svg);
+      lAxis.getVector(svg);
+      
+  }
 }
 
 
@@ -241,16 +289,17 @@ class Vector {
     getLine(someSvg) {
 
         var lineData = [this.startCoord, this.endCoord];
-
-        return (someSvg.append("path")
-            // .attr("id", "vecLine")
+        someSvg.append("path")
             .attr("class", "vector")
             .attr("id", this.arrowId)
             .attr("d", linFunction(lineData))
             .attr("stroke", this.arrowColor)
             .attr("stroke-width", this.lineSize)
             .attr("fill", "none")
-        )
+        if (this.lineStyle == 'dash'){
+          d3.select("path.vector#" + this.arrowId)
+            .style("stroke-dasharray", ("3, 3"))
+        }
     }
 
     getArrowHead(someSvg) {
