@@ -17,124 +17,95 @@ var vecCoordJsonBesselBias = {
 
     "staticMean": {
         "coordList": [
-            [
-                [0, -5],
-                [0, 5]
-            ],
-            [
-                [0, -5],
-                [0, 5]
-            ],
-            [
-                [0, -5],
-                [0, 5]
-            ],
-            [
-                [0, -5],
-                [0, 5]
-            ],
-            [
-                [0, -5],
-                [0, 5]
-            ]
+          [[0, -5],[0, 5]]
+          , [[0, -5],[0, 5]]
+          , [[0, -5],[0, 5]]
+          , [[0, -5],[0, 5]]
+          , [[0, -5],[0, 5]]
+          , [[0, -5],[0, 5]]
         ],
         "color": "#68a2ff" // blue
             ,
         "hasHead": false,
-        "labels": Array(5).fill("avg 1"),
-        "labelLoc": Array(5).fill([-45, 15]),
+        "labels": Array(6).fill("avg 1"),
+        "labelLoc": Array(6).fill([-45, 15]),
         "style" : "solid"
     },
     "movingMean": {
         "coordList": [
-            [
-                [0, -5],
-                [0, 5]
-            ],
-            [
-                [3, -5],
-                [3, 5]
-            ],
-            [
-                [0, -5],
-                [0, 5]
-            ],
-            [
-                [-3, -5],
-                [-3, 5]
-            ],
-            [
-                [0, -5],
-                [0, 5]
-            ],
+          [[0, -5],[0, 5]]
+          , [[0, -5],[0, 5]]
+          , [[3, -5],[3, 5]]
+          , [[0, -5],[0, 5]]
+          , [[-3, -5],[-3, 5]]
+          , [[0, -5],[0, 5]]
         ],
         "color": "#FD5F00" // orange
             ,
         "hasHead": false,
-        "labels": Array(5).fill("avg 2"),
-        "labelLoc": Array(5).fill([10, 15]),
+        "labels": Array(6).fill("avg 2"),
+        "labelLoc": Array(6).fill([10, 15]),
         "style" : "dash"
 
     },
     "right": {
         "coordList": [
-            [
-                [2, 0],
-                [0,  0]
-            ],
-            [
-                [2, 0],
-                [3, 0]
-            ],
-            [
-                [2, 0],
-                [0,  0]
-            ],
-            [
-                [2, 0],
-                [-3,  0]
-            ],
-            [
-                [2, 0],
-                [0,  0]
-            ]
+            [[2, 1], [0,  1]]
+          , [[2, 1], [3, 1]]
+          , [[2, 1], [0, 1]]
+          , [[2, 1], [-3, 1]]
+          , [[2, 1], [0, 1]]
         ],
-        "color": "#6bcc35" // "#6bcc35" // green
+        "color": "#FD5F00"// orange // "#6bcc35"green
             ,
-        "labels": Array(5).fill("a"),
-        "labelLoc": Array(5).fill([5, -10]),
+        "labels": Array(6).fill("a"),
+        "labelLoc": Array(6).fill([5, -10]),
         "style" : "solid"
     }
     ,
     "left": {
         "coordList": [
-            [
-                [-2, 0],
-                [0,  0]
-            ],
-            [
-                [-2, 0],
-                [3, 0]
-            ],
-            [
-                [-2, 0 ],
-                [ 0, 0 ]
-            ],
-            [
-                [-2, 0],
-                [-3,  0]
-            ],
-            [
-                [-2, 0],
-                [0,  0]
-            ]
+            [[-2, 0.5], [0, 0.5]]
+          , [[-2, 0.5], [3, 0.5]]
+          , [[-2, 0.5], [0, 0.5]]
+          , [[-2, 0.5], [-3, 0.5]]
+          , [[-2, 0.5], [0,  0.5]]
         ],
-        "color": "#6bcc35" // "#6bcc35" // green
+        "color": "#FD5F00"// orange  // "#6bcc35" green
             ,
-        "labels": Array(5).fill("b"),
-        "labelLoc": Array(5).fill([-11, -10]),
+        "labels": Array(6).fill("b"),
+        "labelLoc": Array(6).fill([-11, -10]),
         "style" : "solid"
-    }
+    },
+    "rightT": {
+      "coordList": [
+          [[2, 1], [0,  1]]
+        , [[4, 0], [4,  2]]
+        , [[4, 0], [4, 0]]
+        , [[4, 0], [4, 1]]
+        , [[4, 0], [4, 1]]
+        , [[4, 0], [0, 1]]
+      ],
+      "color": "#FD5F00"// orange // "#6bcc35"green
+          ,
+      "labels": Array(6).fill("a"),
+      "labelLoc": Array(6).fill([5, -10]),
+      "style" : "solid"
+  },
+  "leftT": {
+      "coordList": [
+          [[-2, 0.5], [0, 0.5]]
+        , [[-2, 0.5], [3, 0.5]]
+        , [[-2, 0.5], [0, 0.5]]
+        , [[-2, 0.5], [-3, 0.5]]
+        , [[-2, 0.5], [0,  0.5]]
+      ],
+      "color": "#FD5F00"// orange  // "#6bcc35" green
+          ,
+      "labels": Array(6).fill("b"),
+      "labelLoc": Array(6).fill([-11, -10]),
+      "style" : "solid"
+  }
 };
 var captionCoordJson = {
     "top_caption": {

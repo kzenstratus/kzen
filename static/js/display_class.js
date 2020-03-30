@@ -137,7 +137,7 @@ class DisplayConceptExamplePlot extends DisplayPlot{
       super({conceptId : conceptId
               , height : height
               , width : width})
-
+      
       // You can have multiple concept examples underneath a conceptId
       this.conceptExampleId = conceptExampleId; 
 
@@ -182,30 +182,13 @@ class DisplayConceptExamplePlot extends DisplayPlot{
         
       }
       makeText(){
-        
-        this.captionObjList = []
-        if(Object.keys(this.captionCoordJson).length == 0){
-          return;
-        }
-        
-        for(var captionName in this.captionCoordJson){
-          
-          var currCaption = this.captionCoordJson[captionName];
-
-          var caption = new Text({labelId : this.conceptExampleId + "_" + captionName + "_caption"
-                               , height : this.height
-                               , width : this.width
-                               , numTicksArr : this.numTicksArr
-                               , textList : currCaption['textList']
-                               , coordList : currCaption['textCoordList']
-                               , colorList : currCaption['colorList']
-                               });
-
-          caption.getText({someSvg : this.currSvg})
-
-          this.captionObjList.push(caption)
-        }
-        
+        this.captionObjList = makeText({numTicksArr : this.numTicksArr,
+          captionCoordJson : this.captionCoordJson,
+          currSvg : this.currSvg, // svg container to hold all vectors
+          height : this.height,
+          width : this.width,
+          conceptExampleId : this.conceptExampleId,
+          captionObjList : this.captionObjList})
       }
 
       makeButton(){
@@ -253,49 +236,99 @@ class DisplayConceptExamplePlot extends DisplayPlot{
           )
       }
       makeVectors(){
-        // Ignore if no vectors are passed
-        this.vecObjList = []
-        if(Object.keys(this.vecCoordJson).length == 0){
-          return;
-        }
-        
-        // Create svg container to hold all vectors
-        var svgContainer = this.currSvg;
-
-        // Populate each vector
-        for(var vecName in this.vecCoordJson){
-          var vec = this.vecCoordJson[vecName];
-          var vecCoordList = vec["coordList"]
-          var startCoord = vecCoordList[0];
-          
-          var labels = null
-          if(typeof vec['labels'] !== 'undefined'){
-            labels = vec['labels']
-          }
-          var labelLoc = null
-          if(typeof vec['labelLoc'] !== 'undefined'){
-            labelLoc = vec['labelLoc']
-          }
-          // console.log(labels)
-          let tmpVec = new Vector({startCoord : startCoord[0]
-            , endCoord : startCoord[1]
-            , lineSize : 2
-            , lineStyle : vec['style']
-            , height : this.height
-            , width : this.width
-            , numTicksArr : this.numTicksArr
-            , color : vec["color"]
-            , arrowId : this.conceptExampleId + vecName
-            // Vec coord list starts at index 1, don't repeat index 0.
-            , coordList : vecCoordList
-            , hasHead : vec["hasHead"]
-            , labels : labels
-            , labelLoc : labelLoc}
-            );
-      
-          this.vecObjList.push(tmpVec);
-          tmpVec.getVector(svgContainer);
-          tmpVec.getText(svgContainer);
-        }
+        this.vecObjList = makeVectors({numTicksArr : this.numTicksArr,
+                                      vecCoordJson : this.vecCoordJson,
+                                      svgContainer : this.currSvg, // svg container to hold all vectors
+                                      height : this.height,
+                                      width : this.width,
+                                      conceptExampleId : this.conceptExampleId,
+                                      lineSize : 2,
+                                      vecObjList : this.vecObjList})
       }
+}
+
+var makeText = function({numTicksArr,
+                         captionCoordJson,
+                         currSvg,
+                         height,
+                         width,
+                         conceptExampleId,
+                         captionObjList = []
+                        } = {}){
+  
+  if(Object.keys(captionCoordJson).length == 0){
+    return;
+  }
+  
+  for(let captionName in captionCoordJson){
+    
+    let currCaption = captionCoordJson[captionName];
+
+    let caption = new Text({labelId : conceptExampleId + "_" + captionName + "_caption"
+                         , height : height
+                         , width : width
+                         , numTicksArr : numTicksArr
+                         , textList : currCaption['textList']
+                         , coordList : currCaption['textCoordList']
+                         , colorList : currCaption['colorList']
+                         });
+
+    caption.getText({someSvg : currSvg})
+    captionObjList.push(caption)
+  }
+  return(captionObjList)
+}
+
+// Helper function used by the Display Class
+var makeVectors = function({numTicksArr,
+                            vecCoordJson,
+                            svgContainer, // svg container to hold all vectors
+                            height,
+                            width,
+                            conceptExampleId,
+                            lineSize = 2,
+                            vecObjList = []
+                          } = {}){
+  // Ignore if no vectors are passed
+  if(Object.keys(vecCoordJson).length == 0){
+    return;
+  }
+  
+  // Populate each vector
+  for(let vecName in vecCoordJson){
+    
+    let vec = vecCoordJson[vecName];
+    let vecCoordList = vec["coordList"]
+    let startCoord = vecCoordList[0];
+    
+    let labels = null
+    if(typeof vec['labels'] !== 'undefined'){
+      labels = vec['labels']
+    }
+    let labelLoc = null
+    if(typeof vec['labelLoc'] !== 'undefined'){
+      labelLoc = vec['labelLoc']
+    }
+    // console.log(labels)
+    let tmpVec = new Vector({startCoord : startCoord[0]
+      , endCoord : startCoord[1]
+      , lineSize : lineSize
+      , lineStyle : vec['style']
+      , height : height
+      , width : width
+      , numTicksArr : numTicksArr
+      , color : vec["color"]
+      , arrowId : conceptExampleId + vecName
+      // Vec coord list starts at index 1, don't repeat index 0.
+      , coordList : vecCoordList
+      , hasHead : vec["hasHead"]
+      , labels : labels
+      , labelLoc : labelLoc}
+      );
+
+    vecObjList.push(tmpVec);
+    tmpVec.getVector(svgContainer);
+    tmpVec.getText(svgContainer);
+  }
+  return(vecObjList)
 }

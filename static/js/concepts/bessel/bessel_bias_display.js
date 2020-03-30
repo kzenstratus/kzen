@@ -88,7 +88,7 @@ class DisplayDoubleConceptExamplePlot {
             height: this.height,
             width: this.width,
             numTicksArr: payload.numTicksArr,
-            dotColor: "red",
+            dotColor: "black",
             vecCoordJson: payload.vecCoordJson,
             captionCoordJson: payload.captionCoordJson,
             duration: this.duration,
@@ -167,6 +167,71 @@ class DisplayDoubleConceptExamplePlot {
     }
 
 
+}
+
+
+class DisplayBesselBias extends DisplayPlot{
+  constructor({
+    conceptId,
+    height,
+    width,
+    buttonId,
+    duration = 8000,
+    delay = 0 // this ONLY WORKS WITH DELAY = 0
+  } = {}) {
+    // This one plot will have 2 figures in there.
+    super({conceptId : conceptId
+          , height : height
+          , width : width})
+    this.conceptExampleId = "bessel-bias-simple"
+    this.buttonId = buttonId;
+    this.buttonLabel = "Go!"
+    this.buttonCssClass = "gobutton"
+    this.vecObjList = []
+    this.duration = duration
+    this.delay = delay
+  }
+  makeFirstPlot({ conceptExampleId,
+                  payload,
+                  numTicksArr
+                 } = {}) {
+    let _numTicksArr = [10,10]
+    let _height = 500
+    let _width = 500
+    let firstSpace = new Space({xDomain : [-5, 5]
+      , yDomain : [-5, 5]
+      , height : _height
+      , width : _width
+      , numTicksArr : _numTicksArr
+      , dotColor : "black"
+      , space : get2dDotSpace([-5, 5], [-5, 5], 10)
+      , basisType : "xNumLine"
+    })
+
+    let vecObjList = makeVectors({numTicksArr : _numTicksArr,
+      vecCoordJson : this.vecCoordJson,
+      svgContainer : this.currSvg, // svg container to hold all vectors
+      height : _height,
+      width : _width,
+      conceptExampleId : this.conceptExampleId,
+      lineSize : 2})
+
+
+    // this.firstPlot = new DisplayConceptExamplePlot({
+    //     conceptId: this.conceptId,
+    //     conceptExampleId: "bessel-bias-first",
+    //     xDomain: payload.plotDomain,
+    //     yDomain: payload.plotDomain,
+    //     height: this.height,
+    //     width: this.width,
+    //     numTicksArr: payload.numTicksArr,
+    //     dotColor: "black",
+    //     vecCoordJson: payload.vecCoordJson,
+    //     captionCoordJson: payload.captionCoordJson,
+    //     duration: this.duration,
+    //     basisType:"xNumLine"
+    // })
+  }
 }
 
 class BesselBiasPointAlongCurve {

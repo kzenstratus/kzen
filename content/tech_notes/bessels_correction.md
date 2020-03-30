@@ -38,19 +38,23 @@ $$\bar{x}$$
 
 
 <script type="text/javascript">
-  let testDisplay = new DisplayDoubleConceptExamplePlot({conceptId : "bessel-bias"
+  let testDisplay = new DisplayBesselBias({conceptId : "bessel-bias"
     , height : 500
     , width : 500
     , buttonId : "besselButton"
     });
+
+    
+
+
   
   testDisplay.makeFirstPlot({conceptExampleId : "blahblah1"
                                     , payload : besselBiasPayload});
-  var curve = testDisplay.makeSecondPlot({conceptExampleId : "blahblah2"
-                                    , payload: besselBiasVarPayload});
+  // var curve = testDisplay.makeSecondPlot({conceptExampleId : "blahblah2"
+  //                                   , payload: besselBiasVarPayload});
   // testDisplay.makeConceptExampleDiv({conceptExampleId : 'blahblah3'})
   // testDisplay.makeConceptExampleSvg({conceptExampleId : 'blahblah3'})
-  testDisplay.makeButton()
+  // testDisplay.makeButton()
   // var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
   //         , conceptExampleId : 'lin-combo-example'
   //         , buttonId : linComboPayload.buttonId
