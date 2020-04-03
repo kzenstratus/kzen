@@ -165,8 +165,6 @@ class DisplayDoubleConceptExamplePlot {
 
 
     }
-
-
 }
 
 
@@ -182,7 +180,7 @@ class DisplayBesselBias extends DisplayPlot{
     // This one plot will have 2 figures in there.
     super({conceptId : conceptId
           , height : height
-          , width : width})
+          , width : 1200})
     this.conceptExampleId = "bessel-bias-simple"
     this.buttonId = buttonId;
     this.buttonLabel = "Go!"
@@ -190,48 +188,185 @@ class DisplayBesselBias extends DisplayPlot{
     this.vecObjList = []
     this.duration = duration
     this.delay = delay
+
+    this.makeConceptExampleDiv({conceptExampleId : this.conceptExampleId})
+    this.makeConceptExampleSvg({conceptExampleId : this.conceptExampleId})
+
   }
-  makeFirstPlot({ conceptExampleId,
-                  payload,
-                  numTicksArr
-                 } = {}) {
+  makeFirstPlot({captionCoordJson, vecCoordJson} = {}) {
     let _numTicksArr = [10,10]
     let _height = 500
     let _width = 500
+    
     let firstSpace = new Space({xDomain : [-5, 5]
       , yDomain : [-5, 5]
       , height : _height
       , width : _width
       , numTicksArr : _numTicksArr
       , dotColor : "black"
-      , space : get2dDotSpace([-5, 5], [-5, 5], 10)
+      , space : [[2, 0], [-2, 0]]
       , basisType : "xNumLine"
     })
 
-    let vecObjList = makeVectors({numTicksArr : _numTicksArr,
-      vecCoordJson : this.vecCoordJson,
-      svgContainer : this.currSvg, // svg container to hold all vectors
-      height : _height,
-      width : _width,
-      conceptExampleId : this.conceptExampleId,
-      lineSize : 2})
-
-
-    // this.firstPlot = new DisplayConceptExamplePlot({
-    //     conceptId: this.conceptId,
-    //     conceptExampleId: "bessel-bias-first",
-    //     xDomain: payload.plotDomain,
-    //     yDomain: payload.plotDomain,
-    //     height: this.height,
-    //     width: this.width,
-    //     numTicksArr: payload.numTicksArr,
-    //     dotColor: "black",
-    //     vecCoordJson: payload.vecCoordJson,
-    //     captionCoordJson: payload.captionCoordJson,
-    //     duration: this.duration,
-    //     basisType:"xNumLine"
-    // })
+    // Create Number line
+    firstSpace.plotBasis({someSvg : this.currSvg})
+    // Plot points
+    firstSpace.plotSpace({someSvg : this.currSvg})
+    // Create caption list of actions
+    let captionObjList = makeText({numTicksArr : _numTicksArr
+                                  , captionCoordJson : captionCoordJson
+                                  , currSvg : this.currSvg // svg container to hold all vectors
+                                  , height : _height
+                                  , width : _width
+                                  , conceptExampleId : this.conceptExampleId})
+    
+    // Create vectors and action sequence
+    let vecObjList = makeVectors({numTicksArr : _numTicksArr
+      , vecCoordJson : vecCoordJson
+      , svgContainer : this.currSvg // svg container to hold all vectors
+      , height : _height
+      , width : _width
+      , conceptExampleId : this.conceptExampleId
+      , lineSize : 2})
+    this.firstPlot = {vecObjList : vecObjList, captionObjList : captionObjList}
   }
+      // for different tensions look at this
+    // http://bl.ocks.org/valex/1c6f648d0b035c6b2f2269c56d64e696
+  makeSecondPlot({space, curveFunc = d3.curveCardinal, tension = 0} = {}) {
+
+    let _numTicksArr = [10,20]
+    let _height = 500
+    let _width = 500
+    let _xDomain = [-5, 5]
+    let _yDomain = [-5, 5]
+    let _hShift = 600 // second plot starts 600 to the right
+    
+    // Lots of copy pasta from Space class, but this is too custom to make abstract.
+
+    function plotSecondBasis({ svg, xDomain, yDomain, height, width, numTicksArr} = {}) {
+      
+      let botAxis  = getGridlines({
+        domain: xDomain,
+        range: width,
+        tickSize: -height, // use ticksize to draw gridline.
+        numTicks: numTicksArr[0],
+        isX: true
+    });
+      let leftAxis = getGridlines({
+        domain: yDomain,
+        range: height,
+        tickSize: -width/2,
+        numTicks: numTicksArr[1],
+        isX: false
+    });
+
+      let rightAxis = getGridlines({
+        domain: yDomain,
+        range: height,
+        tickSize: width/2,
+        numTicks: numTicksArr[1],
+        isX: false
+      });
+
+      svg.append("g")
+          .attr('transform', "translate(" + _hShift + "," + (height - (height / numTicksArr[1])) + ")")
+          .call(botAxis);
+      // Goes from 600 -> 1100, middle is 850
+      svg.append("g")
+          .attr('transform', "translate(850," + -0.5 + ")")
+          .call(leftAxis);
+
+      svg.append("g")
+          .attr('transform', "translate(850," + -0.5 + ")")
+          .call(rightAxis);
+  }
+    plotSecondBasis({svg : this.currSvg
+                    , xDomain : _xDomain
+                  , yDomain : _yDomain
+                  , width : _width
+                  , height : _height
+                  , numTicksArr : _numTicksArr})
+
+    // // Adding Curve
+    let currSvg = this.currSvg
+                  .append('g')
+
+    var lineGenerator = d3.line()
+                          .curve(curveFunc.tension(tension));
+
+    var scaledCurvePoints = scaleLocSpace({
+                                          space: space,
+                                          numTicksArr: _numTicksArr,
+                                          height: _height,
+                                          width: _width,
+                                          hShift : 600
+                                          })
+    // console.log(scaledCurvePoints)
+    // console.log(lineGenerator(scaledCurvePoints))
+    // This was just me messing around
+    // var secondPath = scaledCurvePoints;
+    // var firstPath = secondPath.splice(2,4)
+    // secondPath.reverse().unshift(firstPath[0])
+
+    var curve = currSvg.append('path')
+    .data([scaledCurvePoints])
+    .attr('id', "bessel_curve")
+    .attr('d', lineGenerator)
+    .attr('fill', 'none')
+    .attr('stroke', 'black')
+
+    this.besselVarPoint = new BesselBiasPointAlongCurve({
+    curve: curve,
+    startCoord: [250 + _hShift, 475],
+    pointSize: 8
+    })
+
+    this.besselVarPoint.makePoint({ currSvg: currSvg })
+
+
+}
+
+  makeButton({} = {}) {
+    let duration = this.duration
+    // var vecCoordJson = this.vecCoordJson
+    let vecObjList = this.firstPlot.vecObjList
+    let firstPlot = this.firstPlot
+    let svgContainer = this.currSvg
+    // var svgContainer = d3.select("#" + this.conceptExampleId)
+    //                         .select("svg");
+    var secondPlotPoint = this.besselVarPoint
+    let delay = this.delay
+    console.log(this.buttonId)
+    d3.select("#" + this.conceptId)
+        .append("button")
+        .attr("class", this.buttonCssClass)
+        .attr("id", this.buttonId)
+        .text(this.buttonLabel)
+        .on('click', function() {
+            // move space
+            for (let i in vecObjList) {
+                let vecObj = vecObjList[i]
+                vecObj.move({
+                    someSvg: svgContainer,
+                    duration: duration,
+                    delay: delay,
+                    ease: d3.easeLinear
+                })
+            }
+
+            if (firstPlot.caption != null) {
+                firstPlot.caption.move({ someSvg: svgContainer, duration: duration })
+            }
+
+            // make bessel var point
+            secondPlotPoint.move({
+                totalDuration: duration * 4, // essentially 3 vector movements
+                delay: delay
+            });
+
+        })
+      }
+
 }
 
 class BesselBiasPointAlongCurve {

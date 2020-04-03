@@ -39,8 +39,8 @@ $$\bar{x}$$
 
 <script type="text/javascript">
   let testDisplay = new DisplayBesselBias({conceptId : "bessel-bias"
-    , height : 500
-    , width : 500
+    , height : besselBiasPayload.plotHeight
+    , width : besselBiasPayload.plotWidth
     , buttonId : "besselButton"
     });
 
@@ -48,8 +48,11 @@ $$\bar{x}$$
 
 
   
-  testDisplay.makeFirstPlot({conceptExampleId : "blahblah1"
-                                    , payload : besselBiasPayload});
+  testDisplay.makeFirstPlot({captionCoordJson: besselBiasVarPayload.captionCoordJson
+                            ,vecCoordJson : vecCoordJsonBesselBias});
+  testDisplay.makeSecondPlot({conceptExampleId : "blahblah2"
+                                    , space: besselBiasVarPayload.space});
+  testDisplay.makeButton();                           
   // var curve = testDisplay.makeSecondPlot({conceptExampleId : "blahblah2"
   //                                   , payload: besselBiasVarPayload});
   // testDisplay.makeConceptExampleDiv({conceptExampleId : 'blahblah3'})

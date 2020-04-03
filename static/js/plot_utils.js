@@ -109,7 +109,7 @@ var linFunction = d3.line()
     .x(function(d) { return d[0]; })
     .y(function(d) { return d[1]; });
 
-var scaleLocSpace = function({space, numTicksArr, height, width} = {}){
+var scaleLocSpace = function({space, numTicksArr, height, width, hShift = 0, vShift = 0} = {}){
   var scaledSpace = []
   for (var i = 0; i < space.length; i++) {
     scaledSpace.push(scaleLoc({tarCoord : space[i]
@@ -117,19 +117,21 @@ var scaleLocSpace = function({space, numTicksArr, height, width} = {}){
                                 , numTicksY : numTicksArr[1]
                                 , height : height
                                 , width : width
+                                , hShift : hShift
+                                , vShift : vShift
                                 }
                               ))
   }
   return(scaledSpace)
 }
-
-var scaleLoc = function({tarCoord, numTicksX, numTicksY = numTicksX, height, width} = {}) {
+// hShift does a horizontal shift to all your points (this matters if you don't start at 0)
+var scaleLoc = function({tarCoord, numTicksX, numTicksY = numTicksX, height, width, hShift = 0, vShift = 0} = {}) {
     if (tarCoord[0] == null) {
         return (tarCoord)
     }
     // height must be - tar coord, since 0,0 is at the top, not the bottom.
-    return ([width / 2 + tarCoord[0] * width / numTicksX
-          , height / 2 - tarCoord[1] * height / numTicksY])
+    return ([hShift + width / 2 + tarCoord[0] * width / numTicksX
+          , vShift + height / 2 - tarCoord[1] * height / numTicksY])
 }
 
 // ARRAY COMPARISON

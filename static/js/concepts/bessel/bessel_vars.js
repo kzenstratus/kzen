@@ -33,7 +33,7 @@ var vecCoordJsonBesselBias = {
     },
     "movingMean": {
         "coordList": [
-          [[0, -5],[0, 5]]
+            [[0, -5],[0, 5]]
           , [[0, -5],[0, 5]]
           , [[3, -5],[3, 5]]
           , [[0, -5],[0, 5]]
@@ -50,11 +50,12 @@ var vecCoordJsonBesselBias = {
     },
     "right": {
         "coordList": [
-            [[2, 1], [0,  1]]
-          , [[2, 1], [3, 1]]
-          , [[2, 1], [0, 1]]
-          , [[2, 1], [-3, 1]]
-          , [[2, 1], [0, 1]]
+            [[2, 1.5], [0, 1.5]]
+          , [[2, 1.5], [0, 1.5]]
+          , [[2, 1.5], [3, 1.5]]
+          , [[2, 1.5], [0, 1.5]]
+          , [[2, 1.5], [-3,1.5]]
+          , [[2, 1.5], [0, 1.5]]
         ],
         "color": "#FD5F00"// orange // "#6bcc35"green
             ,
@@ -65,11 +66,12 @@ var vecCoordJsonBesselBias = {
     ,
     "left": {
         "coordList": [
-            [[-2, 0.5], [0, 0.5]]
-          , [[-2, 0.5], [3, 0.5]]
-          , [[-2, 0.5], [0, 0.5]]
-          , [[-2, 0.5], [-3, 0.5]]
-          , [[-2, 0.5], [0,  0.5]]
+            [[-2, 1], [0, 1]]
+          , [[-2, 1], [0, 1]]
+          , [[-2, 1], [3, 1]]
+          , [[-2, 1], [0, 1]]
+          , [[-2, 1], [-3, 1]]
+          , [[-2, 1], [0,  1]]
         ],
         "color": "#FD5F00"// orange  // "#6bcc35" green
             ,
@@ -77,36 +79,63 @@ var vecCoordJsonBesselBias = {
         "labelLoc": Array(6).fill([-11, -10]),
         "style" : "solid"
     },
-    "rightT": {
-      "coordList": [
-          [[2, 1], [0,  1]]
-        , [[4, 0], [4,  2]]
-        , [[4, 0], [4, 0]]
-        , [[4, 0], [4, 1]]
-        , [[4, 0], [4, 1]]
-        , [[4, 0], [0, 1]]
-      ],
-      "color": "#FD5F00"// orange // "#6bcc35"green
-          ,
-      "labels": Array(6).fill("a"),
-      "labelLoc": Array(6).fill([5, -10]),
-      "style" : "solid"
+    "staticRight": {
+      "coordList": Array(6).fill([[2, 0.5], [0,  0.5]])
+    , "color": "#68a2ff"// orange // "#6bcc35"green
+    // , "labels": Array(6).fill("a")
+    // , "labelLoc": Array(6).fill([5, -10])
+      , "style" : "solid"
   },
-  "leftT": {
-      "coordList": [
-          [[-2, 0.5], [0, 0.5]]
-        , [[-2, 0.5], [3, 0.5]]
-        , [[-2, 0.5], [0, 0.5]]
-        , [[-2, 0.5], [-3, 0.5]]
-        , [[-2, 0.5], [0,  0.5]]
-      ],
-      "color": "#FD5F00"// orange  // "#6bcc35" green
-          ,
-      "labels": Array(6).fill("b"),
-      "labelLoc": Array(6).fill([-11, -10]),
-      "style" : "solid"
-  }
+    "staticLeft": {
+      "coordList": Array(6).fill([[-2, 0.5], [0,  0.5]])
+    , "color": "#68a2ff"// orange // "#6bcc35"green
+    // , "labels": Array(6).fill("a")
+      , "style" : "solid"
+  },
+  "staticRightT": {
+    "coordList": Array(1).fill([[2, 0.5], [0,  0.5]]).concat(Array(5).fill([[5, 0], [5,  2]]))
+  , "color": "#68a2ff"// orange // "#6bcc35"green
+  // , "labels": Array(6).fill("a")
+  // , "labelLoc": Array(6).fill([5, -10])
+    , "style" : "solid"
+},
+  "staticLeftT": {
+    "coordList": Array(1).fill([[-2, 0.5], [0,  0.5]]).concat(Array(5).fill([[5, 2], [5,  4]]))
+  , "color": "#68a2ff"// orange // "#6bcc35"green
+  // , "labels": Array(6).fill("a")
+    , "style" : "solid"
+}
 };
+
+// Add right vertical vector
+let r = vecCoordJsonBesselBias.right.coordList
+let rT = [r[0]]
+for (let i = 1; i < r.length; i ++){
+  let d = math.abs(r[i][0][0] - r[i][1][0]) // distance to mean
+  rT[i] = [[4, 0], [4, d]]
+}
+// Add left vertical vector
+let l = vecCoordJsonBesselBias.left.coordList
+let lT = [l[0]]
+for (let i = 1; i < l.length; i ++){
+  let d = math.abs(l[i][0][0] - l[i][1][0]) // distance to mean
+  lT[i] = [rT[i][1], [4, rT[i][1][1] + d]]
+}
+vecCoordJsonBesselBias["rightT"] = {"coordList" : rT
+                                  , "color" :  "#FD5F00"// orange
+                                  , "labels": Array(6).fill("a")
+                                  , "labelLoc": Array(6).fill([5, -10])
+                                  , "style" : "solid"
+}
+vecCoordJsonBesselBias["leftT"] = {"coordList" : lT
+                                  , "color" :  "#FD5F00"// orange
+                                  , "labels": Array(6).fill("b")
+                                  , "labelLoc": Array(6).fill([-11, -10])
+                                  , "style" : "solid"
+}
+
+// Add right 
+
 var captionCoordJson = {
     "top_caption": {
         "textList": ["Avg 2 == Avg 1", "Avg 2 < Avg 1", "Avg 2 == Avg 1", "Avg 2 > Avg 1", "Avg 2 == Avg 1"],
@@ -124,7 +153,6 @@ var captionCoordJson = {
         ]),
         "colorList": Array(4).fill("grey")
     }
-
 }
 
 besselBiasPayload = {
@@ -132,12 +160,11 @@ besselBiasPayload = {
     // "duration": 1500,
     "vecCoordJson": vecCoordJsonBesselBias,
     "plotDomain": [-5, 5],
-    "plotWidth": 500,
-    "plotHeight": 500,
+    "plotWidth": 1100,
+    "plotHeight": 1000,
     "numTicksArr": [10, 10],
     "space": [
-      [2, 0]
-      , [-2, 0]
+      [2, 0], [-2, 0]
     ],
     "captionCoordJson": captionCoordJson
 
@@ -191,8 +218,8 @@ besselBiasVarPayload = {
         // ,[0, 0 + besselBiasVarShift]
         // ,[1, 20 + besselBiasVarShift]
         // ,[2, 48 + besselBiasVarShift]
-        [-3, 18 + besselBiasVarShift]
-        ,[-2, 8 + besselBiasVarShift]
+        [-3 , 18 + besselBiasVarShift]
+        ,[-2 , 8 + besselBiasVarShift]
         ,[-1, 2 + besselBiasVarShift]
         ,[0, 0 + besselBiasVarShift]
         ,[1, 2 + besselBiasVarShift]

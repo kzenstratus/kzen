@@ -99,6 +99,7 @@ class BasisPlot {
 
         svg.append("g")
             .attr('transform', "translate(-0.5," + (height / 2) + ")")
+            .attr('tickSize')
             .call(axes["bot"]);
 
         svg.append("g")
@@ -524,18 +525,20 @@ class Space {
 
     plotBasis({
         someSvg,
-        basisType = this.basisType
+        basisType = this.basisType,
+        basis = null
     } = {}) {
-
+      if (basis == null) {
         var basis = new BasisPlot({
-            svg: someSvg,
-            xDomain: this.xDomain,
-            yDomain: this.yDomain,
-            width: this.width,
-            height: this.height,
-            numTicksArr: this.numTicksArr,
-            basisType: basisType
+          svg: someSvg,
+          xDomain: this.xDomain,
+          yDomain: this.yDomain,
+          width: this.width,
+          height: this.height,
+          numTicksArr: this.numTicksArr,
+          basisType: basisType
         })
+      }  
         return (basis.makePlot())
     }
 
