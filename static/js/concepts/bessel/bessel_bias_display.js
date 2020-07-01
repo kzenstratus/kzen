@@ -174,7 +174,7 @@ class DisplayBesselBias extends DisplayPlot{
     height,
     width,
     buttonId,
-    duration = 8000,
+    duration = 1000,
     delay = 0 // this ONLY WORKS WITH DELAY = 0
   } = {}) {
     // This one plot will have 2 figures in there.

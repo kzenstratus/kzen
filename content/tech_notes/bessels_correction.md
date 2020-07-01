@@ -52,34 +52,7 @@ $$\bar{x}$$
                             ,vecCoordJson : vecCoordJsonBesselBias});
   testDisplay.makeSecondPlot({conceptExampleId : "blahblah2"
                                     , space: besselBiasVarPayload.space});
-  testDisplay.makeButton();                           
-  // var curve = testDisplay.makeSecondPlot({conceptExampleId : "blahblah2"
-  //                                   , payload: besselBiasVarPayload});
-  // testDisplay.makeConceptExampleDiv({conceptExampleId : 'blahblah3'})
-  // testDisplay.makeConceptExampleSvg({conceptExampleId : 'blahblah3'})
-  // testDisplay.makeButton()
-  // var linCombo = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
-  //         , conceptExampleId : 'lin-combo-example'
-  //         , buttonId : linComboPayload.buttonId
-  //         , xDomain : linAlgGlobalVar.plotDomain
-  //         , yDomain : linAlgGlobalVar.plotDomain
-  //         , height : linAlgGlobalVar.plotHeight
-  //         , width : linAlgGlobalVar.plotWidth
-  //         , numTicks : linAlgGlobalVar.numTicks
-  //         , vecCoordJson: linComboPayload.vecCoordJson
-  //         , duration: linComboPayload.duration
-  //       })
-  // var linCombo2 = new DisplayConceptExamplePlot({conceptId : linComboPayload.conceptId
-  //         , conceptExampleId : 'lin-combo-example2'
-  //         , buttonId : linComboPayload.buttonId
-  //         , xDomain : linAlgGlobalVar.plotDomain
-  //         , yDomain : linAlgGlobalVar.plotDomain
-  //         , height : linAlgGlobalVar.plotHeight
-  //         , width : linAlgGlobalVar.plotWidth
-  //         , numTicks : linAlgGlobalVar.numTicks
-  //         , vecCoordJson: linComboPayload.vecCoordJson
-  //         , duration: linComboPayload.duration
-  //       })
+  testDisplay.makeButton();        
 </script>
 
 </div>
