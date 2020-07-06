@@ -96,10 +96,6 @@ class BasisPlot {
         
     }
     make1234({ svg, height, width, numTicksArr, xDomain, yDomain, axes} = {}) {
-        console.log(axes["bot"])
-        console.log(svg)
-        console.log(height)
-
         
         svg.append("g")
           .attr('transform', "translate(-0.5," + (height / 2) + ")")

@@ -7,167 +7,6 @@
 /**
  * 
  */
-class DisplayDoubleConceptExamplePlot {
-    constructor({
-        conceptId,
-        height,
-        width,
-        buttonId,
-        duration = 8000,
-        delay = 0 // this ONLY WORKS WITH DELAY = 0
-
-    } = {}) {
-        this.conceptId = conceptId; // 
-        // You can have multiple concept examples underneath a conceptId
-        this.height = height;
-        this.width = width;
-
-        // super({conceptId : conceptId
-        //  , height : height
-        //  , widht : width})
-        this.buttonId = buttonId;
-        this.buttonLabel = "Go!"
-        this.buttonCssClass = "gobutton"
-        this.vecObjList = []
-        this.duration = duration
-        this.delay = delay
-
-    }
-    makeButton() {
-        var duration = this.firstPlot.duration
-        // var vecCoordJson = this.vecCoordJson
-        var vecObjList = this.firstPlot.vecObjList
-        var firstPlot = this.firstPlot
-        var svgContainer = this.firstPlot.currSvg
-        // var svgContainer = d3.select("#" + this.conceptExampleId)
-        //                         .select("svg");
-        var secondPlotPoint = this.besselVarPoint
-        var delay = this.delay
-
-        d3.select("#" + this.conceptId)
-            .append("button")
-            .attr("class", this.buttonCssClass)
-            .attr("id", this.buttonId)
-            .text(this.buttonLabel)
-            .on('click', function() {
-                // move space
-                for (var i in vecObjList) {
-                    var vecObj = vecObjList[i]
-                    vecObj.move({
-                        someSvg: svgContainer,
-                        duration: duration,
-                        delay: delay,
-                        ease: d3.easeLinear
-                    })
-                }
-
-                if (firstPlot.caption != null) {
-                    firstPlot.caption.move({ someSvg: svgContainer, duration: duration })
-                }
-
-                // make bessel var point
-                secondPlotPoint.move({
-                    totalDuration: duration * 4, // essentially 3 vector movements
-                    delay: delay
-                });
-
-            })
-    }
-    makeFirstPlot({ conceptExampleId, payload } = {}) {
-        // this.firstPlot = new DisplayPlot({conceptId : this.conceptId
-        // , height : this.height
-        // , width : this.width});
-        // this.firstPlot.makeConceptExampleDiv({conceptExampleId : conceptExampleId})
-        // this.firstPlot.makeConceptExampleSvg({conceptExampleId : conceptExampleId})
-
-        this.firstPlot = new DisplayConceptExamplePlot({
-            conceptId: this.conceptId,
-            conceptExampleId: "bessel-bias-first",
-            xDomain: payload.plotDomain,
-            yDomain: payload.plotDomain,
-            height: this.height,
-            width: this.width,
-            numTicksArr: payload.numTicksArr,
-            dotColor: "black",
-            vecCoordJson: payload.vecCoordJson,
-            captionCoordJson: payload.captionCoordJson,
-            duration: this.duration,
-            basisType:"xNumLine"
-        })
-        
-        this.firstPlot.currSpace.space = payload.space
-        this.firstPlot.makePlot();
-        this.firstPlot.makeVectors();
-        this.firstPlot.makeText();
-        // this.firstPlot = firstPlot
-        // Plot the center line.
-    }
-
-    // for different tensions look at this
-    // http://bl.ocks.org/valex/1c6f648d0b035c6b2f2269c56d64e696
-    makeSecondPlot({ conceptExampleId, payload
-                    , curveFunc = d3.curveCardinal
-                    , tension = 0} = {}) {
-
-        this.secondPlot = new DisplayConceptExamplePlot({
-            conceptId: this.conceptId,
-            conceptExampleId: "bessel-bias-second",
-            xDomain: payload.plotDomain,
-            yDomain: payload.plotDomain,
-            height: this.height,
-            width: this.width,
-            numTicksArr: payload.numTicksArr,
-            dotColor: "red",
-            vecCoordJson: payload.vecCoordJson,
-            captionCoordJson: payload.captionCoordJson,
-            duration: this.duration,
-            basisType: "1_2"
-        })
-
-
-        this.secondPlot.currSpace.space = payload.space
-        this.secondPlot.currSpace.plotBasis({ someSvg: this.secondPlot.currSvg })
-        // this.secondPlot.currSpace.plotSpace({ someSvg: this.secondPlot.currSvg })
-
-        // Adding Curve
-        var currSvg = this.secondPlot.currSvg
-        // .append('g')
-
-        var lineGenerator = d3.line()
-            .curve(curveFunc.tension(tension));
-
-        var scaledCurvePoints = scaleLocSpace({
-            space: payload.space,
-            numTicksArr: payload.numTicksArr,
-            height: this.height,
-            width: this.width
-        })
-        // console.log(scaledCurvePoints)
-        // console.log(lineGenerator(scaledCurvePoints))
-        // var secondPath = scaledCurvePoints;
-        // var firstPath = secondPath.splice(2,4)
-        // secondPath.reverse().unshift(firstPath[0])
-
-        var curve = currSvg.append('path')
-            .data([scaledCurvePoints])
-            .attr('id', "bessel_curve")
-            .attr('d', lineGenerator)
-            .attr('fill', 'none')
-            .attr('stroke', 'black')
-
-        this.besselVarPoint = new BesselBiasPointAlongCurve({
-            curve: curve,
-            startCoord: [250, 475],
-            pointSize: 8
-        })
-
-        this.besselVarPoint.makePoint({ currSvg: currSvg })
-
-
-    }
-}
-
-
 class DisplayBesselBias extends DisplayPlot{
   constructor({
     conceptId,
@@ -316,9 +155,9 @@ class DisplayBesselBias extends DisplayPlot{
     .attr('stroke', 'black')
 
     this.besselVarPoint = new BesselBiasPointAlongCurve({
-    curve: curve,
-    startCoord: [250 + _hShift, 475],
-    pointSize: 8
+      curve: curve,
+      startCoord: [250 + _hShift, 475],
+      pointSize: 8
     })
 
     this.besselVarPoint.makePoint({ currSvg: currSvg })
@@ -336,7 +175,6 @@ class DisplayBesselBias extends DisplayPlot{
     //                         .select("svg");
     var secondPlotPoint = this.besselVarPoint
     let delay = this.delay
-    console.log(this.buttonId)
     d3.select("#" + this.conceptId)
         .append("button")
         .attr("class", this.buttonCssClass)
@@ -361,7 +199,7 @@ class DisplayBesselBias extends DisplayPlot{
             // make bessel var point
             secondPlotPoint.move({
                 totalDuration: duration * 4, // essentially 3 vector movements
-                delay: delay
+                delay: duration * 2 // takes 2 steps for arrows to move over
             });
 
         })
@@ -390,9 +228,13 @@ class BesselBiasPointAlongCurve {
     move({ totalDuration, delay, granularity = 1000 } = {}) {
 
         function transition({ circle, totalDuration, delay, lookup, curve } = {}) {
+            console.log(delay)
+            console.log(lookup)
+            // circle.transition()
+            //     .duration(delay)
             circle.transition()
                 .duration(totalDuration)
-                .attr("delay", function(d, i) { return delay * i; })
+                .delay(delay)
                 .ease(d3.easeLinear)
                 .attrTween("transform", translateAlong({
                     path: curve.node(),
@@ -430,12 +272,10 @@ class BesselBiasPointAlongCurve {
                         var index = xBisect(lookup, minL + (l * (t - 3 / 4) * 2))
                         var p = lookup[index];
                     }
-
                     // console.log(index)
                     // console.log(p)              
                     return "translate(" + p.x + "," + p.y + ")";
                 };
-
             };
         }
 
@@ -461,8 +301,7 @@ class BesselBiasPointAlongCurve {
 
         transition({
             circle: this.circle,
-            totalDuration: totalDuration // this is because the path length is 2x
-                ,
+            totalDuration: totalDuration, // this is because the path length is 2x
             delay: delay,
             lookup: lookup,
             curve: this.curve
