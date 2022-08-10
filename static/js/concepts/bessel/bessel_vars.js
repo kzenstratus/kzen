@@ -13,6 +13,14 @@ besselBias = {
 };
 
 var numSteps = 7
+// 1 = starting
+// 2 = move over
+// 3 = normalize
+// 4 = move to farthest right
+// l = 5, r = 1 -> 26 - 4 = 24
+// 5 = move to middle
+// 6 = move to farthest left
+// 7 = move back to middle
 
 var vecCoordJsonBesselBias = {
 
@@ -131,12 +139,16 @@ vecCoordJsonBesselBias["staticRightT"] = {"coordList" : statRB
 // Moving Orange Vectors on the variance plot.
 // Add right vertical vector
 let r = vecCoordJsonBesselBias.right.coordList
+let dTrue = math.abs(r[0][0][0] - r[0][1][0])// true variance used to normalize the changing variance
 let rB = [r[0]]
 for (let i = 1; i < r.length; i ++){
   let d = math.abs(r[i][0][0] - r[i][1][0]) // distance to mean
+  console.log(i, d)
+  d = d * d / 2 - dTrue // difference between true and other variance
+  console.log(i, d)
   rB[i] = [[varX0, varY0], [varX0, d + varY0 + 0.001]]
 }
-console.log(rB)
+
 
 
 // Add left vertical vector
@@ -144,6 +156,7 @@ let l = vecCoordJsonBesselBias.left.coordList
 let lT = [l[0]]
 for (let i = 1; i < l.length; i ++){
   let d = math.abs(l[i][0][0] - l[i][1][0]) // distance to mean
+  d = d * d / 2 - dTrue
   lT[i] = [rB[i][1], [varX0, rB[i][1][1] + d + 0.001]]
 }
 
@@ -240,18 +253,13 @@ besselBiasVarPayload = {
     "numTicksArr": [10, 20],
     // defines the curved space.
     "space": [
-        // [-2, 48 + besselBiasVarShift]
-        // ,[-1, 20 + besselBiasVarShift]
-        // ,[0, 0 + besselBiasVarShift]
-        // ,[1, 20 + besselBiasVarShift]
-        // ,[2, 48 + besselBiasVarShift]
-        [-3 , 18 + besselBiasVarShift]
-        ,[-2 , 8 + besselBiasVarShift]
-        ,[-1 , 2 + besselBiasVarShift]
+        [-3 , 9 + besselBiasVarShift]
+        ,[-2 , 4 + besselBiasVarShift]
+        ,[-1 , 1 + besselBiasVarShift]
         ,[0, 0 + besselBiasVarShift]
-        ,[1, 2 + besselBiasVarShift]
-        ,[2, 8 + besselBiasVarShift]
-        ,[3, 18 + besselBiasVarShift]
+        ,[1, 1 + besselBiasVarShift]
+        ,[2, 4 + besselBiasVarShift]
+        ,[3, 9 + besselBiasVarShift]
     ],
     "captionCoordJson": captionCoordJson
 

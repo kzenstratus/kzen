@@ -228,8 +228,8 @@ class BesselBiasPointAlongCurve {
     move({ totalDuration, delay, granularity = 1000 } = {}) {
 
         function transition({ circle, totalDuration, delay, lookup, curve } = {}) {
-            console.log(delay)
-            console.log(lookup)
+            // console.log(delay)
+            // console.log(lookup)
             // circle.transition()
             //     .duration(delay)
             circle.transition()

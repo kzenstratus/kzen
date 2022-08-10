@@ -8,12 +8,34 @@ Why do we use n-1 when calculating the sample variance?
 
 $$ s^2 = \frac{\sum_{i=1}^{n}(x_i - \overline{x})^2} {n-1}$$
 
+Remember variance is the difference from each point to the center of the distribution over the total number of points.
+$$ \delta^2 = \frac{\sum_{i=1}^{n}(x_i - \overline{x})^2} {n}$$
+
 ## Problem: Bias in Variance
-When we calculate the sample variance, we are trying to get an unbiased estimator for the population vairance. Why is the sample variance considered biased? Because we are comparing data points `x` to the mean of a potentially different set of data points. While the mean of your sample is supposed to represent the mean of your population mean, it may not. 
+* The sample variance is supposed to be an unbiased estimator for the population variance.
+
+**Why is the sample variance considered biased?**
+
+* When we calculate sample variance, we are comparing our sample data points, \$x_i\$ to the sample mean. 
+
+* However, the sample mean sample mean may be different from the population mean.
 
 
-To see how this affects the variance calculation, lets forget any notion of sample and population first and see what happens when you calculate variance using the a number that may be different from 
-$$\bar{x}$$
+To see how this affects the variance calculation, lets forget any notion of sample and population first, and see what happens when you calculate variance using a number that may be different from 
+\$\bar{x}\$.
+
+Lets take two data points, -2, and 2, which has a mean of 0, and see what happens if we insert a few averages that are different from 0, such as 1,2 and 3.
+$$ x = \begin{bmatrix}
+    -2&2\\
+    \end{bmatrix}, \bar{x} = 0$$
+
+
+
+$$ \delta_{true}^2 = \frac{(-2 - 0)^2 + (2-0)^2} {2} -  = \frac{4 + 4}{2} = 4 $$
+$$ \delta_{other}^2 - \delta_{true}^2 = \frac{(-2 - 1)^2 + (2 - 1)^2} {2} - \delta_{true}^2 = \frac{9 + 1}{2} - \delta_{true}^2 = 5 - 4 = 1 $$
+$$ \delta_{other}^2 - \delta_{true}^2 = \frac{(-2 - 2)^2 + (2 - 2)^2} {2} - \delta_{true}^2 = \frac{16 + 0}{2} - \delta_{true}^2= 8 - 4 = 4$$
+$$ \delta_{other}^2 - \delta_{true}^2 = \frac{(-2 - 3)^2 + (2 - 3)^2} {2} - \delta_{true}^2 = \frac{25 + 1}{2} - \delta_{true}^2= 13 - 4 = 9$$
+
 
 <html>
  
